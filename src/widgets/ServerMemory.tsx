@@ -1,5 +1,7 @@
 import React from "react";
 import { Socket } from "phoenix";
+import {Cell} from "styled-css-grid";
+import styled from 'styled-components';
 interface Payload {data:{
   atom:number,
   atom_used:number,
@@ -15,6 +17,11 @@ interface Payload {data:{
 interface State {payload:Payload };
 interface Props {socket:Socket};
 
+const Panel = styled.div`
+  background: #253547;
+  color: white;
+  padding:1rem;
+`
 export default class Ping extends React.Component<Props, State> {
   constructor(props:Props) {
     super(props);
@@ -47,9 +54,11 @@ export default class Ping extends React.Component<Props, State> {
 
   render() {
     return (
-      <div className="memory-widget">
+      <Cell>
+      <Panel>
         <ul>{this.listItems()}</ul>
-      </div>
+      </Panel>
+      </Cell>
     );
   }
 }

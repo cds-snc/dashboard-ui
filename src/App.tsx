@@ -1,7 +1,9 @@
 import React from 'react';
 import { Socket } from "phoenix";
 import ServerMemory from "./widgets/ServerMemory";
-import './App.css';
+import { Grid } from "styled-css-grid";
+
+/* https://github.com/azz/styled-css-grid */
 
 const DATA_URL = "wss://loon-server.herokuapp.com/socket";
 
@@ -19,7 +21,9 @@ class App extends React.Component<Props, State> {
   render() {
     return (
       <div className="App">
-         <ServerMemory socket={this.socket} />
+         <Grid columns={2} gap="2px">
+            <ServerMemory socket={this.socket} />
+         </Grid>
       </div>
     );
   }
