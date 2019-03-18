@@ -1,9 +1,10 @@
 import React from 'react';
 import { Socket } from "phoenix";
+import { Grid } from "styled-css-grid";
 import ServerMemory from "./widgets/ServerMemory";
 import Time from "./widgets/Time";
 import Connected from "./widgets/Connected";
-import { Grid } from "styled-css-grid";
+import Uptime from "./widgets/Uptime";
 
 /* https://github.com/azz/styled-css-grid */
 
@@ -27,6 +28,7 @@ class App extends React.Component<Props, State> {
             <ServerMemory socket={this.socket} />
             <Time socket={this.socket} />
             <Connected socket={this.socket} />
+            <Uptime socket={this.socket}/>
          </Grid>
       </div>
     );

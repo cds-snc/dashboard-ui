@@ -2,8 +2,9 @@ import React from "react";
 import { Socket } from "phoenix";
 import {Cell} from "styled-css-grid";
 import styled from 'styled-components';
-import {format, getTime, parse } from 'date-fns';
-interface Payload {data:string, timestamp:Date}
+
+interface Sites {site:string ,up:true };
+interface Payload {data:Sites[], timestamp:Date};
 interface State {payload:Payload };
 interface Props {socket:Socket};
 
@@ -12,14 +13,10 @@ const Panel = styled.div`
   padding:1rem;
 `
 
-const Content = styled.p`
-font-size:1.5rem;
-`
-
-export default class Time extends React.Component<Props, State> {
+export default class Uptime extends React.Component<Props, State> {
   constructor(props:Props) {
     super(props);
-    let channel = props.socket.channel("data_source:time", {});
+    let channel = props.socket.channel("data_source:cds_up", {});
     channel.join().receive("error", (resp:string) => {
       console.log("Unable to join: ", resp);
     });
@@ -34,12 +31,14 @@ export default class Time extends React.Component<Props, State> {
      }
  
     const data:Payload = this.state.payload;
-    const date = format(data.data, 'MMMM Do, YYYY hh:mm:ss A');
     return (
-      <Cell style={{backgroundColor:"#4285f4"}} height={2} center>
+      <Cell style={{backgroundColor:"#eb5f22"}} height={4}>
       <Panel>
-        <h2>Time:</h2>
-        <Content>{date}</Content>
+        <h2>Up:</h2>
+        {data.data.map((el) =>{
+          const status = `${el.site} up: ${el.up}`
+         return <div key={el.site}>{status}</div>
+        })}
       </Panel>
       </Cell>
     );

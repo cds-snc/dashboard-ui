@@ -8,11 +8,15 @@ interface State {payload:Payload };
 interface Props {socket:Socket};
 
 const Panel = styled.div`
-  background: #34a852;
   color: white;
   padding:1rem;
 `
-export default class Ping extends React.Component<Props, State> {
+
+const Content = styled.p`
+  font-size:1.5rem;
+`
+
+export default class Connected extends React.Component<Props, State> {
   constructor(props:Props) {
     super(props);
     let channel = props.socket.channel("data_source:connected_data_sources", {});
@@ -20,7 +24,6 @@ export default class Ping extends React.Component<Props, State> {
       console.log("Unable to join: ", resp);
     });
     channel.on("data", (payload:Payload) => {
-      console.log(payload)
       this.setState({ payload: payload});
     });
   }
@@ -31,12 +34,11 @@ export default class Ping extends React.Component<Props, State> {
      }
  
     const data:Payload = this.state.payload;
-
     return (
-      <Cell>
+      <Cell style={{backgroundColor:"#34a852"}} height={4} center>
       <Panel>
-        Connected:
-       {data.data}
+        <h2>Connected:</h2>
+        <Content>{data.data}</Content>
       </Panel>
       </Cell>
     );

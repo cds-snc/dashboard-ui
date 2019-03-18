@@ -22,7 +22,7 @@ const Panel = styled.div`
   color: white;
   padding:1rem;
 `
-export default class Ping extends React.Component<Props, State> {
+export default class ServerMemory extends React.Component<Props, State> {
   constructor(props:Props) {
     super(props);
     let channel = props.socket.channel("data_source:server_memory", {});
@@ -48,28 +48,28 @@ export default class Ping extends React.Component<Props, State> {
         <li key="atom_used">
          Atom Used: {data.data.atom_used}
        </li>
-       <li key="atom_used">
+       <li key="binary">
         Binary: {data.data.binary}
        </li>
-       <li key="atom_used">
+       <li key="code">
         Code: {data.data.code}
        </li>
 
-       <li key="atom_used">
+       <li key="ets">
         ETS: {data.data.ets}
        </li>
-       <li key="atom_used">
+       <li key="processes">
         Processes: {data.data.processes}
        </li>
-       <li key="atom_used">
+       <li key="processes_used">
         Processes Used: {data.data.processes_used}
        </li>
 
-       <li key="atom_used">
+       <li key="data.system">
          System: {data.data.system}
        </li>
 
-       <li key="atom_used">
+       <li key="total">
         Total: {data.data.total}
        </li>
        </React.Fragment>
@@ -78,9 +78,9 @@ export default class Ping extends React.Component<Props, State> {
 
   render() {
     return (
-      <Cell>
+      <Cell height={2}>
       <Panel>
-        Server Memory
+        <h2>Server Memory:</h2>
         <ul>{this.listItems()}</ul>
       </Panel>
       </Cell>
