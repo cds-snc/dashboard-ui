@@ -1,6 +1,8 @@
 import React from 'react';
 import { Socket } from "phoenix";
 import ServerMemory from "./widgets/ServerMemory";
+import Time from "./widgets/Time";
+import Connected from "./widgets/Connected";
 import { Grid } from "styled-css-grid";
 
 /* https://github.com/azz/styled-css-grid */
@@ -21,8 +23,10 @@ class App extends React.Component<Props, State> {
   render() {
     return (
       <div className="App">
-         <Grid columns={2} gap="2px">
+         <Grid columns={2} gap="10px">
             <ServerMemory socket={this.socket} />
+            <Time socket={this.socket} />
+            <Connected socket={this.socket} />
          </Grid>
       </div>
     );

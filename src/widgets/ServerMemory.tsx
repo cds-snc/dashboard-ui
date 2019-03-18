@@ -43,10 +43,34 @@ export default class Ping extends React.Component<Props, State> {
       return (
         <React.Fragment>
         <li key="atom">
-         Atom {data.data.atom}
+         Atom: {data.data.atom}
         </li>
-         <li key="atom_used">
-         Atom Used {data.data.atom_used}
+        <li key="atom_used">
+         Atom Used: {data.data.atom_used}
+       </li>
+       <li key="atom_used">
+        Binary: {data.data.binary}
+       </li>
+       <li key="atom_used">
+        Code: {data.data.code}
+       </li>
+
+       <li key="atom_used">
+        ETS: {data.data.ets}
+       </li>
+       <li key="atom_used">
+        Processes: {data.data.processes}
+       </li>
+       <li key="atom_used">
+        Processes Used: {data.data.processes_used}
+       </li>
+
+       <li key="atom_used">
+         System: {data.data.system}
+       </li>
+
+       <li key="atom_used">
+        Total: {data.data.total}
        </li>
        </React.Fragment>
       );
@@ -56,6 +80,7 @@ export default class Ping extends React.Component<Props, State> {
     return (
       <Cell>
       <Panel>
+        Server Memory
         <ul>{this.listItems()}</ul>
       </Panel>
       </Cell>
