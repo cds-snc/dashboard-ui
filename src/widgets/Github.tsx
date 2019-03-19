@@ -3,30 +3,25 @@ import { Socket } from "phoenix";
 import {Cell} from "styled-css-grid";
 import styled from 'styled-components';
 
-interface Sites {site:string ,up:true };
-interface Payload {data: Sites[], timestamp:Date};
+interface Payload {data:number, timestamp:Date}
 interface State {payload:Payload };
 interface Props {socket:Socket};
 
 const Panel = styled.div`
-  
+  color: white;
   padding:1rem;
-
-  a{
-    color: black;
-    display:inline-block;
-    padding:5px;
-    line-height:1.2rem;
-  }
+  font-size:1.5rem;
 `
-export default class Uptime extends React.Component<Props, State> {
+
+export default class Github extends React.Component<Props, State> {
   constructor(props:Props) {
     super(props);
-    let channel = props.socket.channel("data_source:cds_up", {});
+    let channel = props.socket.channel("data_source:connected_data_sources", {});
     channel.join().receive("error", (resp:string) => {
       console.log("Unable to join: ", resp);
     });
     channel.on("data", (payload:Payload) => {
+      console.log(payload)
       this.setState({ payload: payload});
     });
   }
@@ -38,13 +33,10 @@ export default class Uptime extends React.Component<Props, State> {
  
     const data:Payload = this.state.payload;
     return (
-      <Cell style={{backgroundColor:"#c4d2de"}} width={2} height={4}>
+      <Cell style={{backgroundColor:"#be2dc1"}} height={4} center>
       <Panel>
-        <h2>Domain Status:</h2>
-        {data.data.map((el) =>{
-          const icon = el.up ? "✅" : "🚫"
-         return <div key={el.site}> {icon} <a href={el.site}>{el.site}</a> </div>
-        })}
+        <h2>Github:</h2>
+        {data.data}
       </Panel>
       </Cell>
     );

@@ -35,7 +35,7 @@ export default class Connected extends React.Component<Props, State> {
  
     const data:Payload = this.state.payload;
     return (
-      <Cell style={{backgroundColor:"#34a852"}} height={4} center>
+      <Cell style={{backgroundColor:"#34a852"}} width={1} height={2} center>
       <Panel>
         <h2>Connected:</h2>
         <Content>{data.data}</Content>

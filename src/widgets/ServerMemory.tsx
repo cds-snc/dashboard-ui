@@ -78,7 +78,7 @@ export default class ServerMemory extends React.Component<Props, State> {
 
   render() {
     return (
-      <Cell height={2}>
+      <Cell height={2} width={2}>
       <Panel>
         <h2>Server Memory:</h2>
         <ul>{this.listItems()}</ul>
