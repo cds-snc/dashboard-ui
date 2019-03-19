@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from 'react';
 
-function useChannel(channel) {
-  const [getPayload, setPayload] = useState(null);
+import { useState, useEffect } from 'react';
+
+export function useChannel(socket, feed) {
+  const [payload, setPayload] = useState({data:[], timestamp: ""});
 
   useEffect(() => {
-    function handleStatusChange(payload) {
+    function handlePayloadChange(payload) {
       setPayload(payload);
     }
 
+    let channel = socket.channel(`data_source:${feed}`, {});
+    channel.join().receive("error", (resp) => {
+      console.log("Unable to join: ", resp);
+    });
     
-  let channel = props.socket.channel(`data_source:${channel}`, {});
-  channel.join().receive("error", (resp) => {
-    console.log("Unable to join: ", resp);
-  });
-  channel.on("data", (payload) => {
-    console.log(payload)
-    handleStatusChange(payload);
-  });
+    channel.on("data", (payload) => {
+      handlePayloadChange(payload);
+    });
   
-    return () => {
-      {}
-    };
-  });
+    return () =>{
+      return channel;
+    }
+  },[payload.timestamp]);
 
-  return isOnline;
+  return payload;
 }

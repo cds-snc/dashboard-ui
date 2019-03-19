@@ -7,6 +7,7 @@ import Connected from "./widgets/Connected";
 import Uptime from "./widgets/Uptime";
 import Github from "./widgets/Github";
 import Logo from "./widgets/Logo";
+import {MyWidget} from "./widgets/MyWidget";
 
 /* https://github.com/azz/styled-css-grid */
 
@@ -33,7 +34,7 @@ class App extends React.Component<Props, State> {
             <Github socket={this.socket}/>
             <Time socket={this.socket} />
             <Connected socket={this.socket} />
-            
+            <MyWidget socket={this.socket} feed="connected_data_sources" />
          </Grid>
       </div>
     );
