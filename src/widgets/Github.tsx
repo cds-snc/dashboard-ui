@@ -10,7 +10,11 @@ interface Props {socket:Socket};
 const Panel = styled.div`
   color: white;
   padding:1rem;
-  font-size:1.5rem;
+  font-size:2rem;
+`
+
+const Content = styled.p`
+  font-size:10rem;
 `
 
 export default class Github extends React.Component<Props, State> {
@@ -33,10 +37,10 @@ export default class Github extends React.Component<Props, State> {
  
     const data:Payload = this.state.payload;
     return (
-      <Cell style={{backgroundColor:"#be2dc1"}} height={4} center>
+      <Cell style={{backgroundColor:"#be2dc1"}} height={1} center>
       <Panel>
         <h2>Github:</h2>
-        {data.data}
+        <Content>{data.data}</Content>
       </Panel>
       </Cell>
     );

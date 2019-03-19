@@ -10,10 +10,11 @@ interface Props {socket:Socket};
 const Panel = styled.div`
   color: white;
   padding:1rem;
+  font-size:2rem;
 `
 
 const Content = styled.p`
-  font-size:1.5rem;
+  font-size:10rem;
 `
 
 export default class Connected extends React.Component<Props, State> {
@@ -35,7 +36,7 @@ export default class Connected extends React.Component<Props, State> {
  
     const data:Payload = this.state.payload;
     return (
-      <Cell style={{backgroundColor:"#34a852"}} width={1} height={2} center>
+      <Cell style={{backgroundColor:"#34a852"}} width={1} height={1} center>
       <Panel>
         <h2>Connected:</h2>
         <Content>{data.data}</Content>

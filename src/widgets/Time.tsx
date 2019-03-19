@@ -10,10 +10,11 @@ interface Props {socket:Socket};
 const Panel = styled.div`
   color: white;
   padding:1rem;
+  font-size:2rem;
 `
 
 const Content = styled.p`
-  font-size:1.5rem;
+  font-size:3rem;
 `
 
 export default class Time extends React.Component<Props, State> {

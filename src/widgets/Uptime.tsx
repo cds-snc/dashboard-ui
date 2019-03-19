@@ -11,12 +11,14 @@ interface Props {socket:Socket};
 const Panel = styled.div`
   
   padding:1rem;
+  font-size:2rem;
 
   a{
     color: black;
     display:inline-block;
     padding:5px;
     line-height:1.2rem;
+    font-size:2rem;
   }
 `
 export default class Uptime extends React.Component<Props, State> {

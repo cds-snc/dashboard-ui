@@ -21,6 +21,11 @@ const Panel = styled.div`
   background: #253547;
   color: white;
   padding:1rem;
+  font-size:2rem;
+
+  li{
+    font-size:2rem;
+  }
 `
 export default class ServerMemory extends React.Component<Props, State> {
   constructor(props:Props) {
@@ -78,7 +83,7 @@ export default class ServerMemory extends React.Component<Props, State> {
 
   render() {
     return (
-      <Cell height={2} width={2}>
+      <Cell height={2} width={1}>
       <Panel>
         <h2>Server Memory:</h2>
         <ul>{this.listItems()}</ul>
