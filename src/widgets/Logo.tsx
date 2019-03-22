@@ -2,18 +2,25 @@ import React from "react";
 import {Cell} from "styled-css-grid";
 import styled from 'styled-components';
 
+interface Props {area:string};
+
 const Panel = styled.div`
   background: #000;
   color: white;
-  padding:1rem;
   font-size:2rem;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  width:100%;
+  height:100%;
 `
-export default class Logo extends React.Component {
+export default class Logo extends React.Component<Props> {
   render() {
+    const {area} = this.props;
     return (
-      <Cell center style={{backgroundColor:"#000"}} height={2} width={1}>
+      <Cell area={area} center style={{backgroundColor:"#000"}}>
       <Panel>
-        <img width="450px" src={`${process.env.PUBLIC_URL}/logo.svg`}></img>
+        <img width="200px" src={`${process.env.PUBLIC_URL}/logo.svg`}></img>
       </Panel>
       </Cell>
     );

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 interface Sites {site:string ,up:true };
 interface Payload {data: Sites[], timestamp:Date};
 interface State {payload:Payload };
-interface Props {socket:Socket};
+interface Props {socket:Socket, area:string};
 
 const Panel = styled.div`
   
@@ -39,8 +39,9 @@ export default class Uptime extends React.Component<Props, State> {
      }
  
     const data:Payload = this.state.payload;
+    const {area} = this.props;
     return (
-      <Cell style={{backgroundColor:"#c4d2de"}} width={2} height={4}>
+      <Cell area={area} style={{backgroundColor:"#c4d2de"}}>
       <Panel>
         <h2>Domain Status:</h2>
         {data.data.map((el) =>{

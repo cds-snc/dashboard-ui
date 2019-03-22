@@ -5,16 +5,16 @@ import styled from 'styled-components';
 import {format, getTime, parse } from 'date-fns';
 interface Payload {data:string, timestamp:Date}
 interface State {payload:Payload };
-interface Props {socket:Socket};
+interface Props {socket:Socket, area:string};
 
 const Panel = styled.div`
   color: white;
-  padding:1rem;
+  padding:0.6rem;
   font-size:2rem;
 `
 
 const Content = styled.p`
-  font-size:3rem;
+  font-size:1.8rem;
 `
 
 export default class Time extends React.Component<Props, State> {
@@ -35,12 +35,15 @@ export default class Time extends React.Component<Props, State> {
      }
  
     const data:Payload = this.state.payload;
-    const date = format(data.data, 'MMMM Do, YYYY hh:mm:ss A');
+    const date = format(data.data, 'MMMM Do, YYYY');
+    const time = format(data.data, 'hh:mm:ss A');
+    const {area} = this.props;
     return (
-      <Cell style={{backgroundColor:"#4285f4"}} height={2} center>
+      <Cell area={area} style={{backgroundColor:"#4285f4"}} center>
       <Panel>
         <h2>Time:</h2>
-        <Content>{date}</Content>
+        <div><Content>{date}</Content></div>
+        <div><Content>{time}</Content></div>
       </Panel>
       </Cell>
     );

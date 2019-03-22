@@ -28,15 +28,14 @@ class App extends React.Component<Props, State> {
   render() {
     return (
       <div className="App">
-         <Grid columns="repeat(auto-fit,minmax(250px,1fr,1fr))" gap="10px">
-            <ServerMemory socket={this.socket} /> 
-            <Logo />
-            <AwsCost socket={this.socket}/>
-            <Uptime socket={this.socket}/> 
-            <Github socket={this.socket}/>
-            <Time socket={this.socket} />
-            <Connected socket={this.socket} />
-            <MyWidget socket={this.socket} feed="connected_data_sources" />
+         <Grid height ="100vh" areas={["a b c d", "e f f g" ] } columns="4" gap="10px">
+            <Logo area="a"/>   
+            <AwsCost area="b" socket={this.socket}/>  
+            <Connected area="c" socket={this.socket} /> 
+            <Github area="d" socket={this.socket}/>
+            <ServerMemory area="e" socket={this.socket} /> 
+            <Uptime area="f" socket={this.socket}/>       
+            <Time area="g" socket={this.socket} />
          </Grid>
       </div>
     );

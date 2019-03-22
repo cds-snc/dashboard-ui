@@ -6,12 +6,16 @@ import ApexCharts from 'apexcharts'
 
 interface Payload { data: any, timestamp: Date }
 interface State { payload: Payload };
-interface Props { socket: Socket };
+interface Props {socket:Socket, area:string};
 
 const Panel = styled.div`
-  color: white;
+  color: #000;
   padding:1rem;
   font-size:2rem;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
 `
 
 export default class AwsCost extends React.Component<Props, State> {
@@ -69,11 +73,13 @@ export default class AwsCost extends React.Component<Props, State> {
             return null;
         }
 
+        const {area} = this.props;
+
         return (
-            <Cell style={{ backgroundColor: "#fff" }} height={2} width={1}>
-                <h2>AWS Monthly spending</h2>
+            <Cell center area={area} style={{ backgroundColor: "#fff" }}>
                 <Panel>
-                    <div ref="cost_chart"></div>
+                <h2>AWS Monthly spending:</h2>
+                <div ref="cost_chart"></div>
                 </Panel>
             </Cell>
         );

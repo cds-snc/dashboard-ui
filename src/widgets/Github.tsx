@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 interface Payload {data:number, timestamp:Date}
 interface State {payload:Payload };
-interface Props {socket:Socket};
+interface Props {socket:Socket, area:string};
 
 const Panel = styled.div`
   color: white;
@@ -15,6 +15,7 @@ const Panel = styled.div`
 
 const Content = styled.p`
   font-size:10rem;
+  margin:0;
 `
 
 export default class Github extends React.Component<Props, State> {
@@ -34,10 +35,10 @@ export default class Github extends React.Component<Props, State> {
     if(!this.state || !this.state.payload){
       return null;
      }
- 
+    const {area} = this.props;
     const data:Payload = this.state.payload;
     return (
-      <Cell style={{backgroundColor:"#be2dc1"}} height={1} center>
+      <Cell area={area} style={{backgroundColor:"#be2dc1"}} center>
       <Panel>
         <h2>Github:</h2>
         <Content>{data.data}</Content>
