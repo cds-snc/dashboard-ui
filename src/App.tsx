@@ -8,6 +8,7 @@ import Uptime from "./widgets/Uptime";
 import Github from "./widgets/Github";
 import Logo from "./widgets/Logo";
 import AwsCost from "./widgets/AwsCost";
+import Countdown from "./widgets/Countdown";
 
 /* https://github.com/azz/styled-css-grid */
 
@@ -27,7 +28,7 @@ class App extends React.Component<Props> {
       <div className="App">
         <Grid
           height="100vh"
-          areas={["a b c d", "e f f g"]}
+          areas={["a b c d", "e f h g"]}
           columns="4"
           gap="10px"
         >
@@ -38,6 +39,7 @@ class App extends React.Component<Props> {
           <ServerMemory area="e" socket={this.socket} />
           <Uptime area="f" socket={this.socket} />
           <Time area="g" socket={this.socket} />
+          <Countdown area="h" />
         </Grid>
       </div>
     );

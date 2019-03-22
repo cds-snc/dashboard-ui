@@ -51,10 +51,9 @@ export default class Time extends React.Component<Props, State> {
         <Panel>
           <h2>Time:</h2>
           <div>
-            <Content>{date}</Content>
-          </div>
-          <div>
-            <Content>{time}</Content>
+            <Content>
+              {date} <br /> {time}
+            </Content>
           </div>
         </Panel>
       </Cell>

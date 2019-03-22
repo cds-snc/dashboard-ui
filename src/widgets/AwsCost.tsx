@@ -3,7 +3,6 @@ import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
 import styled from "styled-components";
 import ApexCharts from "apexcharts";
-
 interface Payload {
   data: any;
   timestamp: Date;

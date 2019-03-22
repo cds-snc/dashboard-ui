@@ -2,9 +2,8 @@ import React from "react";
 import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
 import styled from "styled-components";
-
 interface Payload {
-  data: number;
+  data: [{ blog: {} }];
   timestamp: Date;
 }
 interface State {
@@ -29,10 +28,7 @@ const Content = styled.p`
 export default class Github extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    let channel = props.socket.channel(
-      "data_source:connected_data_sources",
-      {}
-    );
+    let channel = props.socket.channel("data_source:github_org", {});
     channel.join().receive("error", (resp: string) => {
       console.log("Unable to join: ", resp);
     });
@@ -47,12 +43,18 @@ export default class Github extends React.Component<Props, State> {
       return null;
     }
     const { area } = this.props;
-    const data: Payload = this.state.payload;
+    const data: any = this.state.payload;
+
+    let name = "";
+    if (data && data.data && data.data.public_repos) {
+      name = data.data.public_repos;
+    }
+
     return (
       <Cell area={area} style={{ backgroundColor: "#be2dc1" }} center>
         <Panel>
-          <h2>Github:</h2>
-          <Content>{data.data}</Content>
+          <h2>Public Repos:</h2>
+          <Content>{name}</Content>
         </Panel>
       </Cell>
     );

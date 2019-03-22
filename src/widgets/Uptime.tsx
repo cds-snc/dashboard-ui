@@ -28,7 +28,7 @@ const Panel = styled.div`
     display: inline-block;
     padding: 5px;
     line-height: 1.2rem;
-    font-size: 2rem;
+    font-size: 1.3rem;
   }
 `;
 export default class Uptime extends React.Component<Props, State> {
