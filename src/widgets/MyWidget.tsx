@@ -1,10 +1,14 @@
-
 import React from "react";
 import { Socket } from "phoenix";
-import {useChannel} from "../hooks/useChannel";
+import { useChannel } from "../hooks/useChannel";
 
-
-export const MyWidget = ({socket, feed} : {socket:Socket, feed:string}) => {
+export const MyWidget = ({
+  socket,
+  feed
+}: {
+  socket: Socket;
+  feed: string;
+}) => {
   const payload = useChannel(socket, feed);
   console.log(payload);
 
@@ -13,4 +17,4 @@ export const MyWidget = ({socket, feed} : {socket:Socket, feed:string}) => {
       <p>{payload.data}</p>
     </div>
   );
-}
+};
