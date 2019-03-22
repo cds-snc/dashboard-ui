@@ -31,7 +31,7 @@ const Panel = styled.div`
   font-size: 2rem;
 
   li {
-    font-size: 1.2rem;
+    font-size: 3rem;
   }
 `;
 export default class ServerMemory extends React.Component<Props, State> {
@@ -76,7 +76,7 @@ export default class ServerMemory extends React.Component<Props, State> {
       <Cell area={area} style={{ background: "#253547" }}>
         <Panel>
           <h2>Server Memory:</h2>
-          <ul>{this.listItems()}</ul>
+          <ul style={{ width: "700px" }}>{this.listItems()}</ul>
         </Panel>
       </Cell>
     );

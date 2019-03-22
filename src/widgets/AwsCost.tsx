@@ -48,17 +48,20 @@ export default class AwsCost extends React.Component<Props, State> {
 
       let chartOptions = {
         chart: {
-          height: 350,
+          height: 1000,
+          width: 1000,
           type: "radialBar"
         },
         plotOptions: {
           radialBar: {
             dataLabels: {
+              
               name: {
-                fontSize: "16px"
+                fontSize: "35px",
+                offsetY:-40,
               },
               value: {
-                fontSize: "16px"
+                fontSize: "50px",
               },
               total: {
                 show: true,

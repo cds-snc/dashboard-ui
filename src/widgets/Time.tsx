@@ -22,7 +22,7 @@ const Panel = styled.div`
 `;
 
 const Content = styled.p`
-  font-size: 1.8rem;
+  font-size: 3rem;
 `;
 
 export default class Time extends React.Component<Props, State> {

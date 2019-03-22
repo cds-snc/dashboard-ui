@@ -21,7 +21,7 @@ export default class Logo extends React.Component<Props> {
     return (
       <Cell area={area} center style={{ backgroundColor: "#000" }}>
         <Panel>
-          <img width="200px" src={`${process.env.PUBLIC_URL}/logo.svg`} />
+          <img width="400px" src={`${process.env.PUBLIC_URL}/logo.svg`} />
         </Panel>
       </Cell>
     );

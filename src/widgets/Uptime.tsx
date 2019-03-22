@@ -22,13 +22,15 @@ interface Props {
 const Panel = styled.div`
   padding: 1rem;
   font-size: 2rem;
+  color: #fff;
 
   a {
-    color: black;
+    color: #fff;
     display: inline-block;
     padding: 5px;
     line-height: 1.2rem;
-    font-size: 1.3rem;
+    font-size: 3rem;
+    padding-bottom: 10px;
   }
 `;
 export default class Uptime extends React.Component<Props, State> {
@@ -51,13 +53,13 @@ export default class Uptime extends React.Component<Props, State> {
     const data: Payload = this.state.payload;
     const { area } = this.props;
     return (
-      <Cell area={area} style={{ backgroundColor: "#c4d2de" }}>
+      <Cell area={area} style={{ backgroundColor: "#4a412a" }}>
         <Panel>
           <h2>Domain Status:</h2>
           {data.data.map(el => {
             const icon = el.up ? "✅" : "🚫";
             return (
-              <div key={el.site}>
+              <div style={{ marginBottom: "30px" }} key={el.site}>
                 {" "}
                 {icon} <a href={el.site}>{el.site}</a>{" "}
               </div>
