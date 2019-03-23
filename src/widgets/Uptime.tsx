@@ -3,12 +3,23 @@ import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
 import styled from "styled-components";
 
-interface Sites {
-  site: string;
-  up: true;
+interface Log {
+  duration: number;
+  type: number;
+}
+interface Monitor {
+  friendly_name: string;
+  id: number;
+  interval: number;
+  logs: Log[];
+  status: number;
+}
+interface apiResponse {
+  monitors: Monitor[];
+  stat: string;
 }
 interface Payload {
-  data: Sites[];
+  data: apiResponse;
   timestamp: Date;
 }
 interface State {
@@ -41,12 +52,13 @@ export default class Uptime extends React.Component<Props, State> {
       console.log("Unable to join: ", resp);
     });
     channel.on("data", (payload: Payload) => {
+      console.log(payload)
       this.setState({ payload: payload });
     });
   }
 
   render() {
-    if (!this.state || !this.state.payload) {
+    if (!this.state || !this.state.payload || !this.state.payload.data) {
       return null;
     }
 
@@ -56,12 +68,12 @@ export default class Uptime extends React.Component<Props, State> {
       <Cell area={area} style={{ backgroundColor: "#4a412a" }}>
         <Panel>
           <h2>Domain Status:</h2>
-          {data.data.map(el => {
-            const icon = el.up ? "✅" : "🚫";
+          {data.data.monitors.map(el => {
+            const icon = el.status == 2 ? "✅" : "🚫";
             return (
-              <div style={{ marginBottom: "30px" }} key={el.site}>
+              <div style={{ marginBottom: "30px" }} key={el.id}>
                 {" "}
-                {icon} <a href={el.site}>{el.site}</a>{" "}
+                {icon} <a href={el.friendly_name}>{el.friendly_name}</a>{" "}
               </div>
             );
           })}

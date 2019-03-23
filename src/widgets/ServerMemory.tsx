@@ -2,6 +2,8 @@ import React from "react";
 import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
 import styled from "styled-components";
+import ApexCharts from "apexcharts";
+
 interface Payload {
   data: {
     atom: number;
@@ -20,6 +22,7 @@ interface Payload {
 interface State {
   payload: Payload;
 }
+
 interface Props {
   socket: Socket;
   area: string;
@@ -34,41 +37,85 @@ const Panel = styled.div`
     font-size: 3rem;
   }
 `;
+
+const defaultOptions = {
+  chart: {
+    height: 350,
+    type: 'line',
+    animations: {
+      enabled: true,
+      easing: 'linear',
+      dynamicAnimation: {
+        speed: 1000
+      }
+    },
+    toolbar: {
+      show: false
+    },
+    zoom: {
+      enabled: false
+    }
+  },
+  dataLabels: {
+    enabled: false
+  },
+  stroke: {
+    curve: 'smooth'
+  },
+  series: [{
+    name: "memory",
+    data: []
+  }],
+  markers: {
+    size: 0
+  },
+  legend: {
+    show: false
+  },
+  theme: {
+    palette: "palette3"
+  },
+  xaxis: {
+    axisTicks: {
+      show: false
+    },
+    labels:
+    {
+      show: false
+    }
+  },
+  yaxis: {
+    labels:
+    {
+      style: {
+        color: "white"
+      },
+      formatter: (v:string) => `${parseFloat(v).toFixed(2)} MB`
+    }
+  }
+}
+
 export default class ServerMemory extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     let channel = props.socket.channel("data_source:server_memory", {});
+    let chart: ApexCharts;
+
+    let data: number[] = [];
+
     channel.join().receive("error", (resp: string) => {
       console.log("Unable to join: ", resp);
+    }).receive("ok", () => {
+      chart = new ApexCharts(this.refs.memory_chart, defaultOptions);
+      chart.render();
     });
     channel.on("data", (payload: Payload) => {
+      data.push(payload.data.total / 1000000)
+      data = data.slice(-60)
+      chart.updateSeries([{ name: "memory", data: data }])
       this.setState({ payload: payload });
     });
   }
-
-  listItems = () => {
-    if (!this.state || !this.state.payload) {
-      return null;
-    }
-
-    const data: Payload = this.state.payload;
-    return (
-      <React.Fragment>
-        <li key="atom">Atom: {data.data.atom}</li>
-        <li key="atom_used">Atom Used: {data.data.atom_used}</li>
-        <li key="binary">Binary: {data.data.binary}</li>
-        <li key="code">Code: {data.data.code}</li>
-
-        <li key="ets">ETS: {data.data.ets}</li>
-        <li key="processes">Processes: {data.data.processes}</li>
-        <li key="processes_used">Processes Used: {data.data.processes_used}</li>
-
-        <li key="data.system">System: {data.data.system}</li>
-
-        <li key="total">Total: {data.data.total}</li>
-      </React.Fragment>
-    );
-  };
 
   render() {
     const { area } = this.props;
@@ -76,7 +123,7 @@ export default class ServerMemory extends React.Component<Props, State> {
       <Cell area={area} style={{ background: "#253547" }}>
         <Panel>
           <h2>Server Memory:</h2>
-          <ul style={{ width: "700px" }}>{this.listItems()}</ul>
+          <div ref="memory_chart" />
         </Panel>
       </Cell>
     );

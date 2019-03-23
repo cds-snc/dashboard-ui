@@ -3,6 +3,7 @@ import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
 import styled from "styled-components";
 import ApexCharts from "apexcharts";
+
 interface Payload {
   data: any;
   timestamp: Date;
@@ -35,7 +36,6 @@ export default class AwsCost extends React.Component<Props, State> {
       console.log("Unable to join: ", resp);
     });
     channel.on("data", (payload: Payload) => {
-      console.log(payload);
       this.setState({ payload: payload });
 
       let current = parseFloat(
