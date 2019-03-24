@@ -22,6 +22,12 @@ action "Is master" {
 
 action "Deploy to GitHub pages" {
   uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
-  needs = ["Is master"]
+  needs = ["Is master"],
+  env = {
+    GIT_AUTHOR_NAME = "CDS Actions"
+    GIT_AUTHOR_EMAIL = "actions@cds-snc.ca"
+    GIT_COMMITTER_NAME = "CDS Actions"
+    GIT_COMMITTER_EMAIL = "actions@cds-snc.ca"
+  },
   args = "run deploy"
 }
