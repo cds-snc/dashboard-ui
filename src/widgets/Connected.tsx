@@ -50,10 +50,9 @@ export default class Connected extends React.Component<Props, State> {
     const list = Object.keys(connections).map(key => {
       return (
         <React.Fragment>
-        <li key={key}>{key}: {connections[key]}</li>
+        <li key="{key}">{key}: {connections[key]}</li>
         </React.Fragment>
     )})
-    console.log(list)
     return (
       <React.Fragment>
         <ul style={{ width: "700px" }}>{list}</ul>

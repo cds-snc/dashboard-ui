@@ -57,6 +57,10 @@ export default class Uptime extends React.Component<Props, State> {
     });
   }
 
+  calculateDuration = (seconds:number) => {
+    return `${(seconds / 60 / 60).toFixed(2)} hours`
+  }
+
   render() {
     if (!this.state || !this.state.payload || !this.state.payload.data) {
       return null;
@@ -73,7 +77,7 @@ export default class Uptime extends React.Component<Props, State> {
             return (
               <div style={{ marginBottom: "30px" }} key={el.id}>
                 {" "}
-                {icon} <a href={el.friendly_name}>{el.friendly_name}</a>{" "}
+                {icon} <a href={el.friendly_name}>{el.friendly_name}</a> for {this.calculateDuration(el.logs[0].duration)}
               </div>
             );
           })}
