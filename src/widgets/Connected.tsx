@@ -3,8 +3,12 @@ import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
 import styled from "styled-components";
 
+interface Connection {
+  [key: string]: string;
+}
+
 interface Payload {
-  data: number;
+  data: Connection;
   timestamp: Date;
 }
 interface State {
@@ -19,11 +23,6 @@ const Panel = styled.div`
   color: white;
   padding: 1rem;
   font-size: 2rem;
-`;
-
-const Content = styled.p`
-  font-size: 10rem;
-  margin: 0;
 `;
 
 export default class Connected extends React.Component<Props, State> {
@@ -41,6 +40,27 @@ export default class Connected extends React.Component<Props, State> {
     });
   }
 
+  listItems = () => {
+    if (!this.state || !this.state.payload) {
+      return null;
+    }
+
+    const data: Payload = this.state.payload;
+    const connections: Connection = data.data;
+    const list = Object.keys(connections).map(key => {
+      return (
+        <React.Fragment>
+        <li key={key}>{key}: {connections[key]}</li>
+        </React.Fragment>
+    )})
+    console.log(list)
+    return (
+      <React.Fragment>
+        <ul style={{ width: "700px" }}>{list}</ul>
+      </React.Fragment>
+    );
+};
+
   render() {
     if (!this.state || !this.state.payload) {
       return null;
@@ -52,7 +72,7 @@ export default class Connected extends React.Component<Props, State> {
       <Cell area={area} style={{ backgroundColor: "#34a852" }} center>
         <Panel>
           <h2>Connected:</h2>
-          <Content>{data.data}</Content>
+          {this.listItems()}
         </Panel>
       </Cell>
     );
