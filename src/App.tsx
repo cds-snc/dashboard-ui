@@ -9,6 +9,7 @@ import Github from "./widgets/Github";
 import Logo from "./widgets/Logo";
 import AwsCost from "./widgets/AwsCost";
 import Countdown from "./widgets/Countdown";
+import HerokuCost from "./widgets/HerokuCost";
 
 /* https://github.com/azz/styled-css-grid */
 
@@ -32,7 +33,7 @@ class App extends React.Component<Props> {
           columns="4"
           gap="10px"
         >
-          <Logo area="a" />
+          <HerokuCost area="a" socket={this.socket} />
           <AwsCost area="b" socket={this.socket} />
           <Connected area="c" socket={this.socket} />
           <Github area="d" socket={this.socket} />

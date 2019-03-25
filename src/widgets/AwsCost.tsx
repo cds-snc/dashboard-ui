@@ -82,7 +82,7 @@ export default class AwsCost extends React.Component<Props, State> {
         ],
         labels: ["Last month", "Forecast", "Current month"]
       };
-      chart = new ApexCharts(this.refs.cost_chart, chartOptions);
+      chart = new ApexCharts(this.refs.aws_cost_chart, chartOptions);
       chart.render();
     });
   }
@@ -98,7 +98,7 @@ export default class AwsCost extends React.Component<Props, State> {
       <Cell center area={area} style={{ backgroundColor: "#fff" }}>
         <Panel>
           <h2>AWS Monthly spending:</h2>
-          <div ref="cost_chart" />
+          <div ref="aws_cost_chart" />
         </Panel>
       </Cell>
     );
