@@ -64,7 +64,7 @@ export default class HerokuCost extends React.Component<Props, State> {
             return -1;
         }
         return 0;
-    });
+      });
       let data = chartData.map(p => (p.total / 100))
       let labels = chartData.map(p => {
         const month = p.period_start.split("-")

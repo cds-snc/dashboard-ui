@@ -10,6 +10,7 @@ import Logo from "./widgets/Logo";
 import AwsCost from "./widgets/AwsCost";
 import Countdown from "./widgets/Countdown";
 import HerokuCost from "./widgets/HerokuCost";
+import GoogleCloudCost from "./widgets/GoogleCloudCost";
 
 /* https://github.com/azz/styled-css-grid */
 
@@ -36,7 +37,7 @@ class App extends React.Component<Props> {
           <HerokuCost area="a" socket={this.socket} />
           <AwsCost area="b" socket={this.socket} />
           <Connected area="c" socket={this.socket} />
-          <Github area="d" socket={this.socket} />
+          <GoogleCloudCost area="d" socket={this.socket} />
           <ServerMemory area="e" socket={this.socket} />
           <Uptime area="f" socket={this.socket} />
           <Time area="g" socket={this.socket} />
