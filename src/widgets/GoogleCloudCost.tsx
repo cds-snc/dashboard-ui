@@ -2,6 +2,7 @@ import React from "react";
 import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
 import styled from "styled-components";
+import { parse } from "url";
 
 interface CostItem {
   cost: string;
@@ -46,7 +47,6 @@ export default class GoogleCloudCost extends React.Component<Props, State> {
     if (!this.state || !this.state.payload) {
       return null;
     }
-    console.log(this.state.payload.data)
 
     const data: Payload = this.state.payload;
     const costItems = data.data.sort((obj1, obj2) => {
@@ -67,10 +67,22 @@ export default class GoogleCloudCost extends React.Component<Props, State> {
     })
     return (
       <React.Fragment>
-        <ul style={{ width: "700px" }}>{list}</ul>
+        <ul>{list}</ul>
       </React.Fragment>
-    );
+    )
+  }
+
+  totalCost = () => {
+    if (!this.state || !this.state.payload) {
+      return null;
+    }
+
+    let cost = 0.0;
+    this.state.payload.data.forEach(item => (cost = cost + parseFloat(item.cost)))
+    return cost.toFixed(2)
   };
+
+
 
   render() {
     if (!this.state || !this.state.payload) {
@@ -83,6 +95,7 @@ export default class GoogleCloudCost extends React.Component<Props, State> {
       <Cell area={area} style={{ backgroundColor: "#34a852" }} center>
         <Panel>
           <h2>Google cloud cost for this month:</h2>
+          <h4>Total: ${this.totalCost()}</h4> 
           {this.listItems()}
         </Panel>
       </Cell>
