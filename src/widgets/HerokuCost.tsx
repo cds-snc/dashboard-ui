@@ -1,8 +1,10 @@
 import React from "react";
 import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
-import styled from "styled-components";
-import ApexCharts from "apexcharts";
+import {
+  VictoryBar, VictoryChart, VictoryAxis,
+  VictoryTheme, VictoryLabel
+} from 'victory';
 
 interface billingPeriod {
   addons_total: number;
@@ -35,16 +37,6 @@ interface Props {
   area: string;
 }
 
-const Panel = styled.div`
-  color: #000;
-  padding: 1rem;
-  font-size: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
 export default class HerokuCost extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -56,111 +48,31 @@ export default class HerokuCost extends React.Component<Props, State> {
     });
     channel.on("data", (payload: Payload) => {
       this.setState({ payload: payload });
-      let chartData = payload.data.sort((obj1, obj2) => {
-        if (obj1.period_start > obj2.period_start) {
-            return 1;
-        }
-        if (obj1.period_start < obj2.period_start) {
-            return -1;
-        }
-        return 0;
-      });
-      let data = chartData.map(p => (p.total / 100))
-      let labels = chartData.map(p => {
-        const month = p.period_start.split("-")
-        return `${month[0]}-${month[1]}`
-      })
-
-      let chartOptions = {
-        chart: {
-          height: 1000,
-          width: 1000,
-          type: 'bar',
-        },
-        plotOptions: {
-          bar: {
-            dataLabels: {
-              position: 'top', // top, center, bottom
-            },
-          }
-        },
-        dataLabels: {
-          enabled: true,
-          offsetY: -60,
-          style: {
-            fontSize: '26px',
-            colors: ["#304758"]
-          },
-          formatter: (v:string) => (`$${v}`)
-
-        },
-        series: [{
-          name: 'Cost',
-          data: data
-        }],
-        xaxis: {
-          categories: labels,
-          position: 'top',
-          labels: {
-            offsetY: -18,
-            style: {
-              fontSize: '26px',
-              colors: ["#304758"]
-            },
-          },
-          axisBorder: {
-            show: false
-          },
-          axisTicks: {
-            show: false
-          },
-          crosshairs: {
-            fill: {
-              type: 'gradient',
-              gradient: {
-                colorFrom: '#D8E3F0',
-                colorTo: '#BED1E6',
-                stops: [0, 100],
-                opacityFrom: 0.4,
-                opacityTo: 0.5,
-              }
-            }
-          },
-          tooltip: {
-            enabled: true,
-            offsetY: -35,
-
-          }
-        },
-        fill: {
-          gradient: {
-            shade: 'light',
-            type: "horizontal",
-            shadeIntensity: 0.25,
-            gradientToColors: undefined,
-            inverseColors: true,
-            opacityFrom: 1,
-            opacityTo: 1,
-            stops: [50, 0, 100, 100]
-          },
-        },
-        yaxis: {
-          axisBorder: {
-            show: false
-          },
-          axisTicks: {
-            show: false,
-          },
-          labels: {
-            show: false,
-          }
-        }
-      };
-
-      chart = new ApexCharts(this.refs.heroku_cost_chart, chartOptions);
-      chart.render();
     });
   }
+
+  getData = () => {
+    if (!this.state || !this.state.payload) {
+      return [];
+    }
+    let chartData = this.state.payload.data.sort((obj1, obj2) => {
+      if (obj1.period_start > obj2.period_start) {
+        return 1;
+      }
+      if (obj1.period_start < obj2.period_start) {
+        return -1;
+      }
+      return 0;
+    });
+    return chartData.map(p => {
+      const month = p.period_start.split("-")
+      return {
+        x: `${month[0].slice(-2)}-${month[1]}`,
+        y: (p.total / 100)
+      }
+    }
+    )
+  };
 
   render() {
     if (!this.state || !this.state.payload) {
@@ -171,10 +83,43 @@ export default class HerokuCost extends React.Component<Props, State> {
 
     return (
       <Cell center area={area} style={{ backgroundColor: "#fff" }}>
-        <Panel>
-          <h2>Heroku Monthly spending:</h2>
-          <div ref="heroku_cost_chart" />
-        </Panel>
+        <VictoryChart
+          theme={VictoryTheme.material}
+          domainPadding={20}
+          style={{
+            parent: { border: "1px solid #ccc" }
+          }}
+        >
+          <VictoryLabel
+            text="Heroku cost per month"
+            style={{
+              fontSize: "20px"
+            }}
+            x={10}
+            y={20}
+          />
+          <VictoryAxis
+            style={{
+              tickLabels: { fontSize: '9px' }
+            }}
+            padding={20}
+          />
+          <VictoryAxis
+            dependentAxis
+            tickFormat={(x) => (`$${x}`)}
+          />
+          <VictoryBar
+            data={this.getData()}
+            labels={(d) => (`$${d.y}`)}
+            labelComponent={
+              <VictoryLabel
+                style={{
+                  fontSize: "9px"
+                }}
+              />
+            }
+          />
+        </VictoryChart>
       </Cell>
     );
   }

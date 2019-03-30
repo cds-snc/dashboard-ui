@@ -1,8 +1,10 @@
 import React from "react";
 import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
-import styled from "styled-components";
-import ApexCharts from "apexcharts";
+import {
+  VictoryBar, VictoryChart, VictoryAxis,
+  VictoryTheme, VictoryLabel
+} from 'victory';
 
 interface Payload {
   data: any;
@@ -16,16 +18,6 @@ interface Props {
   area: string;
 }
 
-const Panel = styled.div`
-  color: #000;
-  padding: 1rem;
-  font-size: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
 export default class AwsCost extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -37,55 +29,22 @@ export default class AwsCost extends React.Component<Props, State> {
     });
     channel.on("data", (payload: Payload) => {
       this.setState({ payload: payload });
-
-      let current = parseFloat(
-        payload.data.current_month.ResultsByTime[0].Total.UnblendedCost.Amount
-      );
-      let forecast = parseFloat(payload.data.forecast.Total.Amount);
-      let past = parseFloat(
-        payload.data.last_month.ResultsByTime[0].Total.UnblendedCost.Amount
-      );
-
-      let chartOptions = {
-        chart: {
-          height: 1000,
-          width: 1000,
-          type: "radialBar"
-        },
-        plotOptions: {
-          radialBar: {
-            dataLabels: {
-              
-              name: {
-                fontSize: "35px",
-                offsetY:-40,
-              },
-              value: {
-                fontSize: "50px",
-              },
-              total: {
-                show: true,
-                label: `Starting ${
-                  payload.data.current_month.ResultsByTime[0].TimePeriod.Start
-                }`,
-                formatter: function(w: string) {
-                  return `$${current.toFixed(2)} / $${past.toFixed(2)}`;
-                }
-              }
-            }
-          }
-        },
-        series: [
-          100,
-          ((forecast / past) * 100).toFixed(2),
-          ((current / past) * 100).toFixed(2)
-        ],
-        labels: ["Last month", "Forecast", "Current month"]
-      };
-      chart = new ApexCharts(this.refs.aws_cost_chart, chartOptions);
-      chart.render();
     });
   }
+
+  getData = () => {
+    if (!this.state || !this.state.payload) {
+      return [];
+    }
+    let current = parseFloat(
+      this.state.payload.data.current_month.ResultsByTime[0].Total.UnblendedCost.Amount
+    );
+    let forecast = parseFloat(this.state.payload.data.forecast.Total.Amount);
+    let past = parseFloat(
+      this.state.payload.data.last_month.ResultsByTime[0].Total.UnblendedCost.Amount
+    );
+    return [{ x: "Past", y: past }, { x: "Current", y: current }, { x: "Forecast", y: forecast }]
+  };
 
   render() {
     if (!this.state || !this.state.payload) {
@@ -96,10 +55,44 @@ export default class AwsCost extends React.Component<Props, State> {
 
     return (
       <Cell center area={area} style={{ backgroundColor: "#fff" }}>
-        <Panel>
-          <h2>AWS Monthly spending:</h2>
-          <div ref="aws_cost_chart" />
-        </Panel>
+        <VictoryChart
+          theme={VictoryTheme.material}
+          domainPadding={40}
+          style={{
+            parent: { border: "1px solid #ccc" }
+          }}
+        >
+          <VictoryLabel
+            text="Current AWS Cost"
+            style={{
+              fontSize: "20px"
+            }}
+            x={10}
+            y={20}
+          />
+          <VictoryAxis
+            style={{
+              tickLabels: { fontSize: '9px' }
+            }}
+            padding={20}
+          />
+          <VictoryAxis
+            dependentAxis
+            tickFormat={(x) => (`$${x}`)}
+          />
+          <VictoryBar
+            barWidth={50}
+            data={this.getData()}
+            labels={(d) => (`$${d.y.toFixed(2)}`)}
+            labelComponent={
+              <VictoryLabel
+                style={{
+                  fontSize: "11px"
+                }}
+              />
+            }
+          />
+        </VictoryChart>
       </Cell>
     );
   }

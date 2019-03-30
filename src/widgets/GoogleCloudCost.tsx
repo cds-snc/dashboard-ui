@@ -1,8 +1,10 @@
 import React from "react";
 import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
-import styled from "styled-components";
-import { parse } from "url";
+import {
+  VictoryBar, VictoryChart, VictoryAxis,
+  VictoryTheme, VictoryLabel, VictoryStack
+} from 'victory';
 
 interface CostItem {
   cost: string;
@@ -22,12 +24,6 @@ interface Props {
   area: string;
 }
 
-const Panel = styled.div`
-  color: white;
-  padding: 1rem;
-  font-size: 2rem;
-`;
-
 export default class GoogleCloudCost extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -43,7 +39,7 @@ export default class GoogleCloudCost extends React.Component<Props, State> {
     });
   }
 
-  listItems = () => {
+  getData = () => {
     if (!this.state || !this.state.payload) {
       return null;
     }
@@ -58,18 +54,13 @@ export default class GoogleCloudCost extends React.Component<Props, State> {
       }
       return 0;
     });
-    const list = costItems.map((item: CostItem, index: number) => {
-      return (
-        <React.Fragment>
-          <li key="{index}">{item.project}: ${parseFloat(item.cost).toFixed(2)}</li>
-        </React.Fragment>
-      )
+
+    return costItems.map((item: CostItem) => {
+      return (<VictoryBar
+        data={[{x: "Current month", y: parseFloat(item.cost).toFixed(2), project: item.project}]}
+        barWidth={100}
+      />)
     })
-    return (
-      <React.Fragment>
-        <ul>{list}</ul>
-      </React.Fragment>
-    )
   }
 
   totalCost = () => {
@@ -92,12 +83,37 @@ export default class GoogleCloudCost extends React.Component<Props, State> {
     const data: Payload = this.state.payload;
     const { area } = this.props;
     return (
-      <Cell area={area} style={{ backgroundColor: "#34a852" }} center>
-        <Panel>
-          <h2>Google cloud cost for this month:</h2>
-          <h4>Total: ${this.totalCost()}</h4> 
-          {this.listItems()}
-        </Panel>
+      <Cell area={area}>
+        <VictoryChart
+          theme={VictoryTheme.material}
+          domainPadding={20}
+          style={{
+            parent: { border: "1px solid #ccc" }
+          }}
+        >
+          <VictoryLabel
+            text="Current GCP Cost"
+            style={{
+              fontSize: "20px"
+            }}
+            x={10}
+            y={20}
+          />
+          <VictoryAxis
+            style={{
+              tickLabels: { fontSize: '9px' }
+            }}
+            padding={20}
+          />
+          <VictoryAxis
+            dependentAxis
+            tickFormat={(x) => (`$${x}`)}
+          />
+          <VictoryBar
+            data={[{x: "Current month", y: this.totalCost()}]}
+            barWidth={100}
+          />
+        </VictoryChart>
       </Cell>
     );
   }
