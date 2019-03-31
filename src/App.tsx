@@ -37,9 +37,9 @@ class App extends React.Component<Props> {
         >
           <HerokuCost area="a" socket={this.socket} />
           <AwsCost area="b" socket={this.socket} />
-          <GoogleCloudCost area="c" socket={this.socket}/>
+          <GoogleCloudCost area="c" socket={this.socket} />
           <Empty area="d" />
-          <Empty area="e" />
+          <ServerMemory area="e" socket={this.socket} />
           <Empty area="f" />
           <Empty area="g" />
           <Empty area="h" />

@@ -28,6 +28,7 @@ export default class AwsCost extends React.Component<Props, State> {
       console.log("Unable to join: ", resp);
     });
     channel.on("data", (payload: Payload) => {
+      console.log(payload)
       this.setState({ payload: payload });
     });
   }
@@ -36,14 +37,27 @@ export default class AwsCost extends React.Component<Props, State> {
     if (!this.state || !this.state.payload) {
       return [];
     }
-    let current = parseFloat(
-      this.state.payload.data.current_month.ResultsByTime[0].Total.UnblendedCost.Amount
-    );
-    let forecast = parseFloat(this.state.payload.data.forecast.Total.Amount);
-    let past = parseFloat(
-      this.state.payload.data.last_month.ResultsByTime[0].Total.UnblendedCost.Amount
-    );
-    return [{ x: "Past", y: past }, { x: "Current", y: current }, { x: "Forecast", y: forecast }]
+
+    let chartData = this.state.payload.data.cost_per_month.ResultsByTime.sort((obj1:any, obj2:any) => {
+      if (obj1.TimePeriod.Start > obj2.TimePeriod.Start) {
+        return 1;
+      }
+      if (obj1.TimePeriod.Start < obj2.TimePeriod.Start) {
+        return -1;
+      }
+      return 0;
+    });
+
+    return chartData.map((p:any) => {
+      const month = p.TimePeriod.Start.split("-")
+      return {
+        x: `${month[0].slice(-2)}-${month[1]}`,
+        y: parseFloat(p.Total.UnblendedCost.Amount)
+      }
+    })
+
+    // let forecast = parseFloat(this.state.payload.data.forecast.Total.Amount);
+    // return [{ x: "Past", y: past }, { x: "Current", y: current }, { x: "Forecast", y: forecast }]
   };
 
   render() {
@@ -63,7 +77,7 @@ export default class AwsCost extends React.Component<Props, State> {
           }}
         >
           <VictoryLabel
-            text="Current AWS Cost"
+            text="AWS cost per month"
             style={{
               fontSize: "20px"
             }}
@@ -81,7 +95,6 @@ export default class AwsCost extends React.Component<Props, State> {
             tickFormat={(x) => (`$${x}`)}
           />
           <VictoryBar
-            barWidth={50}
             data={this.getData()}
             labels={(d) => (`$${d.y.toFixed(2)}`)}
             labelComponent={
