@@ -12,10 +12,26 @@ import Countdown from "./widgets/Countdown";
 import HerokuCost from "./widgets/HerokuCost";
 import GoogleCloudCost from "./widgets/GoogleCloudCost";
 import Empty from "./widgets/Empty";
+import styled from "styled-components";
+import { ThemeProvider } from "styled-components";
 
 /* https://github.com/azz/styled-css-grid */
 
 const DATA_URL = "wss://loon-server.herokuapp.com/socket";
+
+const theme = {
+  main: "mediumseagreen"
+};
+
+const Panel = styled.div`
+  color: #000;
+  padding: 1rem;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 interface Props {} // eslint-disable-line @typescript-eslint/no-empty-interface
 class App extends React.Component<Props> {
@@ -28,23 +44,27 @@ class App extends React.Component<Props> {
 
   render(): JSX.Element {
     return (
-      <div className="App">
-        <Grid
-          height="100vh"
-          areas={["a b c d", "e f h g"]}
-          columns="4"
-          gap="10px"
-        >
-          <HerokuCost area="a" socket={this.socket} />
-          <AwsCost area="b" socket={this.socket} />
-          <GoogleCloudCost area="c" socket={this.socket} />
-          <Empty area="d" />
-          <ServerMemory area="e" socket={this.socket} />
-          <Empty area="f" />
-          <Empty area="g" />
-          <Empty area="h" />
-        </Grid>
-      </div>
+      <ThemeProvider theme={theme}>
+        <div className="App">
+          <Panel>
+            <Grid
+              height="100vh"
+              areas={["a b c d", "e f h g"]}
+              columns="4"
+              gap="10px"
+            >
+              <HerokuCost area="a" socket={this.socket} />
+              <AwsCost area="b" socket={this.socket} />
+              <GoogleCloudCost area="c" socket={this.socket} />
+              <Empty area="d" />
+              <ServerMemory area="e" socket={this.socket} />
+              <Empty area="f" />
+              <Empty area="g" />
+              <Empty area="h" />
+            </Grid>
+          </Panel>
+        </div>
+      </ThemeProvider>
     );
   }
 }
