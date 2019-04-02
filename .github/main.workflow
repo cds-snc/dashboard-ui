@@ -1,4 +1,4 @@
-workflow "Build and deploy on push" {
+workflow "Build and deploy to GH on push" {
   on = "push"
   resolves = ["Deploy to GitHub pages"]
 }
