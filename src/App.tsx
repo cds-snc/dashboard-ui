@@ -8,7 +8,6 @@ import Uptime from "./widgets/Uptime";
 import Github from "./widgets/Github";
 import Logo from "./widgets/Logo";
 import AwsCost from "./widgets/AwsCost";
-import TestWidget from "./widgets/TestWidget";
 import HerokuCost from "./widgets/HerokuCost";
 import GoogleCloudCost from "./widgets/GoogleCloudCost";
 import Empty from "./widgets/Empty";
@@ -31,7 +30,6 @@ class App extends React.Component<Props> {
   render(): JSX.Element {
     return (
         <div className="App">
-            <p>This is to test the theme</p>
             <Grid
               height="100vh"
               areas={["a b c d", "e f h g"]}
@@ -41,7 +39,7 @@ class App extends React.Component<Props> {
               <HerokuCost area="a" socket={this.socket} />
               <AwsCost area="b" socket={this.socket} />
               <GoogleCloudCost area="c" socket={this.socket} />
-              <TestWidget area="d" />
+              <Empty area="d" />
               <ServerMemory area="e" socket={this.socket} />
               <Empty area="f" />
               <Empty area="g" />

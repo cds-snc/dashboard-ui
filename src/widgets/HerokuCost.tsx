@@ -42,12 +42,6 @@ interface Props {
   area: string;
 }
 
-const Panel = styled.div`
-  tspan {
-    color: red;
-  }
-`;
-
 export default class HerokuCost extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -75,7 +69,7 @@ export default class HerokuCost extends React.Component<Props, State> {
       }
       return 0;
     });
-    return chartData.map(p => {
+    return chartData.slice(-5).map(p => {
       const month = p.period_start.split("-");
       return {
         x: `${month[0].slice(-2)}-${month[1]}`,
@@ -94,70 +88,58 @@ export default class HerokuCost extends React.Component<Props, State> {
     const styles = this.getStyles();
 
     return (
-      <Panel>
-        <Cell center area={area} style={{ backgroundColor: "#fff" }}>
+        <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
           <VictoryChart
-            theme={VictoryTheme.material}
-            domainPadding={20}
+            domainPadding={30}
+            height={350}
             style={{
-              parent: { border: "1px solid #ccc" }
+              parent: { border: "1px solid #000", background: "#292A29" }
             }}
           >
             <VictoryLabel
               text="Heroku cost per month"
-              style={{
-                fontSize: "20px"
-              }}
-              x={10}
-              y={20}
+              style={styles.title}
+              x={47}
+              y={15}
             />
             <VictoryAxis
-              style={{
-                tickLabels: { fontSize: "9px" }
-              }}
+              style={styles.axisYears}
               padding={20}
             />
-            <VictoryAxis dependentAxis tickFormat={x => `$${x}`} />
+            <VictoryAxis style={styles.axisOne} dependentAxis tickFormat={x => `$${x}`} />
             <VictoryBar
               data={this.getData()}
+              style={styles.bar}
               labels={d => `$${d.y}`}
               labelComponent={
                 <VictoryLabel
-                  style={{
-                    fontSize: "9px"
-                  }}
+                  style={styles.bar.labels}
                 />
               }
             />
           </VictoryChart>
         </Cell>
-      </Panel>
     );
   }
   getStyles() {
+    const WHITE_COLOR = "#FFFFFF";
+    const BLACK_COLOR = "#000000"
     const BLUE_COLOR = "#00a3de";
     const RED_COLOR = "#7c270b";
+    const AXIS_COLOR = "#FFFFFF";
+    const LIGHTGRAY_COLOR = "#f0efef";
+    const BLACKDARK_COLOR = "#1A1B1E";
+    const BLACKLIGHT_COLOR = "#292A29";
+    const GREEN_COLOR = "#31D397";
 
     return {
-      parent: {
-        background: "#ccdee8",
-        boxSizing: "border-box",
-        display: "inline",
-        padding: 0,
-        fontFamily: "'Fira Sans', sans-serif",
-        maxWidth: "50%",
-        height: "auto"
-      },
       title: {
-        textAnchor: "start",
-        verticalAnchor: "end",
-        fill: "#000000",
+        fill: WHITE_COLOR,
         fontFamily: "inherit",
-        fontSize: "18px",
-        fontWeight: "bold"
+        fontSize: "28px",
+        fontWeight: 700,
       },
       labelNumber: {
-        textAnchor: "middle",
         fill: "#ffffff",
         fontFamily: "inherit",
         fontSize: "14px"
@@ -165,77 +147,37 @@ export default class HerokuCost extends React.Component<Props, State> {
 
       // INDEPENDENT AXIS
       axisYears: {
-        axis: { stroke: "black", strokeWidth: 1},
+        grid: { strokeWidth: 0 },
+        axis: { stroke: AXIS_COLOR, strokeWidth: 1},
         ticks: {
-          size: (tick) => {
-            const tickSize =
-              tick.getFullYear() % 5 === 0 ? 10 : 5;
-            return tickSize;
-          },
-          stroke: "black",
-          strokeWidth: 1
+          stroke: AXIS_COLOR,
+          strokeWidth: 1,
         },
         tickLabels: {
-          fill: "black",
+          fill: AXIS_COLOR,
           fontFamily: "inherit",
-          fontSize: 16
+          fontSize: "12px"
         }
       },
 
       // DATA SET ONE
       axisOne: {
         grid: {
-          stroke: (tick) =>
-            tick === -10 ? "transparent" : "#ffffff",
-          strokeWidth: 2
+          strokeWidth: 0
         },
-        axis: { stroke: BLUE_COLOR, strokeWidth: 0 },
-        ticks: { strokeWidth: 0 },
+        axis: { stroke: AXIS_COLOR, strokeWidth: 1 }, 
+        ticks: { stroke: AXIS_COLOR , strokeWidth: 1 },
         tickLabels: {
-          fill: BLUE_COLOR,
+          fill: AXIS_COLOR,
           fontFamily: "inherit",
-          fontSize: 16
+          fontSize: "12px",
         }
       },
-      labelOne: {
-        fill: BLUE_COLOR,
-        fontFamily: "inherit",
-        fontSize: 12,
-        fontStyle: "italic"
-      },
-      lineOne: {
-        data: { stroke: BLUE_COLOR, strokeWidth: 4.5 }
-      },
-      axisOneCustomLabel: {
-        fill: BLUE_COLOR,
-        fontFamily: "inherit",
-        fontWeight: 300,
-        fontSize: 21
-      },
 
-      // DATA SET TWO
-      axisTwo: {
-        axis: { stroke: RED_COLOR, strokeWidth: 0 },
-        tickLabels: {
-          fill: RED_COLOR,
-          fontFamily: "inherit",
-          fontSize: 16
-        }
-      },
-      labelTwo: {
-        textAnchor: "end",
-        fill: RED_COLOR,
-        fontFamily: "inherit",
-        fontSize: 12,
-        fontStyle: "italic"
-      },
-      lineTwo: {
-        data: { stroke: RED_COLOR, strokeWidth: 4.5 }
-      },
-
-      // HORIZONTAL LINE
-      lineThree: {
-        data: { stroke: "#e95f46", strokeWidth: 2 }
+      // BAR
+      bar: {
+        data: { fill: GREEN_COLOR },
+        labels: { fill: WHITE_COLOR, fontSize: "12px" }
       }
     };
   }
