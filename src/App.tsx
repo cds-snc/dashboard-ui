@@ -17,7 +17,6 @@ import styled from "styled-components";
 
 const DATA_URL = "wss://loon-server.herokuapp.com/socket";
 
-
 interface Props {} // eslint-disable-line @typescript-eslint/no-empty-interface
 class App extends React.Component<Props> {
   socket: Socket; // eslint-disable-line  @typescript-eslint/explicit-member-accessibility
@@ -29,23 +28,23 @@ class App extends React.Component<Props> {
 
   render(): JSX.Element {
     return (
-        <div className="App">
-            <Grid
-              height="100vh"
-              areas={["a b c d", "e f h g"]}
-              columns="4"
-              gap="10px"
-            >
-              <HerokuCost area="a" socket={this.socket} />
-              <AwsCost area="b" socket={this.socket} />
-              <GoogleCloudCost area="c" socket={this.socket} />
-              <Empty area="d" />
-              <ServerMemory area="e" socket={this.socket} />
-              <Empty area="f" />
-              <Empty area="g" />
-              <Empty area="h" />
-            </Grid>
-        </div>
+      <div className="App">
+        <Grid
+          height="100vh"
+          areas={["a b c d", "e f h g"]}
+          columns="4"
+          gap="10px"
+        >
+          <HerokuCost area="a" socket={this.socket} />
+          <AwsCost area="b" socket={this.socket} />
+          <GoogleCloudCost area="c" socket={this.socket} />
+          <Empty area="d" />
+          <ServerMemory area="e" socket={this.socket} />
+          <Empty area="f" />
+          <Empty area="g" />
+          <Empty area="h" />
+        </Grid>
+      </div>
     );
   }
 }

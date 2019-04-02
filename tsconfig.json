@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "isolatedModules": false,
     "target": "es6",
     "lib": [
       "dom",
