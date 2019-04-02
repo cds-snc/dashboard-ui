@@ -8,10 +8,10 @@ import Uptime from "./widgets/Uptime";
 import Github from "./widgets/Github";
 import Logo from "./widgets/Logo";
 import AwsCost from "./widgets/AwsCost";
-import Countdown from "./widgets/Countdown";
 import HerokuCost from "./widgets/HerokuCost";
 import GoogleCloudCost from "./widgets/GoogleCloudCost";
 import Empty from "./widgets/Empty";
+import styled from "styled-components";
 
 /* https://github.com/azz/styled-css-grid */
 
