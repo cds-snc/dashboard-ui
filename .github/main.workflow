@@ -20,15 +20,17 @@ action "Is master" {
   args = "branch master"
 }
 
-action "Deploy to GitHub pages" {
-  uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
+action "Build" {
+  uses = "docker://culturehq/actions-yarn:latest"
   needs = ["Is master"]
+  args = "build"
+}
+
+action "Deploy to GitHub pages" {
+  uses = "docker://cdssnc/gh-pages-github-action"
+  needs = ["Build"]
   env = {
-    GIT_AUTHOR_NAME = "CDS Actions"
-    GIT_AUTHOR_EMAIL = "actions@cds-snc.ca"
-    GIT_COMMITTER_NAME = "CDS Actions"
-    GIT_COMMITTER_EMAIL = "actions@cds-snc.ca"
+    BUILD_DIR = "public/"
   }
-  args = "run deploy"
-  secrets = ["GITHUB_TOKEN"]
+  secrets = ["GH_PAT"]
 }
