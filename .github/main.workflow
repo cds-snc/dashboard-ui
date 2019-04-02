@@ -29,8 +29,8 @@ action "Build" {
 action "Deploy to GitHub pages" {
   uses = "docker://cdssnc/gh-pages-github-action"
   needs = ["Build"]
-  env = {
-    BUILD_DIR = "public/"
-  }
   secrets = ["GH_PAT"]
+  env = {
+    BUILD_DIR = "build/"
+  }
 }
