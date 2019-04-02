@@ -6,6 +6,7 @@ import {
   VictoryTheme, VictoryLabel, VictoryStack
 } from 'victory';
 
+
 interface CostItem {
   cost: string;
   month: string;
@@ -41,39 +42,25 @@ export default class GoogleCloudCost extends React.Component<Props, State> {
 
   getData = () => {
     if (!this.state || !this.state.payload) {
-      return null;
+      return [];
     }
 
-    const data: Payload = this.state.payload;
-    const costItems = data.data.sort((obj1, obj2) => {
-      if (obj1.project > obj2.project) {
-        return 1;
+    let data:{ [index:string] : number} = {}
+    this.state.payload.data.forEach(item => {
+      if (!data.hasOwnProperty(item.month)){
+        data[item.month] = 0.0 + parseFloat(item.cost)
+      }else{
+        data[item.month] = data[item.month] + parseFloat(item.cost)
       }
-      if (obj1.project < obj2.project) {
-        return -1;
-      }
-      return 0;
-    });
-
-    return costItems.map((item: CostItem) => {
-      return (<VictoryBar
-        data={[{x: "Current month", y: parseFloat(item.cost).toFixed(2), project: item.project}]}
-        barWidth={100}
-      />)
     })
-  }
 
-  totalCost = () => {
-    if (!this.state || !this.state.payload) {
-      return null;
-    }
-
-    let cost = 0.0;
-    this.state.payload.data.forEach(item => (cost = cost + parseFloat(item.cost)))
-    return cost.toFixed(2)
+    return Object.keys(data).map((key:string): {x:string, y:number} => {
+      return {
+        x: `${key.slice(2,4)}-${key.slice(4,6)}`,
+        y: data[key]
+      }
+    })
   };
-
-
 
   render() {
     if (!this.state || !this.state.payload) {
@@ -92,7 +79,7 @@ export default class GoogleCloudCost extends React.Component<Props, State> {
           }}
         >
           <VictoryLabel
-            text="Current GCP Cost"
+            text="GCP cost per month"
             style={{
               fontSize: "20px"
             }}
@@ -107,11 +94,18 @@ export default class GoogleCloudCost extends React.Component<Props, State> {
           />
           <VictoryAxis
             dependentAxis
-            tickFormat={(x) => (`$${x}`)}
+            tickFormat={(x) => (`$${x.toFixed(2)}`)}
           />
           <VictoryBar
-            data={[{x: "Current month", y: this.totalCost()}]}
-            barWidth={100}
+            data={this.getData()}
+            labels={(d) => (`$${d.y.toFixed(2)}`)}
+            labelComponent={
+              <VictoryLabel
+                style={{
+                  fontSize: "9px"
+                }}
+              />
+            }
           />
         </VictoryChart>
       </Cell>

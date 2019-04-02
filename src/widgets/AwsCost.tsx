@@ -28,7 +28,6 @@ export default class AwsCost extends React.Component<Props, State> {
       console.log("Unable to join: ", resp);
     });
     channel.on("data", (payload: Payload) => {
-      console.log(payload)
       this.setState({ payload: payload });
     });
   }
