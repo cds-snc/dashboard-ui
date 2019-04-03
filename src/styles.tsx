@@ -2,7 +2,7 @@ export function getStyles() {
     const WHITE_COLOR = "#FFFFFF";
     const BLACK_COLOR = "#000000"
     const BLUE_COLOR = "#367BBC";
-    const RED_COLOR = "#7c270b";
+    const RED_COLOR = "#C14C54";
     const AXIS_COLOR = "#FFFFFF";
     const LIGHTGRAY_COLOR = "#f0efef";
     const BLACKDARK_COLOR = "#1A1B1E";
@@ -11,10 +11,22 @@ export function getStyles() {
 
 
     return {
-      title: {
+      herokuTitle: {
         fill: WHITE_COLOR,
         fontFamily: "inherit",
-        fontSize: "28px",
+        fontSize: 28,
+        fontWeight: 700,
+      },
+      AWSTitle: {
+        fill: WHITE_COLOR,
+        fontFamily: "inherit",
+        fontSize: 24,
+        fontWeight: 700,
+      },
+      GCPTitle: {
+        fill: WHITE_COLOR,
+        fontFamily: "inherit",
+        fontSize: 24,
         fontWeight: 700,
       },
       labelNumber: {
@@ -70,6 +82,12 @@ export function getStyles() {
       // AWS WIDGET BAR STYLES
       AWSBar: {
         data: { fill: BLUE_COLOR },
+        labels: { fill: WHITE_COLOR, fontSize: "12px" }
+      },
+
+      // GOOGLE CLOUD COST WIDGET BAR STYLES
+      GCPBar: {
+        data: { fill: RED_COLOR },
         labels: { fill: WHITE_COLOR, fontSize: "12px" }
       }
     };

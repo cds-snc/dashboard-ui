@@ -92,12 +92,12 @@ export default class HerokuCost extends React.Component<Props, State> {
             domainPadding={30}
             height={350}
             style={{
-              parent: { border: "1px solid #000", background: "#292A29" }
+              parent: { background: "#292A29" }
             }}
           >
             <VictoryLabel
               text="Heroku cost per month"
-              style={styles.title}
+              style={styles.herokuTitle}
               x={47}
               y={15}
             />

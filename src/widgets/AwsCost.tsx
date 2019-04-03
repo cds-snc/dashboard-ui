@@ -73,14 +73,15 @@ export default class AwsCost extends React.Component<Props, State> {
         <VictoryChart
           //theme={VictoryTheme.material}
           domainPadding={30}
-          height={350}
+          height={300}
+          width={375}
           style={{
-            parent: { border: "1px solid #000", background: "#292A29" }
+            parent: { background: "#292A29" }
           }}
         >
           <VictoryLabel
             text="AWS cost per month"
-            style={styles.title}
+            style={styles.AWSTitle}
             x={47}
             y={15}
           />
@@ -97,6 +98,7 @@ export default class AwsCost extends React.Component<Props, State> {
             data={this.getData()}
             labels={(d) => (`$${d.y.toFixed(2)}`)}
             style={styles.AWSBar}
+            barWidth={30}
             labelComponent={
               <VictoryLabel
                 style={styles.AWSBar.labels}
