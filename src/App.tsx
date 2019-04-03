@@ -33,7 +33,7 @@ class App extends React.Component<Props> {
           height="100vh"
           areas={["a b c d", "e f h g"]}
           columns="4"
-          gap="10px"
+          gap="1px"
         >
           <HerokuCost area="a" socket={this.socket} />
           <AwsCost area="b" socket={this.socket} />

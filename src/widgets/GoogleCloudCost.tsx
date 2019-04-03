@@ -5,6 +5,7 @@ import {
   VictoryBar, VictoryChart, VictoryAxis,
   VictoryTheme, VictoryLabel, VictoryStack
 } from 'victory';
+import { getStyles } from '../styles'
 
 
 interface CostItem {
@@ -69,41 +70,41 @@ export default class GoogleCloudCost extends React.Component<Props, State> {
 
     const data: Payload = this.state.payload;
     const { area } = this.props;
+    const styles = getStyles();
+
     return (
-      <Cell area={area}>
+      <Cell area={area} style={{ backgroundColor: "#292A29", paddingLeft: "20px" }}>
         <VictoryChart
-          theme={VictoryTheme.material}
-          domainPadding={20}
+          domainPadding={75}
+          height={280}
+          width={350}
           style={{
-            parent: { border: "1px solid #ccc" }
+            parent: { background: "#292A29" }
           }}
         >
           <VictoryLabel
             text="GCP cost per month"
-            style={{
-              fontSize: "20px"
-            }}
-            x={10}
+            style={styles.GCPTitle}
+            x={47}
             y={20}
           />
           <VictoryAxis
-            style={{
-              tickLabels: { fontSize: '9px' }
-            }}
+            style={styles.axisOne}
             padding={20}
           />
           <VictoryAxis
             dependentAxis
             tickFormat={(x) => (`$${x.toFixed(2)}`)}
+            style={styles.axisYears}
           />
           <VictoryBar
             data={this.getData()}
             labels={(d) => (`$${d.y.toFixed(2)}`)}
+            barWidth={40}
+            style={styles.GCPBar}
             labelComponent={
               <VictoryLabel
-                style={{
-                  fontSize: "9px"
-                }}
+                style={styles.GCPBar.labels}
               />
             }
           />

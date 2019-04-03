@@ -5,6 +5,7 @@ import {
   VictoryBar, VictoryChart, VictoryAxis,
   VictoryTheme, VictoryLabel
 } from 'victory';
+import { getStyles } from '../styles'
 
 interface Payload {
   data: any;
@@ -47,7 +48,7 @@ export default class AwsCost extends React.Component<Props, State> {
       return 0;
     });
 
-    return chartData.map((p:any) => {
+    return chartData.slice(-5).map((p:any) => {
       const month = p.TimePeriod.Start.split("-")
       return {
         x: `${month[0].slice(-2)}-${month[1]}`,
@@ -65,42 +66,42 @@ export default class AwsCost extends React.Component<Props, State> {
     }
 
     const { area } = this.props;
+    const styles = getStyles();
 
     return (
-      <Cell center area={area} style={{ backgroundColor: "#fff" }}>
+      <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
         <VictoryChart
-          theme={VictoryTheme.material}
-          domainPadding={40}
+          //theme={VictoryTheme.material}
+          domainPadding={30}
+          height={300}
+          width={375}
           style={{
-            parent: { border: "1px solid #ccc" }
+            parent: { background: "#292A29" }
           }}
         >
           <VictoryLabel
             text="AWS cost per month"
-            style={{
-              fontSize: "20px"
-            }}
-            x={10}
-            y={20}
+            style={styles.AWSTitle}
+            x={47}
+            y={15}
           />
           <VictoryAxis
-            style={{
-              tickLabels: { fontSize: '9px' }
-            }}
+            style={styles.axisOne}
             padding={20}
           />
           <VictoryAxis
             dependentAxis
             tickFormat={(x) => (`$${x}`)}
+            style={styles.axisTwo}
           />
           <VictoryBar
             data={this.getData()}
             labels={(d) => (`$${d.y.toFixed(2)}`)}
+            style={styles.AWSBar}
+            barWidth={30}
             labelComponent={
               <VictoryLabel
-                style={{
-                  fontSize: "11px"
-                }}
+                style={styles.AWSBar.labels}
               />
             }
           />
