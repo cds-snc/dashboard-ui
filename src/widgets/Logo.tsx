@@ -19,7 +19,7 @@ export default class Logo extends React.Component<Props> {
   render() {
     const { area } = this.props;
     return (
-      <Cell area={area} center style={{ backgroundColor: "#000" }}>
+      <Cell data-testid="widget" area={area} center style={{ backgroundColor: "#000" }}>
         <Panel>
           <img width="400px" src={`${process.env.PUBLIC_URL}/logo.svg`} />
         </Panel>

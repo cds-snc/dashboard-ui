@@ -13,6 +13,8 @@ import GoogleCloudCost from "./widgets/GoogleCloudCost";
 import Empty from "./widgets/Empty";
 import styled from "styled-components";
 
+export type Area = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h";
+
 /* https://github.com/azz/styled-css-grid */
 
 const DATA_URL = "wss://loon-server.herokuapp.com/socket";

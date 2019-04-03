@@ -6,6 +6,7 @@ import {
   VictoryTheme, VictoryLabel, VictoryStack
 } from 'victory';
 import { getStyles } from '../styles'
+import { Area } from "../App";
 
 
 interface CostItem {
@@ -23,7 +24,7 @@ interface State {
 }
 interface Props {
   socket: Socket;
-  area: string;
+  area: Area;
 }
 
 export default class GoogleCloudCost extends React.Component<Props, State> {

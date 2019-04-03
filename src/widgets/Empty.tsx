@@ -1,12 +1,13 @@
 import React from "react";
 import { Cell } from "styled-css-grid";
+import { Area } from "../App";
 import {
     VictoryChart,
     VictoryTheme
 } from 'victory';
 
 interface Props {
-    area: string;
+    area: Area;
 }
 
 export default class Empty extends React.Component<Props> {
