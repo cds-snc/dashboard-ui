@@ -2,6 +2,7 @@ import React from "react";
 import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
 import styled from "styled-components";
+import { Area } from "../App";
 
 interface Connection {
   [key: string]: string;
@@ -16,7 +17,7 @@ interface State {
 }
 interface Props {
   socket: Socket;
-  area: string;
+  area: Area;
 }
 
 const Panel = styled.div`

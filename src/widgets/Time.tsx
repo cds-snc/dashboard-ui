@@ -3,6 +3,7 @@ import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
 import styled from "styled-components";
 import { format } from "date-fns";
+import { Area } from "../App";
 interface Payload {
   data: string;
   timestamp: Date;
@@ -12,7 +13,7 @@ interface State {
 }
 interface Props {
   socket: Socket;
-  area: string;
+  area: Area;
 }
 
 const Panel = styled.div`

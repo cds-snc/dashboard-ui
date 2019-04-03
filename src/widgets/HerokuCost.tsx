@@ -1,6 +1,7 @@
 import React from "react";
 import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
+import { Area } from "../App";
 import {
   VictoryBar,
   VictoryChart,
@@ -39,7 +40,7 @@ interface State {
 }
 interface Props {
   socket: Socket;
-  area: string;
+  area: Area;
 }
 
 export default class HerokuCost extends React.Component<Props, State> {
