@@ -8,6 +8,7 @@ export function getStyles() {
     const BLACKDARK_COLOR = "#1A1B1E";
     const BLACKLIGHT_COLOR = "#292A29";
     const GREEN_COLOR = "#31D397";
+    const YELLOW_COLOR = "#F0C656"
 
 
     return {
@@ -27,6 +28,12 @@ export function getStyles() {
         fill: WHITE_COLOR,
         fontFamily: "inherit",
         fontSize: 24,
+        fontWeight: 700,
+      },
+      MemoryTitle: {
+        fill: WHITE_COLOR,
+        fontFamily: "inherit",
+        fontSize: 28,
         fontWeight: 700,
       },
       labelNumber: {
@@ -88,6 +95,13 @@ export function getStyles() {
       // GOOGLE CLOUD COST WIDGET BAR STYLES
       GCPBar: {
         data: { fill: RED_COLOR },
+        labels: { fill: WHITE_COLOR, fontSize: "12px" }
+      },
+
+      // TOTAL MEMORY WIDGET BAR STYLES
+      MemoryLine: {
+        data: { stroke: YELLOW_COLOR, strokeWidth: 6 },
+        parent: { border: "1px solid #ccc" },
         labels: { fill: WHITE_COLOR, fontSize: "12px" }
       }
     };

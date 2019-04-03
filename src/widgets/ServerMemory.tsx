@@ -8,6 +8,7 @@ import {
   VictoryLine,
   VictoryTheme
 } from 'victory';
+import { getStyles } from '../styles'
 
 interface Payload {
   data: {
@@ -70,34 +71,33 @@ export default class ServerMemory extends React.Component<Props, State> {
     }
     
     const { area } = this.props;
+    const styles = getStyles();
+
     return (
-      <Cell area={area}>
+      <Cell area={area} style={{ backgroundColor: "#292A29", paddingLeft: "20px" }}>
         <VictoryChart
-          theme={VictoryTheme.material}
+          height={350}
           style={{
-            parent: { border: "1px solid #ccc" }
+            parent: { background: "#292A29" }
           }}
         >
           <VictoryLabel
             text="Total memory usage"
-            style={{
-              fontSize: "20px"
-            }}
-            x={10}
-            y={20}
+            style={styles.MemoryTitle}
+            x={47}
+            y={15}
           />
           <VictoryAxis
+          style={styles.axisOne}
           />
           <VictoryAxis
             dependentAxis
             tickFormat={(x:number) => (`${x.toFixed(2)} MB`)}
+            style={styles.axisYears}
           />
           <VictoryLine
             interpolation="natural"
-            style={{
-              data: { stroke: "#c43a31" },
-              parent: { border: "1px solid #ccc" }
-            }}
+            style={styles.MemoryLine}
             data={this.getData()}
           />
         </VictoryChart>
