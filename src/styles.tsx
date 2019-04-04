@@ -1,10 +1,12 @@
+import styled from 'styled-components'
+
 export function getStyles() {
     const WHITE_COLOR = "#FFFFFF";
     const BLACK_COLOR = "#000000"
     const BLUE_COLOR = "#367BBC";
     const RED_COLOR = "#C14C54";
     const AXIS_COLOR = "#FFFFFF";
-    const LIGHTGRAY_COLOR = "#f0efef";
+    const LIGHTGRAY_COLOR = "#4F4F4F";
     const BLACKDARK_COLOR = "#1A1B1E";
     const BLACKLIGHT_COLOR = "#292A29";
     const GREEN_COLOR = "#31D397";
@@ -51,7 +53,7 @@ export function getStyles() {
 
       // INDEPENDENT AXIS
       axisYears: {
-        grid: { strokeWidth: 0 },
+        grid: { strokeWidth: 1, stroke: LIGHTGRAY_COLOR },
         axis: { stroke: AXIS_COLOR, strokeWidth: 1},
         ticks: {
           stroke: AXIS_COLOR,
@@ -66,7 +68,7 @@ export function getStyles() {
 
       // DEPENDANT AXIS
       axisOne: {
-        grid: { strokeWidth: 0 },
+        grid: { strokeWidth: 1, stroke: LIGHTGRAY_COLOR },
         axis: { stroke: AXIS_COLOR, strokeWidth: 1 }, 
         ticks: { stroke: AXIS_COLOR , strokeWidth: 1 },
         tickLabels: {
@@ -77,7 +79,7 @@ export function getStyles() {
       },
 
       axisTwo: {
-        grid: { strokeWidth: 0 },
+        grid: { strokeWidth: 1, stroke: LIGHTGRAY_COLOR },
         axis: { stroke: AXIS_COLOR, strokeWidth: 1 }, 
         ticks: { stroke: AXIS_COLOR , strokeWidth: 1 },
         tickLabels: {
@@ -119,3 +121,16 @@ export function getStyles() {
       }
     };
   }
+
+export const WidgetTitle = styled.h3`
+  padding-top: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 1.5rem;
+  background: #292A29;
+  color: #FFFFFF;
+`
+
+export const Panel = styled.div`
+  text-align: center;
+`

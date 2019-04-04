@@ -10,7 +10,7 @@ import {
   VictoryTheme,
   VictoryLabel
 } from "victory";
-import { getStyles } from "../styles";
+import { getStyles, Panel, WidgetTitle } from "../styles";
 
 interface Payload {
   data: any;
@@ -19,6 +19,7 @@ interface Payload {
 interface State {
   payload?: Payload;
   error: Boolean;
+  width: number;
 }
 interface Props {
   payload?: Payload;
@@ -32,8 +33,11 @@ export default class AwsCost extends React.Component<Props, State> {
 
     this.state = {
       payload: this.props.payload,
-      error: false
+      error: false,
+      width: 0,
     };
+
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
 
     let channel = props.socket.channel("data_source:aws_cost", {});
     let chart: any;
@@ -49,6 +53,19 @@ export default class AwsCost extends React.Component<Props, State> {
         this.setState({ error: true });
       }
     });
+  }
+
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth });
   }
 
   getData = () => {
@@ -82,14 +99,19 @@ export default class AwsCost extends React.Component<Props, State> {
       };
     });
 
+
     // let forecast = parseFloat(this.state.payload.data.forecast.Total.Amount);
     // return [{ x: "Past", y: past }, { x: "Current", y: current }, { x: "Forecast", y: forecast }]
   };
 
   render() {
     const { area } = this.props;
+
     const styles = getStyles();
     const data = this.getData();
+
+    console.log(this.state.width)
+
     if (!this.state || !this.state.payload) {
       return (
         <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
@@ -115,23 +137,20 @@ export default class AwsCost extends React.Component<Props, State> {
     }
 
     return (
+      <Panel data-testid="aws-widget">
+
+      <WidgetTitle>AWS cost per month</WidgetTitle>
+
       <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
-        <div data-testid="aws-widget">
+        
           <VictoryChart
-            //theme={VictoryTheme.material}
             domainPadding={30}
-            height={300}
-            width={375}
+            padding={40}
+            width={350}
             style={{
-              parent: { background: "#292A29" }
+              parent: { background: "#292A29", height: "70%", paddingLeft: "0px" }
             }}
           >
-            <VictoryLabel
-              text="AWS cost per month"
-              style={styles.AWSTitle}
-              x={47}
-              y={15}
-            />
             <VictoryAxis style={styles.axisOne} padding={20} />
             <VictoryAxis
               dependentAxis
@@ -146,8 +165,8 @@ export default class AwsCost extends React.Component<Props, State> {
               labelComponent={<VictoryLabel style={styles.AWSBar.labels} />}
             />
           </VictoryChart>
-        </div>
       </Cell>
+    </Panel>
     );
   }
 }
