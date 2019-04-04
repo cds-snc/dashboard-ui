@@ -9,6 +9,7 @@ export function getStyles() {
     const BLACKLIGHT_COLOR = "#292A29";
     const GREEN_COLOR = "#31D397";
     const YELLOW_COLOR = "#F0C656"
+    const PURPLE_COLOR = "#b19cd9"
 
 
     return {
@@ -19,6 +20,12 @@ export function getStyles() {
         fontWeight: 700,
       },
       AWSTitle: {
+        fill: WHITE_COLOR,
+        fontFamily: "inherit",
+        fontSize: 24,
+        fontWeight: 700,
+      },
+      AzureTitle: {
         fill: WHITE_COLOR,
         fontFamily: "inherit",
         fontSize: 24,
@@ -89,6 +96,12 @@ export function getStyles() {
       // AWS WIDGET BAR STYLES
       AWSBar: {
         data: { fill: BLUE_COLOR },
+        labels: { fill: WHITE_COLOR, fontSize: "12px" }
+      },
+
+      // Azure WIDGET BAR STYLES
+      AzureBar: {
+        data: { fill: PURPLE_COLOR },
         labels: { fill: WHITE_COLOR, fontSize: "12px" }
       },
 

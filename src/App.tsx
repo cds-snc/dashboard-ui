@@ -8,6 +8,7 @@ import Uptime from "./widgets/Uptime";
 import Github from "./widgets/Github";
 import Logo from "./widgets/Logo";
 import AwsCost from "./widgets/AwsCost";
+import AzureCost from "./widgets/AzureCost";
 import HerokuCost from "./widgets/HerokuCost";
 import GoogleCloudCost from "./widgets/GoogleCloudCost";
 import Empty from "./widgets/Empty";
@@ -40,7 +41,7 @@ class App extends React.Component<Props> {
           <HerokuCost area="a" socket={this.socket} />
           <AwsCost area="b" socket={this.socket} />
           <GoogleCloudCost area="c" socket={this.socket} />
-          <Empty area="d" />
+          <AzureCost area="d" socket={this.socket} />
           <ServerMemory area="e" socket={this.socket} />
           <Empty area="f" />
           <Empty area="g" />
