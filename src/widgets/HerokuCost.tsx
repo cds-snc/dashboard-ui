@@ -103,10 +103,10 @@ export default class HerokuCost extends React.Component<Props, State> {
               y={15}
             />
             <VictoryAxis
-              style={styles.axisYears}
+              style={styles.axisOne}
               padding={20}
             />
-            <VictoryAxis style={styles.axisOne} dependentAxis tickFormat={x => `$${x}`} />
+            <VictoryAxis style={styles.axisYears} dependentAxis tickFormat={x => `$${x}`} />
             <VictoryBar
               data={this.getData()}
               style={styles.herokuBar}
