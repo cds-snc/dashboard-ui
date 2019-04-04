@@ -138,7 +138,9 @@ export default class AwsCost extends React.Component<Props, State> {
 
     return (
       <Panel data-testid="aws-widget">
+
       <WidgetTitle>AWS cost per month</WidgetTitle>
+
       <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
         
           <VictoryChart
