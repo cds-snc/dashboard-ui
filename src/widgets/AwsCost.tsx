@@ -16,9 +16,11 @@ interface Payload {
   timestamp: Date;
 }
 interface State {
-  payload: Payload;
+  payload?: Payload;
+  error: Boolean;
 }
 interface Props {
+  payload?: Payload;
   socket: Socket;
   area: Area;
 }
@@ -26,6 +28,12 @@ interface Props {
 export default class AwsCost extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
+
+    this.state = {
+      payload: this.props.payload,
+      error: false
+    };
+
     let channel = props.socket.channel("data_source:aws_cost", {});
     let chart: any;
 
@@ -33,26 +41,37 @@ export default class AwsCost extends React.Component<Props, State> {
       console.log("Unable to join: ", resp);
     });
     channel.on("data", (payload: Payload) => {
-      this.setState({ payload: payload });
+      try {
+        const results = payload.data.cost_per_month.ResultsByTime;
+        this.setState({ payload: payload });
+      } catch (e) {
+        this.setState({ error: true });
+      }
     });
   }
 
   getData = () => {
-    if (!this.state || !this.state.payload) {
-      return [];
+    let results = [];
+
+    if (
+      this.state &&
+      this.state.payload &&
+      this.state.payload.data &&
+      this.state.payload.data.cost_per_month &&
+      this.state.payload.data.cost_per_month.ResultsByTime
+    ) {
+      results = this.state.payload.data.cost_per_month.ResultsByTime;
     }
 
-    let chartData = this.state.payload.data.cost_per_month.ResultsByTime.sort(
-      (obj1: any, obj2: any) => {
-        if (obj1.TimePeriod.Start > obj2.TimePeriod.Start) {
-          return 1;
-        }
-        if (obj1.TimePeriod.Start < obj2.TimePeriod.Start) {
-          return -1;
-        }
-        return 0;
+    let chartData = results.sort((obj1: any, obj2: any) => {
+      if (obj1.TimePeriod.Start > obj2.TimePeriod.Start) {
+        return 1;
       }
-    );
+      if (obj1.TimePeriod.Start < obj2.TimePeriod.Start) {
+        return -1;
+      }
+      return 0;
+    });
 
     return chartData.slice(-5).map((p: any) => {
       const month = p.TimePeriod.Start.split("-");
@@ -68,15 +87,32 @@ export default class AwsCost extends React.Component<Props, State> {
 
   render() {
     if (!this.state || !this.state.payload) {
-      return <div data-testid="widget">loading</div>;
+      return <div data-testid="loading-widget">loading</div>;
+    }
+
+    if (this.state.error) {
+      return (
+        <div data-testid="error-widget">
+          <h1>Something went wrong.</h1>
+        </div>
+      );
     }
 
     const { area } = this.props;
     const styles = getStyles();
+    const data = this.getData();
+
+    if (data.length < 1) {
+      return (
+        <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
+          <div data-testid="aws-widget">Data not found</div>
+        </Cell>
+      );
+    }
 
     return (
       <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
-        <div data-testid="widget">
+        <div data-testid="aws-widget">
           <VictoryChart
             //theme={VictoryTheme.material}
             domainPadding={30}
@@ -99,7 +135,7 @@ export default class AwsCost extends React.Component<Props, State> {
               style={styles.axisTwo}
             />
             <VictoryBar
-              data={this.getData()}
+              data={data}
               labels={d => `$${d.y.toFixed(2)}`}
               style={styles.AWSBar}
               barWidth={30}
