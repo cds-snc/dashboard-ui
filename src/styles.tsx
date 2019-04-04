@@ -1,3 +1,5 @@
+import styled from 'styled-components'
+
 export function getStyles() {
     const WHITE_COLOR = "#FFFFFF";
     const BLACK_COLOR = "#000000"
@@ -119,3 +121,16 @@ export function getStyles() {
       }
     };
   }
+
+export const WidgetTitle = styled.h3`
+  padding-top: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 1.5rem;
+  background: #292A29;
+  color: #FFFFFF;
+`
+
+export const Panel = styled.div`
+  text-align: center;
+`

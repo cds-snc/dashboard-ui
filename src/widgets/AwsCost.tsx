@@ -10,8 +10,7 @@ import {
   VictoryTheme,
   VictoryLabel
 } from "victory";
-import { getStyles } from "../styles";
-import styled from 'styled-components';
+import { getStyles, Panel, WidgetTitle } from "../styles";
 
 interface Payload {
   data: any;
@@ -27,19 +26,6 @@ interface Props {
   socket: Socket;
   area: Area;
 }
-
-const AWSTitle = styled.h3`
-  padding-top: 1.5rem;
-  margin-top: 0;
-  margin-bottom: 0;
-  font-size: 1.5rem;
-  background: #292A29;
-  color: #FFFFFF;
-`
-
-const Panel = styled.div`
-  text-align: center;
-`
 
 export default class AwsCost extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -152,7 +138,7 @@ export default class AwsCost extends React.Component<Props, State> {
 
     return (
       <Panel data-testid="aws-widget">
-      <AWSTitle>AWS cost per month</AWSTitle>
+      <WidgetTitle>AWS cost per month</WidgetTitle>
       <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
         
           <VictoryChart
