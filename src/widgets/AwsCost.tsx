@@ -2,6 +2,7 @@ import React from "react";
 import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
 import { Area } from "../App";
+import { Loader } from "../Loader";
 import {
   VictoryBar,
   VictoryChart,
@@ -86,8 +87,15 @@ export default class AwsCost extends React.Component<Props, State> {
   };
 
   render() {
+    const { area } = this.props;
+    const styles = getStyles();
+    const data = this.getData();
     if (!this.state || !this.state.payload) {
-      return <div data-testid="loading-widget">loading</div>;
+      return (
+        <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
+          <Loader />
+        </Cell>
+      );
     }
 
     if (this.state.error) {
@@ -97,10 +105,6 @@ export default class AwsCost extends React.Component<Props, State> {
         </div>
       );
     }
-
-    const { area } = this.props;
-    const styles = getStyles();
-    const data = this.getData();
 
     if (data.length < 1) {
       return (
