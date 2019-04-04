@@ -11,6 +11,7 @@ import {
 } from "victory";
 import { getStyles } from "../styles";
 
+import { Loader } from "../Loader";
 
 interface billingPeriod {
   addons_total: number;
@@ -80,47 +81,47 @@ export default class HerokuCost extends React.Component<Props, State> {
   };
 
   render() {
-    if (!this.state || !this.state.payload) {
-      return null;
-    }
-
     const { area } = this.props;
     const styles = getStyles();
 
-    return (
+    if (!this.state || !this.state.payload) {
+      return (
         <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
-          <VictoryChart
-            domainPadding={30}
-            height={350}
-            style={{
-              parent: { background: "#292A29" }
-            }}
-          >
-            <VictoryLabel
-              text="Heroku cost per month"
-              style={styles.herokuTitle}
-              x={47}
-              y={15}
-            />
-            <VictoryAxis
-              style={styles.axisYears}
-              padding={20}
-            />
-            <VictoryAxis style={styles.axisOne} dependentAxis tickFormat={x => `$${x}`} />
-            <VictoryBar
-              data={this.getData()}
-              style={styles.herokuBar}
-              barWidth={40}
-              labels={d => `$${d.y}`}
-              labelComponent={
-                <VictoryLabel
-                  style={styles.herokuBar.labels}
-                />
-              }
-            />
-          </VictoryChart>
+          <Loader />
         </Cell>
+      );
+    }
+
+    return (
+      <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
+        <VictoryChart
+          domainPadding={30}
+          height={350}
+          style={{
+            parent: { background: "#292A29" }
+          }}
+        >
+          <VictoryLabel
+            text="Heroku cost per month"
+            style={styles.herokuTitle}
+            x={47}
+            y={15}
+          />
+          <VictoryAxis style={styles.axisYears} padding={20} />
+          <VictoryAxis
+            style={styles.axisOne}
+            dependentAxis
+            tickFormat={x => `$${x}`}
+          />
+          <VictoryBar
+            data={this.getData()}
+            style={styles.herokuBar}
+            barWidth={40}
+            labels={d => `$${d.y}`}
+            labelComponent={<VictoryLabel style={styles.herokuBar.labels} />}
+          />
+        </VictoryChart>
+      </Cell>
     );
   }
-
 }

@@ -8,8 +8,10 @@ import {
   VictoryLabel,
   VictoryLine,
   VictoryTheme
-} from 'victory';
-import { getStyles } from '../styles'
+} from "victory";
+import { getStyles } from "../styles";
+
+import { Loader } from "../Loader";
 
 interface Payload {
   data: {
@@ -27,13 +29,13 @@ interface Payload {
 }
 
 interface Point {
-  x: number,
-  y: number
+  x: number;
+  y: number;
 }
 
 interface State {
   payload: Payload;
-  data: number[],
+  data: number[];
 }
 
 interface Props {
@@ -49,12 +51,12 @@ export default class ServerMemory extends React.Component<Props, State> {
 
     channel.join().receive("error", (resp: string) => {
       console.log("Unable to join: ", resp);
-    })
+    });
 
     channel.on("data", (payload: Payload) => {
       // data.push({x: Date.now(), y: payload.data.total / 1000000
-      data.push(payload.data.total / 1000000)
-      data = data.slice(-60)
+      data.push(payload.data.total / 1000000);
+      data = data.slice(-60);
       this.setState({ payload: payload, data: data });
     });
   }
@@ -63,19 +65,26 @@ export default class ServerMemory extends React.Component<Props, State> {
     if (!this.state || !this.state.payload) {
       return [];
     }
-    return this.state.data
-  }
+    return this.state.data;
+  };
 
   render() {
-    if (!this.state || !this.state.payload) {
-      return null;
-    }
-    
     const { area } = this.props;
     const styles = getStyles();
 
+    if (!this.state || !this.state.payload) {
+      return (
+        <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
+          <Loader />
+        </Cell>
+      );
+    }
+
     return (
-      <Cell area={area} style={{ backgroundColor: "#292A29", paddingLeft: "20px" }}>
+      <Cell
+        area={area}
+        style={{ backgroundColor: "#292A29", paddingLeft: "20px" }}
+      >
         <VictoryChart
           height={350}
           style={{
@@ -88,12 +97,10 @@ export default class ServerMemory extends React.Component<Props, State> {
             x={47}
             y={15}
           />
-          <VictoryAxis
-          style={styles.axisOne}
-          />
+          <VictoryAxis style={styles.axisOne} />
           <VictoryAxis
             dependentAxis
-            tickFormat={(x:number) => (`${x.toFixed(2)} MB`)}
+            tickFormat={(x: number) => `${x.toFixed(2)} MB`}
             style={styles.axisYears}
           />
           <VictoryLine
