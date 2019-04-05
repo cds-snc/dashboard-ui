@@ -110,7 +110,7 @@ export default class AwsCost extends React.Component<Props, State> {
     const styles = getStyles();
     const data = this.getData();
 
-    console.log(this.state.width)
+   // Leaving this here to make queries easier later console.log(this.state.width)
 
     if (!this.state || !this.state.payload) {
       return (

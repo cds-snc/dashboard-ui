@@ -96,7 +96,6 @@ export default class HerokuCost extends React.Component<Props, State> {
       <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
         <VictoryChart
           domainPadding={30}
-          height={350}
           style={{
             parent: { background: "#292A29" }
           }}
