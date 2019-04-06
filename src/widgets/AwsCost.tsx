@@ -20,6 +20,7 @@ interface State {
   payload?: Payload;
   error: Boolean;
   width: number;
+  height: number;
 }
 interface Props {
   payload?: Payload;
@@ -35,6 +36,7 @@ export default class AwsCost extends React.Component<Props, State> {
       payload: this.props.payload,
       error: false,
       width: 0,
+      height: 0
     };
 
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
@@ -65,7 +67,7 @@ export default class AwsCost extends React.Component<Props, State> {
   }
 
   updateWindowDimensions() {
-    this.setState({ width: window.innerWidth });
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
 
   getData = () => {
@@ -110,7 +112,7 @@ export default class AwsCost extends React.Component<Props, State> {
     const styles = getStyles();
     const data = this.getData();
 
-    console.log(this.state.width)
+    // console.log(`Screen width ${this.state.width}, Screen Height: ${this.state.height}`)
 
     if (!this.state || !this.state.payload) {
       return (
@@ -141,14 +143,13 @@ export default class AwsCost extends React.Component<Props, State> {
 
       <WidgetTitle>AWS cost per month</WidgetTitle>
 
-      <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
+      <Cell center area={area} style={this.state.height > 900 ? { height: "87.5%" } : this.state.height > 800 ? { height: "80%" } : { height: "64%" } }>
         
           <VictoryChart
             domainPadding={30}
             padding={40}
-            width={350}
             style={{
-              parent: { background: "#292A29", height: "70%", paddingLeft: "0px" }
+              parent: { background: "#292A29", height: "100%", paddingLeft: "0px" }
             }}
           >
             <VictoryAxis style={styles.axisOne} padding={20} />

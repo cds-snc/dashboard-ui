@@ -13,6 +13,7 @@ import HerokuCost from "./widgets/HerokuCost";
 import GoogleCloudCost from "./widgets/GoogleCloudCost";
 import Empty from "./widgets/Empty";
 import styled from "styled-components";
+import './App.css';
 
 export type Area = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h";
 

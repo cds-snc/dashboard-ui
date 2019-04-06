@@ -9,7 +9,7 @@ import {
   VictoryTheme,
   VictoryLabel
 } from "victory";
-import { getStyles } from "../styles";
+import { getStyles, Panel, WidgetTitle } from "../styles";
 
 import { Loader } from "../Loader";
 
@@ -23,16 +23,28 @@ interface Payload {
   timestamp: Date;
 }
 interface State {
-  payload: Payload;
+  payload?: Payload;
+  width: number;
+  height: number;
 }
 interface Props {
   socket: Socket;
   area: Area;
+  payload?: Payload;
 }
 
 export default class AzureCost extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
+
+    this.state = {
+      width: 0,
+      height: 0,
+      payload: this.props.payload
+    };
+
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+
     let channel = props.socket.channel("data_source:azure_cost", {});
     let chart: any;
 
@@ -42,6 +54,19 @@ export default class AzureCost extends React.Component<Props, State> {
     channel.on("data", (payload: Payload) => {
       this.setState({ payload: payload });
     });
+  }
+
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
 
   getData = () => {
@@ -79,35 +104,31 @@ export default class AzureCost extends React.Component<Props, State> {
     }
 
     return (
-      <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
-        <VictoryChart
-          domainPadding={30}
-          height={350}
-          style={{
-            parent: { background: "#292A29" }
-          }}
-        >
-          <VictoryLabel
-            text="Azure cost per month"
-            style={styles.AzureTitle}
-            x={47}
-            y={15}
-          />
-          <VictoryAxis style={styles.axisYears} padding={20} />
-          <VictoryAxis
-            style={styles.axisOne}
-            dependentAxis
-            tickFormat={x => `$${x.toFixed(2)}`}
-          />
-          <VictoryBar
-            data={this.getData()}
-            style={styles.AzureBar}
-            barWidth={40}
-            labels={d => `$${d.y.toFixed(2)}`}
-            labelComponent={<VictoryLabel style={styles.AzureBar.labels} />}
-          />
-        </VictoryChart>
-      </Cell>
+      <Panel data-testid="azure-cost-widget">
+      <WidgetTitle>Azure cost per month</WidgetTitle>
+        <Cell center area={area} style={this.state.height > 900 ? { height: "87.5%" } : this.state.height > 800 ? { height: "80%" } : { height: "64%" } }>
+          <VictoryChart
+            domainPadding={30}
+            style={{
+              parent: { background: "#292A29", height: "100%" }
+            }}
+          >
+            <VictoryAxis style={styles.axisYears} padding={20} />
+            <VictoryAxis
+              style={styles.axisOne}
+              dependentAxis
+              tickFormat={x => `$${x.toFixed(2)}`}
+            />
+            <VictoryBar
+              data={this.getData()}
+              style={styles.AzureBar}
+              barWidth={40}
+              labels={d => `$${d.y.toFixed(2)}`}
+              labelComponent={<VictoryLabel style={styles.AzureBar.labels} />}
+            />
+          </VictoryChart>
+        </Cell>
+      </Panel>
     );
   }
 }
