@@ -129,6 +129,10 @@ export const WidgetTitle = styled.h3`
   font-size: 1.5rem;
   background: #292A29;
   color: #FFFFFF;
+
+  @media only screen and (max-width: 900px) {
+    font-size: 1rem;
+  }
 `
 
 export const Panel = styled.div`
