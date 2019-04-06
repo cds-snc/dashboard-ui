@@ -9,7 +9,7 @@ import {
   VictoryLine,
   VictoryTheme
 } from "victory";
-import { getStyles } from "../styles";
+import { getStyles, Panel, WidgetTitle } from "../styles";
 
 import { Loader } from "../Loader";
 
@@ -34,18 +34,29 @@ interface Point {
 }
 
 interface State {
-  payload: Payload;
-  data: number[];
+  payload?: Payload;
+  data?: number[];
+  width: number;
+  height: number;
 }
 
 interface Props {
   socket: Socket;
   area: Area;
+  payload?: Payload;
 }
 
 export default class ServerMemory extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
+
+    this.state = {
+      width: 0,
+      height: 0
+    };
+
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+
     let channel = props.socket.channel("data_source:server_memory", {});
     let data: number[] = [];
 
@@ -59,6 +70,19 @@ export default class ServerMemory extends React.Component<Props, State> {
       data = data.slice(-60);
       this.setState({ payload: payload, data: data });
     });
+  }
+
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
 
   getData = () => {
@@ -81,35 +105,31 @@ export default class ServerMemory extends React.Component<Props, State> {
     }
 
     return (
-      <Cell
-        area={area}
-        style={{ backgroundColor: "#292A29", paddingLeft: "20px" }}
-      >
-        <VictoryChart
-          height={350}
-          style={{
-            parent: { background: "#292A29" }
-          }}
+      <Panel data-testid="server-memory-widget">
+      <WidgetTitle>Total memory usage</WidgetTitle>
+        <Cell
+          area={area}
+          style={this.state.height > 900 ? { height: "87.5%" } : this.state.height > 800 ? { height: "80%" } : { height: "64%" } }
         >
-          <VictoryLabel
-            text="Total memory usage"
-            style={styles.MemoryTitle}
-            x={47}
-            y={15}
-          />
-          <VictoryAxis style={styles.axisOne} />
-          <VictoryAxis
-            dependentAxis
-            tickFormat={(x: number) => `${x.toFixed(2)} MB`}
-            style={styles.axisYears}
-          />
-          <VictoryLine
-            interpolation="natural"
-            style={styles.MemoryLine}
-            data={this.getData()}
-          />
-        </VictoryChart>
-      </Cell>
+          <VictoryChart
+            style={{
+              parent: { background: "#292A29", height: "100%" }
+            }}
+          >
+            <VictoryAxis style={styles.axisOne} />
+            <VictoryAxis
+              dependentAxis
+              tickFormat={(x: number) => `${x.toFixed(2)} MB`}
+              style={styles.axisYears}
+            />
+            <VictoryLine
+              interpolation="natural"
+              style={styles.MemoryLine}
+              data={this.getData()}
+            />
+          </VictoryChart>
+        </Cell>
+      </Panel>
     );
   }
 }

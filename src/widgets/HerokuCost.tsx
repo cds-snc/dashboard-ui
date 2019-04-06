@@ -9,7 +9,7 @@ import {
   VictoryTheme,
   VictoryLabel
 } from "victory";
-import { getStyles } from "../styles";
+import { getStyles, Panel, WidgetTitle } from "../styles";
 
 import { Loader } from "../Loader";
 
@@ -37,11 +37,14 @@ interface Payload {
   timestamp: Date;
 }
 interface State {
-  payload: Payload;
+  payload?: Payload;
+  width: number;
+  height: number;
 }
 interface Props {
   socket: Socket;
   area: Area;
+  payload?: Payload;
 }
 
 export default class HerokuCost extends React.Component<Props, State> {
@@ -50,12 +53,32 @@ export default class HerokuCost extends React.Component<Props, State> {
     let channel = props.socket.channel("data_source:heroku_cost", {});
     let chart: any;
 
+    this.state = {
+      width: 0,
+      height: 0,
+    };
+
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+
     channel.join().receive("error", (resp: string) => {
       console.log("Unable to join: ", resp);
     });
     channel.on("data", (payload: Payload) => {
       this.setState({ payload: payload });
     });
+  }
+
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
 
   getData = () => {
@@ -84,6 +107,8 @@ export default class HerokuCost extends React.Component<Props, State> {
     const { area } = this.props;
     const styles = getStyles();
 
+    console.log(`Screen Width: ${this.state.width} Screen Height: ${this.state.height}`);
+
     if (!this.state || !this.state.payload) {
       return (
         <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
@@ -93,34 +118,31 @@ export default class HerokuCost extends React.Component<Props, State> {
     }
 
     return (
-      <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
-        <VictoryChart
-          domainPadding={30}
-          style={{
-            parent: { background: "#292A29" }
-          }}
-        >
-          <VictoryLabel
-            text="Heroku cost per month"
-            style={styles.herokuTitle}
-            x={47}
-            y={15}
-          />
-          <VictoryAxis style={styles.axisYears} padding={20} />
-          <VictoryAxis
-            style={styles.axisOne}
-            dependentAxis
-            tickFormat={x => `$${x}`}
-          />
-          <VictoryBar
-            data={this.getData()}
-            style={styles.herokuBar}
-            barWidth={40}
-            labels={d => `$${d.y}`}
-            labelComponent={<VictoryLabel style={styles.herokuBar.labels} />}
-          />
-        </VictoryChart>
-      </Cell>
+      <Panel data-testid="heroku-cost-widget">
+        <Cell center area={area} style={this.state.height > 900 ? { height: "87.5%" } : this.state.height > 800 ? { height: "80%" } : { height: "64%" } }>
+        <WidgetTitle>Heroku cost per month</WidgetTitle>
+          <VictoryChart
+            domainPadding={40}
+            style={{
+              parent: { background: "#292A29" }
+            }}
+          >
+            <VictoryAxis style={styles.axisYears} padding={20} />
+            <VictoryAxis
+              style={styles.axisOne}
+              dependentAxis
+              tickFormat={x => `$${x}`}
+            />
+            <VictoryBar
+              data={this.getData()}
+              style={styles.herokuBar}
+              barWidth={30}
+              labels={d => `$${d.y}`}
+              labelComponent={<VictoryLabel style={styles.herokuBar.labels} />}
+            />
+          </VictoryChart>
+        </Cell>
+      </Panel>
     );
   }
 }
