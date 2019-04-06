@@ -5,9 +5,7 @@ import {
   VictoryBar,
   VictoryChart,
   VictoryAxis,
-  VictoryTheme,
   VictoryLabel,
-  VictoryStack
 } from "victory";
 import { getStyles, Panel, WidgetTitle } from "../styles";
 import { Area } from "../App";

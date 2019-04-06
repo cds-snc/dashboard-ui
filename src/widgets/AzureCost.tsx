@@ -6,7 +6,6 @@ import {
   VictoryBar,
   VictoryChart,
   VictoryAxis,
-  VictoryTheme,
   VictoryLabel
 } from "victory";
 import { getStyles, Panel, WidgetTitle } from "../styles";

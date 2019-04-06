@@ -6,7 +6,6 @@ import {
   VictoryBar,
   VictoryChart,
   VictoryAxis,
-  VictoryTheme,
   VictoryLabel
 } from "victory";
 import { getStyles, Panel, WidgetTitle } from "../styles";
@@ -106,8 +105,6 @@ export default class HerokuCost extends React.Component<Props, State> {
   render() {
     const { area } = this.props;
     const styles = getStyles();
-
-    console.log(`Screen Width: ${this.state.width} Screen Height: ${this.state.height}`);
 
     if (!this.state || !this.state.payload) {
       return (
