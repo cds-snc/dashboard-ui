@@ -17,6 +17,14 @@ const WidgetContainer = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+
+  svg{
+    margin-top: 40px;
+  }
+
+  p {
+    font-size: 1rem;
+  }
 `;
 
 export default class Logo extends React.Component<Props> {
@@ -26,8 +34,9 @@ export default class Logo extends React.Component<Props> {
       <Panel>
       <Cell data-testid="widget" area={area} center style={{ backgroundColor: "#292A29" }}>
         <WidgetContainer>
-          <WidgetTitle>Cost Dasboard</WidgetTitle>
+          <WidgetTitle>Loon UI Dashboard</WidgetTitle>
           <CdsLogo />
+          <p>alpha banner</p>
         </WidgetContainer>
       </Cell>
       </Panel>
