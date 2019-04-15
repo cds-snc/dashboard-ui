@@ -3,7 +3,7 @@ import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
 import styled from "styled-components";
 import { format } from "date-fns";
-import { Area } from "../App";
+import { Area } from "../Cost";
 interface Payload {
   data: string;
   timestamp: Date;

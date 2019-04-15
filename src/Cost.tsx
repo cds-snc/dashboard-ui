@@ -13,7 +13,8 @@ import HerokuCost from "./widgets/HerokuCost";
 import GoogleCloudCost from "./widgets/GoogleCloudCost";
 import Empty from "./widgets/Empty";
 import styled from "styled-components";
-import './App.css';
+import './Cost.css';
+import { RouteComponentProps } from '@reach/router';
 
 export type Area = "a" | "b" | "c" | "d" | "e" | "f";
 
@@ -26,10 +27,10 @@ interface State {
   height: number;
 }
 
-interface Props {} // eslint-disable-line @typescript-eslint/no-empty-interface
-class App extends React.Component<Props, State> {
+// interface Props {} // eslint-disable-line @typescript-eslint/no-empty-interface
+class Cost extends React.Component<RouteComponentProps, State> {
   socket: Socket; // eslint-disable-line  @typescript-eslint/explicit-member-accessibility
-  constructor(props: Props) {
+  constructor(props: RouteComponentProps) {
     super(props);
 
     this.state = {
@@ -62,7 +63,7 @@ class App extends React.Component<Props, State> {
     console.log(`Screen Width: ${this.state.width} Screen Height: ${this.state.height}`);
 
     return (
-      <div className="App">
+      <div className="Cost">
         <Grid
           height="100vh"
           areas={this.state.width > 900 ? ["a b c", "d e f"] : ["a b", "c d", "e f"]}
@@ -81,4 +82,4 @@ class App extends React.Component<Props, State> {
   }
 }
 
-export default App;
+export default Cost;

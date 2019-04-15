@@ -1,7 +1,7 @@
 import React from "react";
 import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
-import { Area } from "../App";
+import { Area } from "../Cost";
 import { Loader } from "../Loader";
 import {
   VictoryBar,
@@ -143,7 +143,7 @@ export default class AwsCost extends React.Component<Props, State> {
       <WidgetTitle>AWS cost per month</WidgetTitle>
 
       <Cell center area={area} style={this.state.height > 900 ? { height: "87.5%" } : this.state.height > 800 ? { height: "80%" } : { height: "64%" } }>
-        
+
           <VictoryChart
             domainPadding={30}
             padding={40}

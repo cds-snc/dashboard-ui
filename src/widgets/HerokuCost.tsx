@@ -1,7 +1,7 @@
 import React from "react";
 import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
-import { Area } from "../App";
+import { Area } from "../Cost";
 import {
   VictoryBar,
   VictoryChart,

@@ -1,6 +1,6 @@
 import React from "react";
 import { Cell } from "styled-css-grid";
-import { Area } from "../App";
+import { Area } from "../Cost";
 import {
     VictoryChart,
     VictoryTheme
