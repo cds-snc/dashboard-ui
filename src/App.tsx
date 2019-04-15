@@ -2,17 +2,11 @@ import React from "react";
 import { Socket } from "phoenix";
 import { Grid } from "styled-css-grid";
 import ServerMemory from "./widgets/ServerMemory";
-import Time from "./widgets/Time";
-import Connected from "./widgets/Connected";
-import Uptime from "./widgets/Uptime";
-import Github from "./widgets/Github";
 import Logo from "./widgets/Logo";
 import AwsCost from "./widgets/AwsCost";
 import AzureCost from "./widgets/AzureCost";
 import HerokuCost from "./widgets/HerokuCost";
 import GoogleCloudCost from "./widgets/GoogleCloudCost";
-import Empty from "./widgets/Empty";
-import styled from "styled-components";
 import './App.css';
 
 export type Area = "a" | "b" | "c" | "d" | "e" | "f";
@@ -69,12 +63,12 @@ class App extends React.Component<Props, State> {
           columns="4"
           gap="1px"
         >
-          <HerokuCost area="a" socket={this.socket} />
-          <AwsCost area="b" socket={this.socket} />
-          <GoogleCloudCost area="c" socket={this.socket} />
-          <AzureCost area="d" socket={this.socket} />
-          <ServerMemory area="e" socket={this.socket} />
-          <Empty area="f" />
+          <Logo area="a" />
+          <HerokuCost screenHeight={this.state.height} screenWidth={this.state.width} area="b" socket={this.socket} />
+          <AwsCost screenHeight={this.state.height} screenWidth={this.state.width} area="c" socket={this.socket} />
+          <GoogleCloudCost screenHeight={this.state.height} screenWidth={this.state.width} area="d" socket={this.socket} />
+          <AzureCost screenHeight={this.state.height} screenWidth={this.state.width} area="e" socket={this.socket} />
+          <ServerMemory screenHeight={this.state.height} screenWidth={this.state.width} area="f" socket={this.socket} />
         </Grid>
       </div>
     );
