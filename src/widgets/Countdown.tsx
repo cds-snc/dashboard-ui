@@ -2,7 +2,7 @@ import React from "react";
 import { Cell } from "styled-css-grid";
 import styled from "styled-components";
 import Countdown from "../lib/Countdown";
-import { Area } from "../App";
+import { Area } from "../types";
 interface Props {
   area: Area;
 }

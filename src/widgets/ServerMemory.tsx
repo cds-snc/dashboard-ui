@@ -1,7 +1,7 @@
 import React from "react";
 import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
-import { Area } from "../App";
+import { Area } from "../types";
 import {
   VictoryAxis,
   VictoryChart,
@@ -42,7 +42,7 @@ interface Props {
   socket: Socket;
   area: Area;
   payload?: Payload;
-  screenHeight: number; 
+  screenHeight: number;
   screenWidth: number;
 }
 

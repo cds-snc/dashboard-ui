@@ -1,8 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+import Cost from "./Cost";
 import * as serviceWorker from "./serviceWorker";
+import { Router, Link } from "@reach/router";
+
+const App = () => (
+  <div>
+    <div className="header">
+      <h1>Dashboard</h1>
+      <nav>
+        <Link to="/">Cost Dashboard</Link>
+      </nav>
+    </div>
+    <Router>
+      <Cost path="/" />
+    </Router>
+  </div>
+);
+
 
 ReactDOM.render(<App />, document.getElementById("root"));
 

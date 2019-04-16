@@ -8,7 +8,7 @@ import {
   VictoryLabel,
 } from "victory";
 import { getStyles, Panel, WidgetTitle } from "../styles";
-import { Area } from "../App";
+import { Area } from "../types";
 import { Loader } from "../Loader";
 
 interface CostItem {
