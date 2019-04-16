@@ -86,10 +86,16 @@ export default class ServerMemory extends React.Component<Props, State> {
 
     return (
       <Panel data-testid="server-memory-widget">
-      <WidgetTitle>Total memory usage</WidgetTitle>
+        <WidgetTitle>Total memory usage</WidgetTitle>
         <Cell
           area={area}
-          style={screenHeight > 900 ? { height: "87.5%" } : screenHeight > 800 ? { height: "80%" } : { height: "64%" } }
+          style={
+            screenHeight > 900
+              ? { height: "87.5%" }
+              : screenHeight > 800
+              ? { height: "80%" }
+              : { height: "64%" }
+          }
         >
           <VictoryChart
             style={{

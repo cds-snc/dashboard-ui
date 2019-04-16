@@ -9,8 +9,8 @@ import HerokuCost from "./widgets/HerokuCost";
 import GoogleCloudCost from "./widgets/GoogleCloudCost";
 import Empty from "./widgets/Empty";
 import styled from "styled-components";
-import './Cost.css';
-import { RouteComponentProps } from '@reach/router';
+import "./Cost.css";
+import { RouteComponentProps } from "@reach/router";
 import { Area } from "./types";
 
 /* https://github.com/azz/styled-css-grid */
@@ -41,36 +41,67 @@ class Cost extends React.Component<RouteComponentProps, State> {
 
   componentDidMount() {
     this.updateWindowDimensions();
-    window.addEventListener('resize', this.updateWindowDimensions);
+    window.addEventListener("resize", this.updateWindowDimensions);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateWindowDimensions);
+    window.removeEventListener("resize", this.updateWindowDimensions);
   }
 
   updateWindowDimensions() {
     this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
 
-
   render(): JSX.Element {
-
-    console.log(`Screen Width: ${this.state.width} Screen Height: ${this.state.height}`);
+    console.log(
+      `Screen Width: ${this.state.width} Screen Height: ${this.state.height}`
+    );
 
     return (
       <div className="Cost">
         <Grid
           height="100vh"
-          areas={this.state.width > 900 ? ["a b c", "d e f"] : ["a b", "c d", "e f"]}
-          columns="4"
+          areas={
+            this.state.width > 900 ? ["a b c", "d e f"] : ["a b", "c d", "e f"]
+          }
+          columns="3"
           gap="1px"
         >
-          <Logo area="a" />
-          <HerokuCost screenHeight={this.state.height} screenWidth={this.state.width} area="b" socket={this.socket} />
-          <AwsCost screenHeight={this.state.height} screenWidth={this.state.width} area="c" socket={this.socket} />
-          <GoogleCloudCost screenHeight={this.state.height} screenWidth={this.state.width} area="d" socket={this.socket} />
-          <AzureCost screenHeight={this.state.height} screenWidth={this.state.width} area="e" socket={this.socket} />
-          <ServerMemory screenHeight={this.state.height} screenWidth={this.state.width} area="f" socket={this.socket} />
+          <HerokuCost
+            screenHeight={this.state.height}
+            screenWidth={this.state.width}
+            area="a"
+            socket={this.socket}
+          />
+          <AwsCost
+            screenHeight={this.state.height}
+            screenWidth={this.state.width}
+            area="b"
+            socket={this.socket}
+          />
+          <GoogleCloudCost
+            screenHeight={this.state.height}
+            screenWidth={this.state.width}
+            area="c"
+            socket={this.socket}
+          />
+          <AzureCost
+            screenHeight={this.state.height}
+            screenWidth={this.state.width}
+            area="d"
+            socket={this.socket}
+          />
+          <ServerMemory
+            screenHeight={this.state.height}
+            screenWidth={this.state.width}
+            area="e"
+            socket={this.socket}
+          />
+          <Empty
+            screenHeight={this.state.height}
+            screenWidth={this.state.width}
+            area="f"
+          />
         </Grid>
       </div>
     );
