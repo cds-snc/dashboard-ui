@@ -3,9 +3,6 @@
 
   ],
   "buildpacks": [
-    {
-      "url": "https://github.com/mars/create-react-app-buildpack.git"
-    }
   ],
   "env": {
   },
@@ -13,6 +10,7 @@
   },
   "name": "loon-ui",
   "scripts": {
+    "build": "PUBLIC_URL=/ react-scripts build"
   },
   "stack": "heroku-18"
 }
