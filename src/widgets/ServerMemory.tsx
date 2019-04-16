@@ -36,26 +36,19 @@ interface Point {
 interface State {
   payload?: Payload;
   data?: number[];
-  width: number;
-  height: number;
 }
 
 interface Props {
   socket: Socket;
   area: Area;
   payload?: Payload;
+  screenHeight: number; 
+  screenWidth: number;
 }
 
 export default class ServerMemory extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-
-    this.state = {
-      width: 0,
-      height: 0
-    };
-
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
 
     let channel = props.socket.channel("data_source:server_memory", {});
     let data: number[] = [];
@@ -72,19 +65,6 @@ export default class ServerMemory extends React.Component<Props, State> {
     });
   }
 
-  componentDidMount() {
-    this.updateWindowDimensions();
-    window.addEventListener('resize', this.updateWindowDimensions);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateWindowDimensions);
-  }
-
-  updateWindowDimensions() {
-    this.setState({ width: window.innerWidth, height: window.innerHeight });
-  }
-
   getData = () => {
     if (!this.state || !this.state.payload) {
       return [];
@@ -93,7 +73,7 @@ export default class ServerMemory extends React.Component<Props, State> {
   };
 
   render() {
-    const { area } = this.props;
+    const { area, screenHeight, screenWidth } = this.props;
     const styles = getStyles();
 
     if (!this.state || !this.state.payload) {
@@ -109,7 +89,7 @@ export default class ServerMemory extends React.Component<Props, State> {
       <WidgetTitle>Total memory usage</WidgetTitle>
         <Cell
           area={area}
-          style={this.state.height > 900 ? { height: "87.5%" } : this.state.height > 800 ? { height: "80%" } : { height: "64%" } }
+          style={screenHeight > 900 ? { height: "87.5%" } : screenHeight > 800 ? { height: "80%" } : { height: "64%" } }
         >
           <VictoryChart
             style={{

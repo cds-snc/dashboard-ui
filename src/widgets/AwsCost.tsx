@@ -18,13 +18,13 @@ interface Payload {
 interface State {
   payload?: Payload;
   error: Boolean;
-  width: number;
-  height: number;
 }
 interface Props {
   payload?: Payload;
   socket: Socket;
   area: Area;
+  screenWidth: number;
+  screenHeight: number;
 }
 
 export default class AwsCost extends React.Component<Props, State> {
@@ -33,12 +33,8 @@ export default class AwsCost extends React.Component<Props, State> {
 
     this.state = {
       payload: this.props.payload,
-      error: false,
-      width: 0,
-      height: 0
+      error: false
     };
-
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
 
     let channel = props.socket.channel("data_source:aws_cost", {});
     let chart: any;
@@ -54,19 +50,6 @@ export default class AwsCost extends React.Component<Props, State> {
         this.setState({ error: true });
       }
     });
-  }
-
-  componentDidMount() {
-    this.updateWindowDimensions();
-    window.addEventListener('resize', this.updateWindowDimensions);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateWindowDimensions);
-  }
-
-  updateWindowDimensions() {
-    this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
 
   getData = () => {
@@ -106,7 +89,7 @@ export default class AwsCost extends React.Component<Props, State> {
   };
 
   render() {
-    const { area } = this.props;
+    const { area, screenHeight, screenWidth } = this.props;
 
     const styles = getStyles();
     const data = this.getData();
@@ -142,7 +125,7 @@ export default class AwsCost extends React.Component<Props, State> {
 
       <WidgetTitle>AWS cost per month</WidgetTitle>
 
-      <Cell center area={area} style={this.state.height > 900 ? { height: "87.5%" } : this.state.height > 800 ? { height: "80%" } : { height: "64%" } }>
+      <Cell center area={area} style={screenHeight > 900 ? { height: "87.5%" } : screenHeight > 800 ? { height: "80%" } : { height: "64%" } }>
         
           <VictoryChart
             domainPadding={30}
