@@ -10,7 +10,6 @@
   },
   "name": "loon-ui",
   "scripts": {
-    "build": "PUBLIC_URL=/ react-scripts build"
   },
   "stack": "heroku-18"
 }
