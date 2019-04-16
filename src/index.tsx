@@ -13,6 +13,7 @@ const App = () => (
       <h1>Dashboard</h1>
       <nav>
         <Link to="/">Cost Dashboard</Link>
+        &nbsp; | &nbsp;
         <Link to="/vac">VAC Dashboard</Link>
       </nav>
     </div>
