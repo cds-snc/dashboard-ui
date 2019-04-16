@@ -1,7 +1,7 @@
 import React from "react";
 import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
-import { Area } from "../Cost";
+import { Area } from "../types";
 import {
   VictoryBar,
   VictoryChart,
@@ -37,13 +37,13 @@ interface Payload {
 }
 interface State {
   payload?: Payload;
-  width: number;
-  height: number;
 }
 interface Props {
   socket: Socket;
   area: Area;
   payload?: Payload;
+  screenWidth: number;
+  screenHeight: number;
 }
 
 export default class HerokuCost extends React.Component<Props, State> {
@@ -52,32 +52,12 @@ export default class HerokuCost extends React.Component<Props, State> {
     let channel = props.socket.channel("data_source:heroku_cost", {});
     let chart: any;
 
-    this.state = {
-      width: 0,
-      height: 0,
-    };
-
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-
     channel.join().receive("error", (resp: string) => {
       console.log("Unable to join: ", resp);
     });
     channel.on("data", (payload: Payload) => {
       this.setState({ payload: payload });
     });
-  }
-
-  componentDidMount() {
-    this.updateWindowDimensions();
-    window.addEventListener('resize', this.updateWindowDimensions);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateWindowDimensions);
-  }
-
-  updateWindowDimensions() {
-    this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
 
   getData = () => {
@@ -103,7 +83,7 @@ export default class HerokuCost extends React.Component<Props, State> {
   };
 
   render() {
-    const { area } = this.props;
+    const { area, screenHeight, screenWidth } = this.props;
     const styles = getStyles();
 
     if (!this.state || !this.state.payload) {
@@ -116,7 +96,7 @@ export default class HerokuCost extends React.Component<Props, State> {
 
     return (
       <Panel data-testid="heroku-cost-widget">
-        <Cell center area={area} style={this.state.height > 900 ? { height: "87.5%" } : this.state.height > 800 ? { height: "80%" } : { height: "64%" } }>
+        <Cell center area={area} style={screenHeight > 900 ? { height: "87.5%" } : screenHeight > 800 ? { height: "80%" } : { height: "64%" } }>
         <WidgetTitle>Heroku cost per month</WidgetTitle>
           <VictoryChart
             domainPadding={40}

@@ -2,7 +2,7 @@ import React from "react";
 import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
 import styled from "styled-components";
-import { Area } from "../Cost";
+import { Area } from "../types";
 
 interface Connection {
   [key: string]: string;

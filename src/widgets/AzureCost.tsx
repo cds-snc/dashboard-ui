@@ -1,7 +1,7 @@
 import React from "react";
 import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
-import { Area } from "../Cost";
+import { Area } from "../types";
 import {
   VictoryBar,
   VictoryChart,
@@ -23,26 +23,18 @@ interface Payload {
 }
 interface State {
   payload?: Payload;
-  width: number;
-  height: number;
 }
 interface Props {
   socket: Socket;
   area: Area;
   payload?: Payload;
+  screenWidth: number;
+  screenHeight: number;
 }
 
 export default class AzureCost extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-
-    this.state = {
-      width: 0,
-      height: 0,
-      payload: this.props.payload
-    };
-
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
 
     let channel = props.socket.channel("data_source:azure_cost", {});
     let chart: any;
@@ -53,19 +45,6 @@ export default class AzureCost extends React.Component<Props, State> {
     channel.on("data", (payload: Payload) => {
       this.setState({ payload: payload });
     });
-  }
-
-  componentDidMount() {
-    this.updateWindowDimensions();
-    window.addEventListener('resize', this.updateWindowDimensions);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateWindowDimensions);
-  }
-
-  updateWindowDimensions() {
-    this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
 
   getData = () => {
@@ -91,7 +70,7 @@ export default class AzureCost extends React.Component<Props, State> {
   };
 
   render() {
-    const { area } = this.props;
+    const { area, screenHeight, screenWidth } = this.props;
     const styles = getStyles();
 
     if (!this.state || !this.state.payload) {
@@ -105,7 +84,7 @@ export default class AzureCost extends React.Component<Props, State> {
     return (
       <Panel data-testid="azure-cost-widget">
       <WidgetTitle>Azure cost per month</WidgetTitle>
-        <Cell center area={area} style={this.state.height > 900 ? { height: "87.5%" } : this.state.height > 800 ? { height: "80%" } : { height: "64%" } }>
+        <Cell center area={area} style={screenHeight > 900 ? { height: "87.5%" } : screenHeight > 800 ? { height: "80%" } : { height: "64%" } }>
           <VictoryChart
             domainPadding={30}
             style={{
