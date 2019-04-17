@@ -137,6 +137,6 @@ export const WidgetTitle = styled.h3`
 
 export const Panel = styled.div`
   text-align: center;
-  border: 2px solid black;
+  border: 2px solid #171717;
   color: white;
 `

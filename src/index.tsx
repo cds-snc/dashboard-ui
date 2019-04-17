@@ -11,7 +11,7 @@ import * as serviceWorker from "./serviceWorker";
 import { Router, Link } from "@reach/router";
 
 const header = css`
-  background: black;
+  background: #171717;
   padding: 2rem;
 
   display: flex;
@@ -26,7 +26,7 @@ const header = css`
     color: white;
     margin: 0;
     line-height: 1.2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.4rem;
   }
 `
 
