@@ -4,6 +4,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import Cost from "./Cost";
+import Vac from "./Vac";
+import Home from "./Home";
 import * as serviceWorker from "./serviceWorker";
 import { Router, Link } from "@reach/router";
 
@@ -14,16 +16,23 @@ const navStyle = css`
   margin-bottom: 20px;
 `;
 
+
 const App = () => (
   <div>
     <div css={header}>
       <h1>Dashboard</h1>
       <nav css={navStyle}>
-        <Link to="/">Cost Dashboard</Link>
+      <Link to="/">Home</Link>
+        &nbsp; | &nbsp;
+        <Link to="/cost">Cost Dashboard</Link>
+        &nbsp; | &nbsp;
+        <Link to="/vac">VAC Dashboard</Link>
       </nav>
     </div>
     <Router>
-      <Cost path="/" />
+      <Home path="/" />
+      <Cost path="/cost" />
+      <Vac path="/vac" />
     </Router>
   </div>
 );
