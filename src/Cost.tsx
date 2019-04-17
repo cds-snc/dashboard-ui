@@ -65,7 +65,7 @@ class Cost extends React.Component<RouteComponentProps, State> {
             this.state.width > 900 ? ["a b c", "d e f"] : ["a b", "c d", "e f"]
           }
           columns="3"
-          gap="1px"
+          gap="0px"
         >
           <HerokuCost
             screenHeight={this.state.height}
