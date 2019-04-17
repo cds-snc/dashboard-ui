@@ -35,7 +35,6 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm test && lint-staged",
       "pre-push": "npm test"
     }
   },
@@ -58,6 +57,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "heroku-postbuild": "PUBLIC_URL=/ react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint src/*.tsx",
