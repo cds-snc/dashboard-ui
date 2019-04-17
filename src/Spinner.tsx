@@ -1,4 +1,5 @@
-import React from "react";
+/** @jsx jsx */ jsx;
+import { jsx } from "@emotion/core";
 import styled, { keyframes } from "styled-components";
 const skbounce = keyframes`
   0% {  

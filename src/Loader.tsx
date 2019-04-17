@@ -1,4 +1,5 @@
-import React from "react";
+/** @jsx jsx */ jsx;
+import { jsx, css } from "@emotion/core";
 import styled from "styled-components";
 import { Spinner } from "./Spinner";
 

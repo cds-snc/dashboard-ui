@@ -1,12 +1,7 @@
 import React from "react";
 import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
-import {
-  VictoryBar,
-  VictoryChart,
-  VictoryAxis,
-  VictoryLabel,
-} from "victory";
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryLabel } from "victory";
 import { getStyles, Panel, WidgetTitle } from "../styles";
 import { Area } from "../types";
 import { Loader } from "../Loader";
@@ -82,10 +77,16 @@ export default class GoogleCloudCost extends React.Component<Props, State> {
 
     return (
       <Panel data-testid="gcp-cost-widget">
-      <WidgetTitle>GCP cost per month</WidgetTitle>
+        <WidgetTitle>GCP cost per month</WidgetTitle>
         <Cell
           area={area}
-          style={screenHeight > 900 ? { height: "87.5%" } : screenHeight > 800 ? { height: "80%" } : { height: "64%" } }
+          style={
+            screenHeight > 900
+              ? { height: "87.5%" }
+              : screenHeight > 800
+              ? { height: "80%" }
+              : { height: "64%" }
+          }
         >
           <VictoryChart
             domainPadding={75}
