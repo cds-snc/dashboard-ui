@@ -47,9 +47,9 @@ const App = () => (
         <nav css={navStyle}>
         <Link to="/">Home</Link>
           &nbsp; | &nbsp;
-          <Link to="cost">Cost Dashboard</Link>
+          <Link to="cost/">Cost Dashboard</Link>
           &nbsp; | &nbsp;
-          <Link to="vac">VAC Dashboard</Link>
+          <Link to="vac/">VAC Dashboard</Link>
         </nav>
       </div>
       <div>
@@ -58,8 +58,8 @@ const App = () => (
     </div>
     <Router>
       <Home path="/" />
-      <Cost path="cost" />
-      <Vac path="vac" />
+      <Cost path="cost/" />
+      <Vac path="vac/" />
     </Router>
   </div>
 );
