@@ -58,9 +58,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && react-snap",
     "heroku-postbuild": "PUBLIC_URL=/ react-scripts build && react-snap",
-    "postbuild": "react-snap",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint src/*.tsx",
