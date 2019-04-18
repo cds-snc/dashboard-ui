@@ -15,36 +15,6 @@ export function getStyles() {
 
 
     return {
-      herokuTitle: {
-        fill: WHITE_COLOR,
-        fontFamily: "inherit",
-        fontSize: 28,
-        fontWeight: 700,
-      },
-      AWSTitle: {
-        fill: WHITE_COLOR,
-        fontFamily: "inherit",
-        fontSize: 24,
-        fontWeight: 700,
-      },
-      AzureTitle: {
-        fill: WHITE_COLOR,
-        fontFamily: "inherit",
-        fontSize: 24,
-        fontWeight: 700,
-      },
-      GCPTitle: {
-        fill: WHITE_COLOR,
-        fontFamily: "inherit",
-        fontSize: 24,
-        fontWeight: 700,
-      },
-      MemoryTitle: {
-        fill: WHITE_COLOR,
-        fontFamily: "inherit",
-        fontSize: 28,
-        fontWeight: 700,
-      },
       labelNumber: {
         fill: "#ffffff",
         fontFamily: "inherit",
