@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
 import React from "react";
-import ReactDOM from "react-dom";
-import CdsLogo from './CdsLogo'
+import { hydrate, render } from "react-dom";
+import CdsLogo from './CdsLogo';
 import "./index.css";
 import Cost from "./Cost";
 import Vac from "./Vac";
@@ -64,7 +64,13 @@ const App = () => (
   </div>
 );
 
-ReactDOM.render(<App />, document.getElementById("root"));
+// ReactDOM.render(<App />, document.getElementById("root"));
+const rootElement = document.getElementById("root");
+if (rootElement && rootElement.hasChildNodes()) {
+  hydrate(<App />, rootElement);
+} else {
+  render(<App />, rootElement);
+}
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
