@@ -3,7 +3,7 @@ import { jsx, css } from '@emotion/core'
 import React from "react";
 import { hydrate, render } from "react-dom";
 import CdsLogo from './CdsLogo';
-import "./index.css";
+// import "./index.css";
 import Cost from "./Cost";
 import Vac from "./Vac";
 import Home from "./Home";
@@ -30,6 +30,23 @@ const header = css`
   }
 `
 
+const pageStyles = css`
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+`;
+
 const navStyle = css`
   color: white;
 
@@ -40,7 +57,7 @@ const navStyle = css`
 
 
 const App = () => (
-  <div>
+  <div css={pageStyles}>
     <div css={header}>
       <div>
         <h1>Loon Dashboard UI (alpha banner)</h1>
