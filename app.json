@@ -3,6 +3,9 @@
 
   ],
   "buildpacks": [
+    {
+      "url": "https://github.com/minted/heroku-buildpack-chrome-headless"
+    }
   ],
   "env": {
   },
