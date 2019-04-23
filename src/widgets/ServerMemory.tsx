@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core";
 import React from "react";
 import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
@@ -45,6 +47,12 @@ interface Props {
   screenHeight: number;
   screenWidth: number;
 }
+
+const chartContainer = css`
+  padding-left: 2rem;
+  width: 90%;
+  height: 100%;
+`;
 
 export default class ServerMemory extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -97,23 +105,25 @@ export default class ServerMemory extends React.Component<Props, State> {
               : { height: "64%" }
           }
         >
-          <VictoryChart
-            style={{
-              parent: { background: "#292A29", height: "100%" }
-            }}
-          >
-            <VictoryAxis style={styles.axisOne} />
-            <VictoryAxis
-              dependentAxis
-              tickFormat={(x: number) => `${x.toFixed(2)} MB`}
-              style={styles.axisYears}
-            />
-            <VictoryLine
-              interpolation="natural"
-              style={styles.MemoryLine}
-              data={this.getData()}
-            />
-          </VictoryChart>
+          <div css={chartContainer}>
+            <VictoryChart
+              style={{
+                parent: { background: "#292A29", height: "100%" }
+              }}
+            >
+              <VictoryAxis style={styles.axisOne} />
+              <VictoryAxis
+                dependentAxis
+                tickFormat={(x: number) => `${x.toFixed(2)} MB`}
+                style={styles.axisYears}
+              />
+              <VictoryLine
+                interpolation="natural"
+                style={styles.MemoryLine}
+                data={this.getData()}
+              />
+            </VictoryChart>
+          </div>
         </Cell>
       </Panel>
     );

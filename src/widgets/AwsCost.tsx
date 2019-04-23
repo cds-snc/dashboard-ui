@@ -1,14 +1,11 @@
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core";
 import React from "react";
 import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
 import { Area } from "../types";
 import { Loader } from "../Loader";
-import {
-  VictoryBar,
-  VictoryChart,
-  VictoryAxis,
-  VictoryLabel
-} from "victory";
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryLabel } from "victory";
 import { getStyles, Panel, WidgetTitle } from "../styles";
 
 interface Payload {
@@ -26,6 +23,12 @@ interface Props {
   screenWidth: number;
   screenHeight: number;
 }
+
+const chartContainer = css`
+  padding-left: 2rem;
+  width: 90%;
+  height: 100%;
+`;
 
 export default class AwsCost extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -75,14 +78,13 @@ export default class AwsCost extends React.Component<Props, State> {
       return 0;
     });
 
-    return chartData.slice(-5).map((p: any) => {
+    return chartData.slice(-4).map((p: any) => {
       const month = p.TimePeriod.Start.split("-");
       return {
         x: `${month[0].slice(-2)}-${month[1]}`,
         y: parseFloat(p.Total.UnblendedCost.Amount)
       };
     });
-
 
     // let forecast = parseFloat(this.state.payload.data.forecast.Total.Amount);
     // return [{ x: "Past", y: past }, { x: "Current", y: current }, { x: "Forecast", y: forecast }]
@@ -122,34 +124,46 @@ export default class AwsCost extends React.Component<Props, State> {
 
     return (
       <Panel data-testid="aws-widget">
+        <WidgetTitle>AWS cost per month</WidgetTitle>
 
-      <WidgetTitle>AWS cost per month</WidgetTitle>
-
-      <Cell center area={area} style={screenHeight > 900 ? { height: "87.5%" } : screenHeight > 800 ? { height: "80%" } : { height: "64%" } }>
-
-          <VictoryChart
-            domainPadding={30}
-            padding={40}
-            style={{
-              parent: { background: "#292A29", height: "100%", paddingLeft: "0px" }
-            }}
-          >
-            <VictoryAxis style={styles.axisOne} padding={20} />
-            <VictoryAxis
-              dependentAxis
-              tickFormat={x => `$${x}`}
-              style={styles.axisTwo}
-            />
-            <VictoryBar
-              data={data}
-              labels={d => `$${d.y.toFixed(2)}`}
-              style={styles.AWSBar}
-              barWidth={30}
-              labelComponent={<VictoryLabel style={styles.AWSBar.labels} />}
-            />
-          </VictoryChart>
-      </Cell>
-    </Panel>
+        <Cell
+          center
+          area={area}
+          style={
+            screenHeight > 900
+              ? { height: "87.5%" }
+              : screenHeight > 800
+              ? { height: "80%" }
+              : { height: "64%" }
+          }
+        >
+          <div css={chartContainer}>
+            <VictoryChart
+              domainPadding={50}
+              style={{
+                parent: {
+                  background: "#292A29",
+                  height: "100%"
+                }
+              }}
+            >
+              <VictoryAxis style={styles.axisOne} padding={20} />
+              <VictoryAxis
+                dependentAxis
+                tickFormat={x => `$${x}`}
+                style={styles.axisTwo}
+              />
+              <VictoryBar
+                data={data}
+                labels={d => `$${d.y.toFixed(2)}`}
+                style={styles.AWSBar}
+                barWidth={40}
+                labelComponent={<VictoryLabel style={styles.AWSBar.labels} />}
+              />
+            </VictoryChart>
+          </div>
+        </Cell>
+      </Panel>
     );
   }
 }

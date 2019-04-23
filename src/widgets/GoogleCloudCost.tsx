@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core";
 import React from "react";
 import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
@@ -26,6 +28,12 @@ interface Props {
   screenHeight: number;
   screenWidth: number;
 }
+
+const chartContainer = css`
+  padding-left: 2rem;
+  width: 90%;
+  height: 100%;
+`;
 
 export default class GoogleCloudCost extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -88,26 +96,28 @@ export default class GoogleCloudCost extends React.Component<Props, State> {
               : { height: "64%" }
           }
         >
-          <VictoryChart
-            domainPadding={75}
-            style={{
-              parent: { background: "#292A29", height: "100%" }
-            }}
-          >
-            <VictoryAxis style={styles.axisOne} padding={20} />
-            <VictoryAxis
-              dependentAxis
-              tickFormat={x => `$${x.toFixed(2)}`}
-              style={styles.axisYears}
-            />
-            <VictoryBar
-              data={this.getData()}
-              labels={d => `$${d.y.toFixed(2)}`}
-              barWidth={40}
-              style={styles.GCPBar}
-              labelComponent={<VictoryLabel style={styles.GCPBar.labels} />}
-            />
-          </VictoryChart>
+          <div css={chartContainer}>
+            <VictoryChart
+              domainPadding={50}
+              style={{
+                parent: { background: "#292A29", height: "100%" }
+              }}
+            >
+              <VictoryAxis style={styles.axisOne} padding={20} />
+              <VictoryAxis
+                dependentAxis
+                tickFormat={x => `$${x.toFixed(2)}`}
+                style={styles.axisYears}
+              />
+              <VictoryBar
+                data={this.getData()}
+                labels={d => `$${d.y.toFixed(2)}`}
+                barWidth={40}
+                style={styles.GCPBar}
+                labelComponent={<VictoryLabel style={styles.GCPBar.labels} />}
+              />
+            </VictoryChart>
+          </div>
         </Cell>
       </Panel>
     );
