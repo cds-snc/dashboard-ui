@@ -5,7 +5,7 @@ import { Socket } from "phoenix";
 import { Cell } from "styled-css-grid";
 import { Area } from "../types";
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryLabel } from "victory";
-import { getStyles, Panel, WidgetTitle } from "../styles";
+import { getStyles, Panel, WidgetTitle, chartContainer } from "../styles";
 
 import { Loader } from "../Loader";
 
@@ -28,20 +28,6 @@ interface Props {
   screenWidth: number;
   screenHeight: number;
 }
-
-const chartContainer = css`
-  padding-left: 2rem;
-  width: 90%;
-  height: 64%;
-
-  @media only screen and (min-height: 900px) {
-    height: 87.5%;
-  }
-
-  @media only screen and (min-height: 800px) {
-    height: 80%;
-  }
-`;
 
 export default class AzureCost extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -95,10 +81,20 @@ export default class AzureCost extends React.Component<Props, State> {
     return (
       <Panel data-testid="azure-cost-widget">
         <WidgetTitle>Azure cost per month</WidgetTitle>
-        <Cell center area={area}>
+        <Cell
+          center
+          area={area}
+          style={
+            screenHeight > 900
+              ? { height: "87.5%" }
+              : screenHeight > 800
+              ? { height: "80%" }
+              : { height: "64%" }
+          }
+        >
           <div css={chartContainer}>
             <VictoryChart
-              domainPadding={50}
+              domainPadding={30}
               style={{
                 parent: { background: "#292A29", height: "100%" }
               }}

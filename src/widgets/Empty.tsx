@@ -15,32 +15,29 @@ export default class Empty extends React.Component<Props> {
     const { area, screenWidth, screenHeight } = this.props;
     const styles = getStyles();
     return (
-        <Panel>
+      <Panel>
         <WidgetTitle>Placeholder widget</WidgetTitle>
         <Cell
-            area={area}
-            center
-            style={
+          area={area}
+          center
+          style={
             screenHeight > 900
-                ? { height: "87.5%" }
-                : screenHeight > 800
-                ? { height: "80%" }
-                : { height: "64%" }
-            }
+              ? { height: "87.5%" }
+              : screenHeight > 800
+              ? { height: "80%" }
+              : { height: "64%" }
+          }
         >
-            <VictoryChart
+          <VictoryChart
             style={{
-                parent: { }
+              parent: {}
             }}
-            >
-              <VictoryAxis style={styles.axisOne} padding={20} />
-              <VictoryAxis
-              dependentAxis
-              style={styles.axisYears}
-            />
-            </VictoryChart>
+          >
+            <VictoryAxis style={styles.axisOne} padding={20} />
+            <VictoryAxis dependentAxis style={styles.axisYears} />
+          </VictoryChart>
         </Cell>
-        </Panel>
+      </Panel>
     );
   }
 }
