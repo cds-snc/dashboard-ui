@@ -29,10 +29,26 @@ interface Props {
   screenWidth: number;
 }
 
+/* style={
+  screenHeight > 900
+    ? { height: "87.5%" }
+    : screenHeight > 800
+    ? { height: "80%" }
+    : { height: "64%" }
+} */
+
 const chartContainer = css`
   padding-left: 2rem;
   width: 90%;
-  height: 100%;
+  height: 64%;
+
+  @media only screen and (min-height: 900px) {
+    height: 87.5%;
+  }
+
+  @media only screen and (min-height: 800px) {
+    height: 80%;
+  }
 `;
 
 export default class GoogleCloudCost extends React.Component<Props, State> {
@@ -86,16 +102,7 @@ export default class GoogleCloudCost extends React.Component<Props, State> {
     return (
       <Panel data-testid="gcp-cost-widget">
         <WidgetTitle>GCP cost per month</WidgetTitle>
-        <Cell
-          area={area}
-          style={
-            screenHeight > 900
-              ? { height: "87.5%" }
-              : screenHeight > 800
-              ? { height: "80%" }
-              : { height: "64%" }
-          }
-        >
+        <Cell area={area}>
           <div css={chartContainer}>
             <VictoryChart
               domainPadding={50}
