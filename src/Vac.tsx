@@ -1,6 +1,6 @@
 import React from "react";
 import { RouteComponentProps } from '@reach/router';
-import Deploys from "./widgets/Deploys";
+import Deploys from "./widgets/Deploys.js";
 import { Socket } from "phoenix";
 
 const DATA_URL = "wss://loon-server.herokuapp.com/socket";
