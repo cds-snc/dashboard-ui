@@ -2,7 +2,6 @@
 import { jsx, css } from "@emotion/core";
 import React from "react";
 import { Socket } from "phoenix";
-import { Cell } from "styled-css-grid";
 import { Area } from "../types";
 import {
   VictoryAxis,
@@ -11,7 +10,13 @@ import {
   VictoryLine,
   VictoryTheme
 } from "victory";
-import { getStyles, Panel, WidgetTitle, chartContainer } from "../styles";
+import {
+  getStyles,
+  Panel,
+  WidgetTitle,
+  chartContainer,
+  StyledCell
+} from "../styles";
 
 import { Loader } from "../Loader";
 
@@ -80,25 +85,16 @@ export default class ServerMemory extends React.Component<Props, State> {
 
     if (!this.state || !this.state.payload) {
       return (
-        <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
+        <StyledCell center area={area} style={{ backgroundColor: "#292A29" }}>
           <Loader />
-        </Cell>
+        </StyledCell>
       );
     }
 
     return (
       <Panel data-testid="server-memory-widget">
         <WidgetTitle>Total memory usage</WidgetTitle>
-        <Cell
-          area={area}
-          style={
-            screenHeight > 900
-              ? { height: "87.5%" }
-              : screenHeight > 800
-              ? { height: "80%" }
-              : { height: "64%" }
-          }
-        >
+        <StyledCell area={area}>
           <div css={chartContainer}>
             <VictoryChart
               style={{
@@ -118,7 +114,7 @@ export default class ServerMemory extends React.Component<Props, State> {
               />
             </VictoryChart>
           </div>
-        </Cell>
+        </StyledCell>
       </Panel>
     );
   }

@@ -2,10 +2,15 @@
 import { jsx, css } from "@emotion/core";
 import React from "react";
 import { Socket } from "phoenix";
-import { Cell } from "styled-css-grid";
 import { Area } from "../types";
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryLabel } from "victory";
-import { getStyles, Panel, WidgetTitle, chartContainer } from "../styles";
+import {
+  getStyles,
+  Panel,
+  WidgetTitle,
+  chartContainer,
+  StyledCell
+} from "../styles";
 
 import { Loader } from "../Loader";
 
@@ -72,26 +77,16 @@ export default class AzureCost extends React.Component<Props, State> {
 
     if (!this.state || !this.state.payload) {
       return (
-        <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
+        <StyledCell center area={area} style={{ backgroundColor: "#292A29" }}>
           <Loader />
-        </Cell>
+        </StyledCell>
       );
     }
 
     return (
       <Panel data-testid="azure-cost-widget">
         <WidgetTitle>Azure cost per month</WidgetTitle>
-        <Cell
-          center
-          area={area}
-          style={
-            screenHeight > 900
-              ? { height: "87.5%" }
-              : screenHeight > 800
-              ? { height: "80%" }
-              : { height: "64%" }
-          }
-        >
+        <StyledCell center area={area}>
           <div css={chartContainer}>
             <VictoryChart
               domainPadding={30}
@@ -114,7 +109,7 @@ export default class AzureCost extends React.Component<Props, State> {
               />
             </VictoryChart>
           </div>
-        </Cell>
+        </StyledCell>
       </Panel>
     );
   }

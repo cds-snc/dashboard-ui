@@ -1,8 +1,7 @@
 import React from "react";
-import { Cell } from "styled-css-grid";
 import { Area } from "../types";
 import { VictoryChart, VictoryTheme, VictoryAxis } from "victory";
-import { getStyles, Panel, WidgetTitle } from "../styles";
+import { getStyles, Panel, WidgetTitle, StyledCell } from "../styles";
 
 interface Props {
   area: Area;
@@ -17,17 +16,7 @@ export default class Empty extends React.Component<Props> {
     return (
       <Panel>
         <WidgetTitle>Placeholder widget</WidgetTitle>
-        <Cell
-          area={area}
-          center
-          style={
-            screenHeight > 900
-              ? { height: "87.5%" }
-              : screenHeight > 800
-              ? { height: "80%" }
-              : { height: "64%" }
-          }
-        >
+        <StyledCell area={area} center>
           <VictoryChart
             style={{
               parent: {}
@@ -36,7 +25,7 @@ export default class Empty extends React.Component<Props> {
             <VictoryAxis style={styles.axisOne} padding={20} />
             <VictoryAxis dependentAxis style={styles.axisYears} />
           </VictoryChart>
-        </Cell>
+        </StyledCell>
       </Panel>
     );
   }

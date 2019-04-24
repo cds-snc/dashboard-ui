@@ -1,6 +1,14 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
-import styled from "styled-components";
+import styled from "@emotion/styled";
+import { Cell } from "styled-css-grid";
+
+const breakpointsW = [575, 950];
+const breakpointsH = [360, 535];
+
+export const mqW = breakpointsW.map(bp => `@media (max-width: ${bp}px)`);
+
+export const mqH = breakpointsH.map(bp => `@media (max-height: ${bp}px)`);
 
 export function getStyles() {
   const WHITE_COLOR = "#FFFFFF";
@@ -101,7 +109,7 @@ export const WidgetTitle = styled.h3`
   background: #292a29;
   color: #ffffff;
 
-  @media only screen and (max-width: 900px) {
+  ${mqW[1]} {
     font-size: 1rem;
   }
 `;
@@ -112,21 +120,20 @@ export const Panel = styled.div`
   color: white;
 `;
 
-export const breakpoints2 = {
-  xs: 330,
-  sm: 575,
-  md: 764,
-  base: 764,
-  lg: 1050,
-  xl: 1325
-};
-
-const breakpoints = [576, 768, 992, 1200];
-
-export const mq = breakpoints.map(bp => `@media (max-width: ${bp}px)`);
-
 export const chartContainer = css`
-  padding-left: 2rem;
+  padding-left: 1rem;
   width: 90%;
   height: 100%;
+`;
+
+export const StyledCell = styled(Cell)`
+  height: 80%;
+
+  ${mqH[1]} {
+    height: 70%;
+  }
+
+  ${mqH[0]} {
+    height: 60%;
+  }
 `;

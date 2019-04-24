@@ -2,11 +2,16 @@
 import { jsx, css } from "@emotion/core";
 import React from "react";
 import { Socket } from "phoenix";
-import { Cell } from "styled-css-grid";
 import { Area } from "../types";
 import { Loader } from "../Loader";
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryLabel } from "victory";
-import { getStyles, Panel, WidgetTitle, chartContainer } from "../styles";
+import {
+  getStyles,
+  Panel,
+  WidgetTitle,
+  chartContainer,
+  StyledCell
+} from "../styles";
 
 interface Payload {
   data: any;
@@ -94,9 +99,9 @@ export default class AwsCost extends React.Component<Props, State> {
 
     if (!this.state || !this.state.payload) {
       return (
-        <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
+        <StyledCell center area={area} style={{ backgroundColor: "#292A29" }}>
           <Loader />
-        </Cell>
+        </StyledCell>
       );
     }
 
@@ -110,9 +115,9 @@ export default class AwsCost extends React.Component<Props, State> {
 
     if (data.length < 1) {
       return (
-        <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
+        <StyledCell center area={area} style={{ backgroundColor: "#292A29" }}>
           <div data-testid="aws-widget">Data not found</div>
-        </Cell>
+        </StyledCell>
       );
     }
 
@@ -120,17 +125,7 @@ export default class AwsCost extends React.Component<Props, State> {
       <Panel data-testid="aws-widget">
         <WidgetTitle>AWS cost per month</WidgetTitle>
 
-        <Cell
-          center
-          area={area}
-          style={
-            screenHeight > 900
-              ? { height: "87.5%" }
-              : screenHeight > 800
-              ? { height: "80%" }
-              : { height: "64%" }
-          }
-        >
+        <StyledCell center area={area}>
           <div css={chartContainer}>
             <VictoryChart
               domainPadding={50}
@@ -156,7 +151,7 @@ export default class AwsCost extends React.Component<Props, State> {
               />
             </VictoryChart>
           </div>
-        </Cell>
+        </StyledCell>
       </Panel>
     );
   }
