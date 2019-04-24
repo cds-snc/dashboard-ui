@@ -91,11 +91,10 @@ class Cost extends React.Component<RouteComponentProps, State> {
             area="d"
             socket={this.socket}
           />
-          <ServerMemory
+          <Empty
             screenHeight={this.state.height}
             screenWidth={this.state.width}
             area="e"
-            socket={this.socket}
           />
           <Empty
             screenHeight={this.state.height}
