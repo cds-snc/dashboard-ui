@@ -1,8 +1,15 @@
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core";
 import React from "react";
 import { Socket } from "phoenix";
-import { getStyles, WidgetTitle } from "../styles";
+import { getStyles, WidgetTitle, StyledCell } from "../styles";
 import { Loader } from "../Loader";
 import * as d3 from "d3";
+
+
+const white = css`
+  color: white;
+`;
 
 export default class Deploys extends React.Component {
   constructor(props) {
@@ -66,10 +73,11 @@ export default class Deploys extends React.Component {
 
     let yAxis = (g) => g
       .attr("transform", `translate(${margin.left},0)`)
-      .call(d3.axisLeft(y))
+      .call(d3.axisLeft(y).ticks(5))
       .call(g => g.select(".domain").remove())
       .call(g => g.select(".tick:last-of-type text").clone()
           .attr("x", 3)
+          .attr("width", "100%")
           .attr("text-anchor", "start")
           .attr("font-weight", "bold")
           .text(data.y));
@@ -80,7 +88,11 @@ export default class Deploys extends React.Component {
             .y(d => y(d.deploys));
 
     d3.select("#x-axis").call(xAxis);
-    d3.select("#y-axis").call(yAxis);
+    d3.select("#y-axis")
+      .call(yAxis)
+      .selectAll("line")
+      .attr("x1", width - margin.right - margin.left)
+      .attr("color", "grey");
 
     d3.select("#line")
         .datum(data)
@@ -88,38 +100,41 @@ export default class Deploys extends React.Component {
 
   }
   componentDidUpdate(prevProps) {
-    let width = 400;
-    let height = 400;
+    let width = document.getElementById('deploy-chart').clientWidth;
+    let height = document.getElementById('deploy-chart').clientHeight;
     this.d3Stuff(width, height);
   }
 
   render() {
     const styles = getStyles();
-
+    const { area } = this.props;
     if (!this.state || !this.state.payload) {
       return (
         <Loader />
       );
     }
 
-    let width = 400;
-    let height = 400;
-
     return (
       <div data-testid="deploys-widget">
         <WidgetTitle>Deploys per week</WidgetTitle>
-        <svg id="deploy-chart" width={width} height={height}>
-          <g id="y-axis"></g>
-          <g id="x-axis"></g>
-          <path
-            id="line"
-            fill="none"
-            stroke="steelblue"
-            strokeWidth={3}
-            strokeLinejoin="round"
-            strokeLinecap="round"
-          ></path>
-        </svg>
+        <StyledCell area={area} center>
+          <svg
+            id="deploy-chart"
+            width="100%"
+            height="100%"
+            >
+            <g css={white} id="y-axis"></g>
+            <g css={white} id="x-axis"></g>
+            <path
+              id="line"
+              fill="none"
+              stroke="steelblue"
+              strokeWidth={3}
+              strokeLinejoin="round"
+              strokeLinecap="round"
+            ></path>
+          </svg>
+        </StyledCell>
       </div>
     );
   }
