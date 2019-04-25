@@ -1,14 +1,16 @@
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core";
 import React from "react";
 import { Socket } from "phoenix";
-import { Cell } from "styled-css-grid";
 import { Area } from "../types";
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryLabel } from "victory";
 import {
-  VictoryBar,
-  VictoryChart,
-  VictoryAxis,
-  VictoryLabel
-} from "victory";
-import { getStyles, Panel, WidgetTitle } from "../styles";
+  getStyles,
+  Panel,
+  WidgetTitle,
+  chartContainer,
+  StyledCell
+} from "../styles";
 
 import { Loader } from "../Loader";
 
@@ -73,7 +75,7 @@ export default class HerokuCost extends React.Component<Props, State> {
       }
       return 0;
     });
-    return chartData.slice(-5).map(p => {
+    return chartData.slice(-4).map(p => {
       const month = p.period_start.split("-");
       return {
         x: `${month[0].slice(-2)}-${month[1]}`,
@@ -88,37 +90,41 @@ export default class HerokuCost extends React.Component<Props, State> {
 
     if (!this.state || !this.state.payload) {
       return (
-        <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
+        <StyledCell center area={area} style={{ backgroundColor: "#292A29" }}>
           <Loader />
-        </Cell>
+        </StyledCell>
       );
     }
 
     return (
       <Panel data-testid="heroku-cost-widget">
-        <Cell center area={area} style={screenHeight > 900 ? { height: "87.5%" } : screenHeight > 800 ? { height: "80%" } : { height: "64%" } }>
         <WidgetTitle>Heroku cost per month</WidgetTitle>
-          <VictoryChart
-            domainPadding={40}
-            style={{
-              parent: { background: "#292A29" }
-            }}
-          >
-            <VictoryAxis style={styles.axisYears} padding={20} />
-            <VictoryAxis
-              style={styles.axisOne}
-              dependentAxis
-              tickFormat={x => `$${x}`}
-            />
-            <VictoryBar
-              data={this.getData()}
-              style={styles.herokuBar}
-              barWidth={30}
-              labels={d => `$${d.y}`}
-              labelComponent={<VictoryLabel style={styles.herokuBar.labels} />}
-            />
-          </VictoryChart>
-        </Cell>
+        <StyledCell center area={area}>
+          <div css={chartContainer}>
+            <VictoryChart
+              domainPadding={50}
+              style={{
+                parent: { background: "#292A29" }
+              }}
+            >
+              <VictoryAxis style={styles.axisYears} padding={20} />
+              <VictoryAxis
+                style={styles.axisOne}
+                dependentAxis
+                tickFormat={x => `$${x}`}
+              />
+              <VictoryBar
+                data={this.getData()}
+                style={styles.herokuBar}
+                barWidth={40}
+                labels={d => `$${d.y}`}
+                labelComponent={
+                  <VictoryLabel style={styles.herokuBar.labels} />
+                }
+              />
+            </VictoryChart>
+          </div>
+        </StyledCell>
       </Panel>
     );
   }

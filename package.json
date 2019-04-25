@@ -1,10 +1,11 @@
 {
-  "name": "loon-ui",
+  "name": "dashboard-ui",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://cds-snc.github.io/loon-ui",
+  "homepage": "https://cds-snc.github.io/dashboard-ui",
   "dependencies": {
     "@emotion/core": "^10.0.10",
+    "@emotion/styled": "^10.0.10",
     "@reach/router": "^1.2.1",
     "@types/d3": "^5.7.2",
     "@types/jest": "24.0.11",

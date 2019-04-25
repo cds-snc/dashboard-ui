@@ -1,6 +1,7 @@
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core";
 import React from "react";
 import { Socket } from "phoenix";
-import { Cell } from "styled-css-grid";
 import { Area } from "../types";
 import {
   VictoryAxis,
@@ -9,7 +10,13 @@ import {
   VictoryLine,
   VictoryTheme
 } from "victory";
-import { getStyles, Panel, WidgetTitle } from "../styles";
+import {
+  getStyles,
+  Panel,
+  WidgetTitle,
+  chartContainer,
+  StyledCell
+} from "../styles";
 
 import { Loader } from "../Loader";
 
@@ -78,43 +85,36 @@ export default class ServerMemory extends React.Component<Props, State> {
 
     if (!this.state || !this.state.payload) {
       return (
-        <Cell center area={area} style={{ backgroundColor: "#292A29" }}>
+        <StyledCell center area={area} style={{ backgroundColor: "#292A29" }}>
           <Loader />
-        </Cell>
+        </StyledCell>
       );
     }
 
     return (
       <Panel data-testid="server-memory-widget">
         <WidgetTitle>Total memory usage</WidgetTitle>
-        <Cell
-          area={area}
-          style={
-            screenHeight > 900
-              ? { height: "87.5%" }
-              : screenHeight > 800
-              ? { height: "80%" }
-              : { height: "64%" }
-          }
-        >
-          <VictoryChart
-            style={{
-              parent: { background: "#292A29", height: "100%" }
-            }}
-          >
-            <VictoryAxis style={styles.axisOne} />
-            <VictoryAxis
-              dependentAxis
-              tickFormat={(x: number) => `${x.toFixed(2)} MB`}
-              style={styles.axisYears}
-            />
-            <VictoryLine
-              interpolation="natural"
-              style={styles.MemoryLine}
-              data={this.getData()}
-            />
-          </VictoryChart>
-        </Cell>
+        <StyledCell area={area}>
+          <div css={chartContainer}>
+            <VictoryChart
+              style={{
+                parent: { background: "#292A29", height: "100%" }
+              }}
+            >
+              <VictoryAxis style={styles.axisOne} />
+              <VictoryAxis
+                dependentAxis
+                tickFormat={(x: number) => `${x.toFixed(2)} MB`}
+                style={styles.axisYears}
+              />
+              <VictoryLine
+                interpolation="natural"
+                style={styles.MemoryLine}
+                data={this.getData()}
+              />
+            </VictoryChart>
+          </div>
+        </StyledCell>
       </Panel>
     );
   }
