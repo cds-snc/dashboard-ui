@@ -62,7 +62,7 @@ class Cost extends React.Component<RouteComponentProps, State> {
         <Grid
           height="100vh"
           areas={
-            this.state.width > 900 ? ["a b c", "d e f"] : ["a b", "c d", "e f"]
+            this.state.width > 950 ? ["a b c", "d e f"] : ["a b", "c d", "e f"]
           }
           columns="3"
           gap="0px"
