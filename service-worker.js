@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/loon-ui/precache-manifest.dc7f1ad768c2e52212a187c8b13cdec3.js"
+  "/dashboard-ui/precache-manifest.dc7f1ad768c2e52212a187c8b13cdec3.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/loon-ui/index.html", {
-  
+workbox.routing.registerNavigationRoute("/dashboard-ui/index.html", {
+
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });

@@ -14,7 +14,7 @@
   },
   "formation": {
   },
-  "name": "loon-ui",
+  "name": "dashboard-ui",
   "scripts": {
   },
   "stack": "heroku-18"

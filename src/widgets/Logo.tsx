@@ -34,7 +34,7 @@ export default class Logo extends React.Component<Props> {
       <Panel>
       <Cell data-testid="widget" area={area} center style={{ backgroundColor: "#292A29" }}>
         <WidgetContainer>
-          <WidgetTitle>Loon UI Dashboard</WidgetTitle>
+          <WidgetTitle>CDS Dashboard</WidgetTitle>
           <CdsLogo />
           <p>alpha banner</p>
         </WidgetContainer>
