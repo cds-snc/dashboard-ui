@@ -93,7 +93,7 @@ export default class GoogleCloudCost extends React.Component<Props, State> {
     return (
       <Panel data-testid="gcp-cost-widget">
         <WidgetTitle>GCP cost per month</WidgetTitle>
-        <StyledCell area={area}>
+        <StyledCell center area={area}>
           <div css={chartContainer}>
             <VictoryChart
               domainPadding={50}
