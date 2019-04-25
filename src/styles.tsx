@@ -25,13 +25,13 @@ export const theme = {
     PURPLE_COLOR: "#b19cd9"
   },
   font: {
-    xs: "8pt",
-    sm: "10pt",
-    base: "12pt",
-    md: "12pt",
-    lg: "14pt",
-    xl: "20pt",
-    xxl: "24pt"
+    xs: "0.7em", //8pt
+    sm: "0.8em", //10pt
+    base: "0.75em", //12pt
+    md: "0.75em", //12pt
+    lg: "1.2em", //14pt
+    xl: "1.6em", //20pt
+    xxl: "2em" //24pt
   },
   spacing: {
     two: "2rem",
