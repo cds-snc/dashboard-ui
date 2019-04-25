@@ -59,7 +59,7 @@ const PageHeader = () => {
     <div css={header}>
       <div>
         <div css={titleContainer}>
-          <h1>Dashboard UI</h1>
+          <h1>CDS Dashboard</h1>
           <PhaseBadge />
         </div>
         <nav css={navStyle}>
