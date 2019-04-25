@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import React from "react";
-import { Socket } from "phoenix";
 import { getStyles, WidgetTitle, StyledCell } from "../styles";
 import { Loader } from "../Loader";
 import * as d3 from "d3";
