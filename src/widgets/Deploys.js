@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import React from "react";
-import { getStyles, WidgetTitle, StyledCell } from "../styles";
+import { WidgetTitle, StyledCell } from "../styles";
 import { Loader } from "../Loader";
 import * as d3 from "d3";
 
@@ -105,7 +105,6 @@ export default class Deploys extends React.Component {
   }
 
   render() {
-    const styles = getStyles();
     const { area } = this.props;
     if (!this.state || !this.state.payload) {
       return (
