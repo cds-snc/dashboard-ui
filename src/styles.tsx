@@ -3,26 +3,51 @@ import { jsx, css } from "@emotion/core";
 import styled from "@emotion/styled";
 import { Cell } from "styled-css-grid";
 
-const breakpointsW = [575, 950];
-const breakpointsH = [360, 535];
+const breakpointsW = [460, 540, 950, 1075];
+const breakpointsH = [360, 575];
 
 export const mqW = breakpointsW.map(bp => `@media (max-width: ${bp}px)`);
 
 export const mqH = breakpointsH.map(bp => `@media (max-height: ${bp}px)`);
 
-export function getStyles() {
-  const WHITE_COLOR = "#FFFFFF";
-  const BLACK_COLOR = "#000000";
-  const BLUE_COLOR = "#367BBC";
-  const RED_COLOR = "#C14C54";
-  const AXIS_COLOR = "#FFFFFF";
-  const LIGHTGRAY_COLOR = "#4F4F4F";
-  const BLACKDARK_COLOR = "#1A1B1E";
-  const BLACKLIGHT_COLOR = "#292A29";
-  const GREEN_COLOR = "#31D397";
-  const YELLOW_COLOR = "#F0C656";
-  const PURPLE_COLOR = "#b19cd9";
+export const theme = {
+  colour: {
+    WHITE_COLOR: "#FFFFFF",
+    BLACK_COLOR: "#000000",
+    BLUE_COLOR: "#367BBC",
+    RED_COLOR: "#C14C54",
+    AXIS_COLOR: "#FFFFFF",
+    LIGHTGRAY_COLOR: "#4F4F4F",
+    BLACKDARK_COLOR: "#1A1B1E",
+    BLACKLIGHT_COLOR: "#292A29",
+    GREEN_COLOR: "#31D397",
+    YELLOW_COLOR: "#F0C656",
+    PURPLE_COLOR: "#b19cd9"
+  },
+  font: {
+    xs: "8pt",
+    sm: "10pt",
+    base: "12pt",
+    md: "12pt",
+    lg: "14pt",
+    xl: "20pt",
+    xxl: "24pt"
+  },
+  spacing: {
+    two: "2rem",
+    xxs: "0.17rem",
+    xs: "0.33rem",
+    sm: "0.5rem",
+    md: "1.0rem",
+    base: "1.0rem",
+    lg: "1.5rem",
+    xl: "2.5rem",
+    xxl: "5rem",
+    xxxl: "12rem"
+  }
+};
 
+export function getStyles() {
   return {
     labelNumber: {
       fill: "#ffffff",
@@ -32,14 +57,14 @@ export function getStyles() {
 
     // INDEPENDENT AXIS
     axisYears: {
-      grid: { strokeWidth: 1, stroke: LIGHTGRAY_COLOR },
-      axis: { stroke: AXIS_COLOR, strokeWidth: 1 },
+      grid: { strokeWidth: 1, stroke: theme.colour.LIGHTGRAY_COLOR },
+      axis: { stroke: theme.colour.AXIS_COLOR, strokeWidth: 1 },
       ticks: {
-        stroke: AXIS_COLOR,
+        stroke: theme.colour.AXIS_COLOR,
         strokeWidth: 1
       },
       tickLabels: {
-        fill: AXIS_COLOR,
+        fill: theme.colour.AXIS_COLOR,
         fontFamily: "inherit",
         fontSize: "12px"
       }
@@ -47,22 +72,22 @@ export function getStyles() {
 
     // DEPENDANT AXIS
     axisOne: {
-      grid: { strokeWidth: 1, stroke: LIGHTGRAY_COLOR },
-      axis: { stroke: AXIS_COLOR, strokeWidth: 1 },
-      ticks: { stroke: AXIS_COLOR, strokeWidth: 1 },
+      grid: { strokeWidth: 1, stroke: theme.colour.LIGHTGRAY_COLOR },
+      axis: { stroke: theme.colour.AXIS_COLOR, strokeWidth: 1 },
+      ticks: { stroke: theme.colour.AXIS_COLOR, strokeWidth: 1 },
       tickLabels: {
-        fill: AXIS_COLOR,
+        fill: theme.colour.AXIS_COLOR,
         fontFamily: "inherit",
         fontSize: "12px"
       }
     },
 
     axisTwo: {
-      grid: { strokeWidth: 1, stroke: LIGHTGRAY_COLOR },
-      axis: { stroke: AXIS_COLOR, strokeWidth: 1 },
-      ticks: { stroke: AXIS_COLOR, strokeWidth: 1 },
+      grid: { strokeWidth: 1, stroke: theme.colour.LIGHTGRAY_COLOR },
+      axis: { stroke: theme.colour.AXIS_COLOR, strokeWidth: 1 },
+      ticks: { stroke: theme.colour.AXIS_COLOR, strokeWidth: 1 },
       tickLabels: {
-        fill: AXIS_COLOR,
+        fill: theme.colour.AXIS_COLOR,
         fontFamily: "inherit",
         fontSize: "10px"
       }
@@ -70,66 +95,90 @@ export function getStyles() {
 
     // HEROKU WIDGET BAR STYLES
     herokuBar: {
-      data: { fill: GREEN_COLOR },
-      labels: { fill: WHITE_COLOR, fontSize: "12px" }
+      data: { fill: theme.colour.GREEN_COLOR },
+      labels: { fill: theme.colour.WHITE_COLOR, fontSize: "12px" }
     },
 
     // AWS WIDGET BAR STYLES
     AWSBar: {
-      data: { fill: BLUE_COLOR },
-      labels: { fill: WHITE_COLOR, fontSize: "12px" }
+      data: { fill: theme.colour.BLUE_COLOR },
+      labels: { fill: theme.colour.WHITE_COLOR, fontSize: "12px" }
     },
 
     // Azure WIDGET BAR STYLES
     AzureBar: {
-      data: { fill: PURPLE_COLOR },
-      labels: { fill: WHITE_COLOR, fontSize: "12px" }
+      data: { fill: theme.colour.PURPLE_COLOR },
+      labels: { fill: theme.colour.WHITE_COLOR, fontSize: "12px" }
     },
 
     // GOOGLE CLOUD COST WIDGET BAR STYLES
     GCPBar: {
-      data: { fill: RED_COLOR },
-      labels: { fill: WHITE_COLOR, fontSize: "12px" }
+      data: { fill: theme.colour.RED_COLOR },
+      labels: { fill: theme.colour.WHITE_COLOR, fontSize: "12px" }
     },
 
     // TOTAL MEMORY WIDGET BAR STYLES
     MemoryLine: {
-      data: { stroke: YELLOW_COLOR, strokeWidth: 6 },
+      data: { stroke: theme.colour.YELLOW_COLOR, strokeWidth: 6 },
       parent: { border: "1px solid #ccc" },
-      labels: { fill: WHITE_COLOR, fontSize: "12px" }
+      labels: { fill: theme.colour.WHITE_COLOR, fontSize: "12px" }
     }
   };
 }
 
 export const WidgetTitle = styled.h3`
-  padding-top: 1.5rem;
+  padding-top: ${theme.spacing.lg};
   margin-top: 0;
   margin-bottom: 0;
-  font-size: 1.5rem;
+  font-size: ${theme.font.xl};
   background: #292a29;
   color: #ffffff;
 
-  ${mqW[1]} {
-    font-size: 1rem;
+  ${mqW[2]} {
+    font-size: ${theme.font.lg};
   }
-`;
+
+  ${mqW[0]} {
+    font-size: ${theme.font.sm};
+    padding-top: 0.4rem;
+  }
+
+  @media (max-height: 575px) and (max-width: 1200px) {
+    padding-top: ${theme.spacing.md};
+    font-size: ${theme.font.lg};
+  }
+
+  @media (max-height: 575px) and (max-width: 700px) {
+    padding-top: 0.4rem;
+    font-size: ${theme.font.sm};
+  }
+`; //These last two queries I had to make custom due to weird issues happening at these specific dimensions
 
 export const Panel = styled.div`
   text-align: center;
   border: 2px solid #171717;
-  color: white;
+  color: ${theme.colour.WHITE_COLOR};
 `;
 
 export const chartContainer = css`
-  padding-left: 1rem;
+  padding-left: ${theme.spacing.two};
   width: 90%;
   height: 100%;
+
+  ${mqW[2]} {
+    padding-left: ${theme.spacing.md};
+  }
+`;
+
+export const chartContainerSM = css`
+  padding-left: 1.5rem;
+  ${chartContainer}
 `;
 
 export const StyledCell = styled(Cell)`
   height: 80%;
 
-  ${mqH[1]} {
+  ${mqH[2]} {
     height: 70%;
   }
 
