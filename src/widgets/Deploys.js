@@ -44,11 +44,9 @@ export default class Deploys extends React.Component {
     return dataWeekly;
   };
 
-  d3Stuff = () => {
+  d3Stuff = (width, height) => {
     let data = this.getData();
 
-    let width = 400;
-    let height = 400;
     let margin = {
       top: 20,
       right: 30,
@@ -81,30 +79,18 @@ export default class Deploys extends React.Component {
             .x(d => x(d.weekStartDate))
             .y(d => y(d.deploys));
 
-    const svg = d3.select("#deploy-chart")
-      .append("svg")
-      .attr("width", width)
-      .attr("height", height);
+    d3.select("#x-axis").call(xAxis);
+    d3.select("#y-axis").call(yAxis);
 
-    svg.append("g")
-        .call(xAxis);
-
-    svg.append("g")
-        .call(yAxis);
-
-    svg.append("path")
+    d3.select("#line")
         .datum(data)
-        .attr("fill", "none")
-        .attr("stroke", "steelblue")
-        .attr("stroke-width", 1.5)
-        .attr("stroke-linejoin", "round")
-        .attr("stroke-linecap", "round")
         .attr("d", line);
 
-    // svg.node();
   }
   componentDidUpdate(prevProps) {
-    this.d3Stuff();
+    let width = 400;
+    let height = 400;
+    this.d3Stuff(width, height);
   }
 
   render() {
@@ -116,16 +102,24 @@ export default class Deploys extends React.Component {
       );
     }
 
-    // let data = this.getData();
-    // console.log(data);
-    this.d3Stuff();
+    let width = 400;
+    let height = 400;
 
     return (
       <div data-testid="deploys-widget">
         <WidgetTitle>Deploys per week</WidgetTitle>
-        <div>Deploy Chart</div>
-        <div id="deploy-chart">
-        </div>
+        <svg id="deploy-chart" width={width} height={height}>
+          <g id="y-axis"></g>
+          <g id="x-axis"></g>
+          <path
+            id="line"
+            fill="none"
+            stroke="steelblue"
+            strokeWidth={3}
+            strokeLinejoin="round"
+            strokeLinecap="round"
+          ></path>
+        </svg>
       </div>
     );
   }
