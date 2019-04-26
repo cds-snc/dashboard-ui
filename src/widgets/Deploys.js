@@ -120,7 +120,7 @@ export default class Deploys extends React.Component {
 
     return (
       <Panel data-testid="deploys-widget">
-        <WidgetTitle>Deploys per week</WidgetTitle>
+        <WidgetTitle>Deploys per month</WidgetTitle>
         <StyledCell area={area} center>
           <svg
             id="deploy-chart"
