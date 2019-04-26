@@ -21,13 +21,16 @@ class Vac extends React.Component<RouteComponentProps> {
       <div className="Cost">
         <Grid
           height="100vh"
-          areas={["a", "b", "c"]}
-          columns="1"
+          areas={["a b", "c d", "e f"]}
+          columns="2"
           gap="0px"
         >
           <Deploys socket={this.socket} area="a" />
           <Empty area="b"/>
           <Empty area="c"/>
+          <Empty area="d"/>
+          <Empty area="e"/>
+          <Empty area="f"/>
         </Grid>
       </div>
     );

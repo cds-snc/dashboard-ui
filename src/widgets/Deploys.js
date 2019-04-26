@@ -1,16 +1,22 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import React from "react";
-import { WidgetTitle, StyledCell } from "../styles";
+import { WidgetTitle, Panel, StyledCell } from "../styles";
 import { Loader } from "../Loader";
 import * as d3 from "d3";
 
-
-const white = css`
+const xAxisStyle = css`
   color: white;
+`;
+const yAxisStyle = css`
+  color: white;
+  line {
+    color: #4F4F4F;
+  }
 `;
 
 export default class Deploys extends React.Component {
+
   constructor(props) {
     super(props);
 
@@ -33,26 +39,25 @@ export default class Deploys extends React.Component {
       .filter(x => x.mergedAt)
       .map(x => {
         x.mergedAtDate = new Date(x.mergedAt);
-        x.weekStartDate = d3.timeWeek(x.mergedAtDate);
+        x.startDate = d3.timeMonth(x.mergedAtDate);
         return x;
       });
-    let dataWeekly = d3.nest()
-      .key(d => d.weekStartDate.toString())
+    let dataMonthly = d3.nest()
+      .key(d => d.startDate.toString())
       .rollup(d => d.length)
       .entries(data);
 
-
-    dataWeekly.forEach(d => {
-      d.weekStartDate = new Date(d.key);
-      d.deploys =  d.value !== undefined ? d.value : 0;
+    dataMonthly.forEach(x => {
+      x.startDate = new Date(x.key);
+      x.endDate = new Date(x.startDate.getFullYear(), x.startDate.getMonth()+1, 0);
+      x.deploys =  x.value !== undefined ? x.value : 0;
     });
-    dataWeekly.sort(function(a, b){return a.weekStartDate - b.weekStartDate});
-    return dataWeekly;
+    dataMonthly.sort(function(a, b){return a.startDate - b.startDate});
+    return dataMonthly;
   };
 
   d3Stuff = (width, height) => {
     let data = this.getData();
-
     let margin = {
       top: 20,
       right: 30,
@@ -60,7 +65,7 @@ export default class Deploys extends React.Component {
       left: 40
     }
     let x = d3.scaleTime()
-      .domain(d3.extent(data, d => d.weekStartDate))
+      .domain([d3.min(data, d => d.startDate), d3.max(data, d => d.endDate)])
       .range([margin.left, width - margin.right])
     let y = d3.scaleLinear()
       .domain([0, d3.max(data, d => d.deploys)]).nice()
@@ -68,11 +73,11 @@ export default class Deploys extends React.Component {
 
     let xAxis = (g) => g
     .attr("transform", `translate(0,${height - margin.bottom})`)
-    .call(d3.axisBottom(x).ticks(width / 80).tickSizeOuter(0));
+    .call(d3.axisBottom(x).ticks(5).tickSizeOuter(0));
 
     let yAxis = (g) => g
       .attr("transform", `translate(${margin.left},0)`)
-      .call(d3.axisLeft(y).ticks(5))
+      .call(d3.axisLeft(y))
       .call(g => g.select(".domain").remove())
       .call(g => g.select(".tick:last-of-type text").clone()
           .attr("x", 3)
@@ -81,26 +86,27 @@ export default class Deploys extends React.Component {
           .attr("font-weight", "bold")
           .text(data.y));
 
-    let line = d3.line()
-            .defined(d => !isNaN(d.deploys))
-            .x(d => x(d.weekStartDate))
-            .y(d => y(d.deploys));
-
     d3.select("#x-axis").call(xAxis);
+
     d3.select("#y-axis")
       .call(yAxis)
       .selectAll("line")
       .attr("x1", width - margin.right - margin.left)
-      .attr("color", "grey");
 
-    d3.select("#line")
-        .datum(data)
-        .attr("d", line);
+    d3.select("#bars")
+        .selectAll("rect")
+        .data(data)
+        .join("rect")
+          .attr("x", d => x(d.startDate))
+          .attr("y", d => y(d.deploys))
+          .attr("height", d => Math.abs(y(0) - y(d.deploys)))
+          .attr("width", d => Math.abs(x(d.endDate) - x(d.startDate)));
 
   }
   componentDidUpdate(prevProps) {
-    let width = document.getElementById('deploy-chart').clientWidth;
-    let height = document.getElementById('deploy-chart').clientHeight;
+
+    const width = document.getElementById('deploy-chart').clientWidth;
+    const height = document.getElementById('deploy-chart').clientHeight;
     this.d3Stuff(width, height);
   }
 
@@ -113,7 +119,7 @@ export default class Deploys extends React.Component {
     }
 
     return (
-      <div data-testid="deploys-widget">
+      <Panel data-testid="deploys-widget">
         <WidgetTitle>Deploys per week</WidgetTitle>
         <StyledCell area={area} center>
           <svg
@@ -121,19 +127,12 @@ export default class Deploys extends React.Component {
             width="100%"
             height="100%"
             >
-            <g css={white} id="y-axis"></g>
-            <g css={white} id="x-axis"></g>
-            <path
-              id="line"
-              fill="none"
-              stroke="steelblue"
-              strokeWidth={3}
-              strokeLinejoin="round"
-              strokeLinecap="round"
-            ></path>
+            <g css={xAxisStyle} id="x-axis"></g>
+            <g css={yAxisStyle} id="y-axis"></g>
+            <g id="bars" fill="steelblue"></g>
           </svg>
         </StyledCell>
-      </div>
+      </Panel>
     );
   }
 }
