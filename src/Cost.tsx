@@ -2,16 +2,13 @@ import React from "react";
 import { Socket } from "phoenix";
 import { Grid } from "styled-css-grid";
 import ServerMemory from "./widgets/ServerMemory";
-import Logo from "./widgets/Logo";
 import AwsCost from "./widgets/AwsCost";
 import AzureCost from "./widgets/AzureCost";
 import HerokuCost from "./widgets/HerokuCost";
 import GoogleCloudCost from "./widgets/GoogleCloudCost";
 import Empty from "./widgets/Empty";
-import styled from "styled-components";
 import "./Cost.css";
 import { RouteComponentProps } from "@reach/router";
-import { Area } from "./types";
 
 /* https://github.com/azz/styled-css-grid */
 
@@ -102,8 +99,6 @@ class Cost extends React.Component<RouteComponentProps, State> {
             socket={this.socket}
           />
           <Empty
-            screenHeight={this.state.height}
-            screenWidth={this.state.width}
             area="f"
           />
         </Grid>
