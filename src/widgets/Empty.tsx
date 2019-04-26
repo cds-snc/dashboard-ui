@@ -1,7 +1,13 @@
 import React from "react";
 import { Area } from "../types";
 import { VictoryChart, VictoryTheme, VictoryAxis } from "victory";
-import { getStyles, Panel, WidgetTitle, StyledCell } from "../styles";
+import {
+  getStyles,
+  Panel,
+  WidgetTitle,
+  StyledCell,
+  chartContainer
+} from "../styles";
 
 interface Props {
   area: Area;
@@ -18,6 +24,7 @@ export default class Empty extends React.Component<Props> {
         <WidgetTitle>Placeholder widget</WidgetTitle>
         <StyledCell area={area} center>
           <VictoryChart
+            domainPadding={50}
             style={{
               parent: {}
             }}
