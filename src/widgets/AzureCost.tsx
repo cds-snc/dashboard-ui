@@ -85,11 +85,11 @@ export default class AzureCost extends React.Component<Props, State> {
 
     return (
       <Panel data-testid="azure-cost-widget">
-        <WidgetTitle>Azure cost per month</WidgetTitle>
+        <WidgetTitle>Azure cost per month (in $)</WidgetTitle>
         <StyledCell center area={area}>
           <div css={chartContainer}>
             <VictoryChart
-              domainPadding={30}
+              domainPadding={50}
               style={{
                 parent: { background: "#292A29", height: "100%" }
               }}

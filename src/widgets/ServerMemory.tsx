@@ -14,7 +14,7 @@ import {
   getStyles,
   Panel,
   WidgetTitle,
-  chartContainer,
+  chartContainerSM,
   StyledCell
 } from "../styles";
 
@@ -93,20 +93,19 @@ export default class ServerMemory extends React.Component<Props, State> {
 
     return (
       <Panel data-testid="server-memory-widget">
-        <WidgetTitle>Total memory usage</WidgetTitle>
+        <WidgetTitle>Total memory usage (in MB)</WidgetTitle>
         <StyledCell area={area}>
-          <div css={chartContainer}>
+          <div css={chartContainerSM}>
             <VictoryChart
               style={{
-                parent: { background: "#292A29", height: "100%" }
+                parent: {
+                  background: "#292A29",
+                  height: "100%"
+                }
               }}
             >
               <VictoryAxis style={styles.axisOne} />
-              <VictoryAxis
-                dependentAxis
-                tickFormat={(x: number) => `${x.toFixed(2)} MB`}
-                style={styles.axisYears}
-              />
+              <VictoryAxis dependentAxis style={styles.axisYears} />
               <VictoryLine
                 interpolation="natural"
                 style={styles.MemoryLine}
