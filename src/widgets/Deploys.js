@@ -5,6 +5,9 @@ import { WidgetTitle, Panel, StyledCell } from "../styles";
 import { Loader } from "../Loader";
 import * as d3 from "d3";
 
+const chartStyle = css`
+  font-size: 12px;
+`;
 const xAxisStyle = css`
   color: white;
 `;
@@ -12,6 +15,14 @@ const yAxisStyle = css`
   color: white;
   line {
     color: #4F4F4F;
+  }
+`;
+const barStyle = css`
+  fill: steelblue;
+  .text {
+    color: white;
+    fill: white;
+    text-anchor: middle;
   }
 `;
 
@@ -77,7 +88,7 @@ export default class Deploys extends React.Component {
 
     let yAxis = (g) => g
       .attr("transform", `translate(${margin.left},0)`)
-      .call(d3.axisLeft(y))
+      .call(d3.axisLeft(y).ticks(5))
       .call(g => g.select(".domain").remove())
       .call(g => g.select(".tick:last-of-type text").clone()
           .attr("x", 3)
@@ -91,16 +102,29 @@ export default class Deploys extends React.Component {
     d3.select("#y-axis")
       .call(yAxis)
       .selectAll("line")
-      .attr("x1", width - margin.right - margin.left)
+      .attr("x1", width - margin.right - margin.left);
 
-    d3.select("#bars")
-        .selectAll("rect")
-        .data(data)
-        .join("rect")
-          .attr("x", d => x(d.startDate))
-          .attr("y", d => y(d.deploys))
-          .attr("height", d => Math.abs(y(0) - y(d.deploys)))
-          .attr("width", d => Math.abs(x(d.endDate) - x(d.startDate)));
+  d3.select("#x-axis").attr("font-size", 12);
+  d3.select("#y-axis").attr("font-size", 12);
+
+  var bar = d3.select("#bars")
+    .selectAll("g")
+      .data(data)
+    .join("g")
+      .attr("transform", function(d, i) { return "translate(" + x(d.startDate) + ", 0)"; })
+      .attr("aria-label", d => d.deploys.toString() + " deploys in " + d.startDate.toLocaleString('en-us', { month: 'long' }) + " " + d.startDate.getFullYear().toString())
+
+  bar.append("rect")
+        .attr("y", d => y(d.deploys))
+        .attr("height", d => Math.abs(y(0) - y(d.deploys)))
+        .attr("width", d => Math.abs(x(d.endDate) - x(d.startDate)));
+
+  bar.append("text")
+      .attr("class", "text")
+      .attr("x", d => 0.5*Math.abs(x(d.endDate) - x(d.startDate)))
+      .attr("y", d => y(d.deploys) - 5)
+      .text(d => d.deploys)
+      .attr("aria-hidden", "true");
 
   }
   componentDidUpdate(prevProps) {
@@ -123,13 +147,14 @@ export default class Deploys extends React.Component {
         <WidgetTitle>Deploys per month</WidgetTitle>
         <StyledCell area={area} center>
           <svg
+            css={chartStyle}
             id="deploy-chart"
             width="100%"
             height="100%"
             >
-            <g css={xAxisStyle} id="x-axis"></g>
-            <g css={yAxisStyle} id="y-axis"></g>
-            <g id="bars" fill="steelblue"></g>
+            <g css={xAxisStyle} id="x-axis" aria-hidden="true"></g>
+            <g css={yAxisStyle} id="y-axis" aria-hidden="true"></g>
+            <g css={barStyle} id="bars" fill="steelblue"></g>
           </svg>
         </StyledCell>
       </Panel>
