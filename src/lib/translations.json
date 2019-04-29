@@ -19,6 +19,10 @@
     "en": "VAC Dashboard",
     "fr": "(fra) Tableau de bord ACC"
   },
+  "home": {
+    "en": "Home",
+    "fr": "(fra) Home"
+  },
   "loading": {
     "en": "loading",
     "fr": "chargement"

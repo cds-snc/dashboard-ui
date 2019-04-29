@@ -54,20 +54,26 @@ const titleContainer = css`
   align-items: center;
 `;
 
-const PageHeader = () => {
+interface Props {
+  t: Function;
+}
+
+const PageHeader = (props: Props) => {
+  console.log(props.t("current-language-code"))
+  const { t } = props;
   return (
     <div css={header}>
       <div>
         <div css={titleContainer}>
-          <h1>CDS Dashboard</h1>
+          <h1>{t("cds_dashboard")}</h1>
           <PhaseBadge />
         </div>
         <nav css={navStyle}>
-          <Link to="/">Home</Link>
+          <Link to={"/?" + t("current-language-code")}>{t("home")}</Link>
           &nbsp; | &nbsp;
-          <Link to="/cost">Cost Dashboard</Link>
+          <Link to={"/cost?" + t("current-language-code")}>{t("cost_dashboard")}</Link>
           &nbsp; | &nbsp;
-          <Link to="/vac">VAC Dashboard</Link>
+          <Link to={"/vac?" + t("current-language-code")}>{t("vac_dashboard")}</Link>
         </nav>
       </div>
       <div>

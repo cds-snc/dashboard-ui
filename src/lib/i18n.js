@@ -7,6 +7,12 @@ const withI18N = WrappedComponent => {
     getT = (location) => {
       const language = location.search.slice(1); // query like "?en" or "?fr"
       let t = (key, options) => {
+        if (key === "current-language-code") {
+          return language === "fr" ? "fr" : "en";
+        }
+        if (key === "other-language-code") {
+          return language === "fr" ? "en" : "fr";
+        }
         if (Object.keys(translations).indexOf(key) > -1) {
           let trans =
             translations[key][

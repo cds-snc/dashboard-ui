@@ -2,25 +2,9 @@
 import { jsx, css } from "@emotion/core";
 import React from "react";
 import { hydrate, render } from "react-dom";
-import PageHeader from './widgets/PageHeader';
 import "./index.css";
-import Cost from "./Cost";
-import Vac from "./Vac";
-import Home from "./Home";
 import * as serviceWorker from "./serviceWorker";
-
-import { Router } from "@reach/router";
-
-const App = () => (
-  <div>
-    <PageHeader />
-    <Router>
-      <Home path="/" />
-      <Cost path="cost/" />
-      <Vac path="vac/" />
-    </Router>
-  </div>
-);
+import App from "./AppComponent";
 
 const rootElement = document.getElementById("root");
 if (rootElement && rootElement.hasChildNodes()) {
