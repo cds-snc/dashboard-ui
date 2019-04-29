@@ -21,35 +21,35 @@
   },
   "loading": {
     "en": "loading",
-    "fr": ""
+    "fr": "chargement"
   },
   "heroku_cost_title": {
     "en": "Heroku cost per month",
-    "fr": "(fra) "
+    "fr": "(fra) Coût Heroku par mois"
   },
   "aws_cost_title": {
     "en": "AWS cost per month",
-    "fr": "(fra)"
+    "fr": "(fra) Coût AWS par mois"
   },
   "google_cost_title": {
     "en": "GCP cost per month",
-    "fr": "(fra)"
+    "fr": "(fra) Coût GCP par mois"
   },
   "azure_cost_title": {
     "en": "Azure cost per month (in $)",
-    "fr": "(fra)"
+    "fr": "(fra) Coût azur par mois (en $)"
   },
   "memory_usage_title": {
     "en": "Total memory usage (in MB)",
-    "fr": "(fra)"
+    "fr": "(fra) Utilisation totale de la mémoire (en Mo)"
   },
   "placeholder_title": {
     "en": "Placeholder widget",
-    "fr": "(fra)"
+    "fr": "(fra) widget placeholder"
   },
   "deploys_title": {
     "en": "Deploys per month",
-    "fr": "(fra)"
+    "fr": "(fra) Déploiements par mois"
   },
   "deploys_aria_label": {
     "en": "{{n}} deploys in {{month}}",

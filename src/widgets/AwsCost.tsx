@@ -99,7 +99,7 @@ export default class AwsCost extends React.Component<Props, State> {
     if (!this.state || !this.state.payload) {
       return (
         <StyledCell center area={area} style={{ backgroundColor: "#292A29" }}>
-          <Loader />
+          <Loader t={t} />
         </StyledCell>
       );
     }

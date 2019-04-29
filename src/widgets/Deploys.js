@@ -138,7 +138,7 @@ export default class Deploys extends React.Component {
     const { area, t } = this.props;
     if (!this.state || !this.state.payload) {
       return (
-        <Loader />
+        <Loader t={t} />
       );
     }
 
