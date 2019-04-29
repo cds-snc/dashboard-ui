@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Location } from '@reach/router';
 import translations from '../lib/translations.json';
-let translationDict = {};
 
 const withI18N = WrappedComponent => {
   class WithI18N extends Component {
@@ -11,7 +10,7 @@ const withI18N = WrappedComponent => {
         if (Object.keys(translations).indexOf(key) > -1) {
           let trans =
             translations[key][
-              language === "en" ? "en" : "fr"
+              language === "fr" ? "fr" : "en"
             ];
           if (options) {
             trans = trans.replace("{{x}}", options.x);

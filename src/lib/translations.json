@@ -2,5 +2,57 @@
 "hello_world": {
   "en": "Hello World",
   "fr": "Bonjour le monde"
+  },
+  "cds_dashboard": {
+    "en": "CDS Dashboard",
+    "fr": "(fra) Tableau de bord SNC"
+  },
+  "alpha": {
+    "en": "alpha",
+    "fr": "alpha"
+  },
+  "cost_dashboard": {
+    "en": "Cost Dashboard",
+    "fr": "(fra) Tableau de bord Cost"
+  },
+  "vac_dashboard": {
+    "en": "VAC Dashboard",
+    "fr": "(fra) Tableau de bord ACC"
+  },
+  "loading": {
+    "en": "loading",
+    "fr": ""
+  },
+  "heroku_cost_title": {
+    "en": "Heroku cost per month",
+    "fr": "(fra) "
+  },
+  "aws_cost_title": {
+    "en": "AWS cost per month",
+    "fr": "(fra)"
+  },
+  "google_cost_title": {
+    "en": "GCP cost per month",
+    "fr": "(fra)"
+  },
+  "azure_cost_title": {
+    "en": "Azure cost per month (in $)",
+    "fr": "(fra)"
+  },
+  "memory_usage_title": {
+    "en": "Total memory usage (in MB)",
+    "fr": "(fra)"
+  },
+  "placeholder_title": {
+    "en": "Placeholder widget",
+    "fr": "(fra)"
+  },
+  "deploys_title": {
+    "en": "Deploys per month",
+    "fr": "(fra)"
+  },
+  "deploys_aria_label": {
+    "en": "{{n}} deploys in {{month}}",
+    "fr": "(fra) {{n}} deploys in {{month}}"
   }
 }

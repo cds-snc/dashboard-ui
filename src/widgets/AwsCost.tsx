@@ -25,8 +25,7 @@ interface Props {
   payload?: Payload;
   socket: Socket;
   area: Area;
-  screenWidth: number;
-  screenHeight: number;
+  t: Function;
 }
 
 export default class AwsCost extends React.Component<Props, State> {
@@ -90,7 +89,7 @@ export default class AwsCost extends React.Component<Props, State> {
   };
 
   render() {
-    const { area, screenHeight, screenWidth } = this.props;
+    const { area, t } = this.props;
 
     const styles = getStyles();
     const data = this.getData();
@@ -123,8 +122,7 @@ export default class AwsCost extends React.Component<Props, State> {
 
     return (
       <Panel data-testid="aws-widget">
-        <WidgetTitle>AWS cost per month</WidgetTitle>
-
+        <WidgetTitle>{t("aws_cost_title")}</WidgetTitle>
         <StyledCell center area={area}>
           <div css={chartContainer}>
             <VictoryChart

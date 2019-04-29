@@ -30,8 +30,7 @@ interface Props {
   socket: Socket;
   area: Area;
   payload?: Payload;
-  screenHeight: number;
-  screenWidth: number;
+  t: Function;
 }
 
 /* style={
@@ -80,7 +79,7 @@ export default class GoogleCloudCost extends React.Component<Props, State> {
   };
 
   render() {
-    const { area, screenHeight, screenWidth } = this.props;
+    const { area, t } = this.props;
     const styles = getStyles();
     if (!this.state || !this.state.payload) {
       return (
@@ -92,7 +91,7 @@ export default class GoogleCloudCost extends React.Component<Props, State> {
 
     return (
       <Panel data-testid="gcp-cost-widget">
-        <WidgetTitle>GCP cost per month</WidgetTitle>
+        <WidgetTitle>{t("google_cost_title")}</WidgetTitle>
         <StyledCell center area={area}>
           <div css={chartContainer}>
             <VictoryChart

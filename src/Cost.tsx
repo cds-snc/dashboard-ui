@@ -9,6 +9,7 @@ import GoogleCloudCost from "./widgets/GoogleCloudCost";
 import Empty from "./widgets/Empty";
 import "./Cost.css";
 import { RouteComponentProps } from "@reach/router";
+import withI18N from "./lib/i18n";
 
 /* https://github.com/azz/styled-css-grid */
 
@@ -19,10 +20,14 @@ interface State {
   height: number;
 }
 
+interface CostPageProps extends RouteComponentProps {
+  t: Function;
+}
+
 // interface Props {} // eslint-disable-line @typescript-eslint/no-empty-interface
-class Cost extends React.Component<RouteComponentProps, State> {
+class Cost extends React.Component<CostPageProps, State> {
   socket: Socket; // eslint-disable-line  @typescript-eslint/explicit-member-accessibility
-  constructor(props: RouteComponentProps) {
+  constructor(props: CostPageProps) {
     super(props);
 
     this.state = {
@@ -54,6 +59,8 @@ class Cost extends React.Component<RouteComponentProps, State> {
       `Screen Width: ${this.state.width} Screen Height: ${this.state.height}`
     );
 
+    const { t } = this.props;
+
     return (
       <div className="Cost">
         <Grid
@@ -69,37 +76,33 @@ class Cost extends React.Component<RouteComponentProps, State> {
           gap="0px"
         >
           <HerokuCost
-            screenHeight={this.state.height}
-            screenWidth={this.state.width}
             area="a"
             socket={this.socket}
+            t={t}
           />
           <AwsCost
-            screenHeight={this.state.height}
-            screenWidth={this.state.width}
             area="b"
             socket={this.socket}
+            t={t}
           />
           <GoogleCloudCost
-            screenHeight={this.state.height}
-            screenWidth={this.state.width}
             area="c"
             socket={this.socket}
+            t={t}
           />
           <AzureCost
-            screenHeight={this.state.height}
-            screenWidth={this.state.width}
             area="d"
             socket={this.socket}
+            t={t}
           />
           <ServerMemory
-            screenHeight={this.state.height}
-            screenWidth={this.state.width}
             area="e"
             socket={this.socket}
+            t={t}
           />
           <Empty
             area="f"
+            t={t}
           />
         </Grid>
       </div>
@@ -107,4 +110,4 @@ class Cost extends React.Component<RouteComponentProps, State> {
   }
 }
 
-export default Cost;
+export default withI18N(Cost);
