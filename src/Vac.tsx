@@ -17,6 +17,7 @@ class Vac extends React.Component<RouteComponentProps> {
   }
 
   render(): JSX.Element {
+    // console.log(this.props)
     return (
       <div className="Cost">
         <Grid

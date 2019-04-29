@@ -1,44 +1,50 @@
-import { Component } from "react";
-
-const mapStateToProps = reduxState => {
-  return {
-    translations: reduxState.translations,
-    language: reduxState.language
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return {
-    setLanguage: language => {
-      dispatch({ type: "SET_LANGUAGE", data: language });
-    }
-  };
-};
+import React, { Component } from "react";
+import { Location } from '@reach/router';
+import translations from '../lib/translations.json';
+let translationDict = {};
 
 const withI18N = WrappedComponent => {
   class WithI18N extends Component {
-    t = (key, options) => {
-      let translations = this.props.translations;
-      for (var p in translations) {
-        if (key == translations[p].key || key == translations[p].id) {
+    getT = (location) => {
+      const language = location.search.slice(1); // query like "?en" or "?fr"
+      let t = (key, options) => {
+        if (Object.keys(translations).indexOf(key) > -1) {
           let trans =
-            translations[p][
-              this.props.language === "en" ? "English" : "French"
+            translations[key][
+              language === "en" ? "en" : "fr"
             ];
           if (options) {
             trans = trans.replace("{{x}}", options.x);
           }
           return trans;
         }
+        return key;
       }
-      return "key";
+      return t;
     };
-    i18n = {
-      changeLanguage: () => {
-        this.props.setLanguage(this.t("other-language-code"));
-      }
-    };
+
+    getChangeLanguage = (location) => {
+      const language = location.search.slice(1); // query like "?en" or "?fr"
+      const otherLanguage = language === "en" ? "fr" : "en";
+      const changeLanguage = () => {
+        location.search = "?" + otherLanguage;
+      };
+      return changeLanguage;
+    }
+
     render() {
-      return <WrappedComponent {...this.props} t={this.t} i18n={this.i18n} />;
+      return (
+        <Location>
+        {({ location })=>
+          <WrappedComponent
+            {...this.props}
+            t={this.getT(location)}
+            changeLanguage={this.getChangeLanguage(location)}
+            />
+          }
+        </Location>
+        );
+
     }
   }
   return WithI18N;
