@@ -23,6 +23,8 @@ class Vac extends React.Component<VacPageProps> {
 
   render(): JSX.Element {
     const { t } = this.props;
+    document.title = t("vac_dashboard");
+
     return (
       <div className="Cost">
         <Grid

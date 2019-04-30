@@ -60,6 +60,7 @@ class Cost extends React.Component<CostPageProps, State> {
     );
 
     const { t } = this.props;
+    document.title = t("cost_dashboard");
 
     return (
       <div className="Cost">

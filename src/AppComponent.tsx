@@ -11,7 +11,6 @@ interface Props {
 }
 
 const App = (props: Props) => {
-  document.title = props.t("cds_dashboard");
   return (
     <div>
       <PageHeader t={props.t}/>
