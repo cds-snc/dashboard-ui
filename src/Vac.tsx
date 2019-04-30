@@ -1,6 +1,7 @@
 import React from "react";
 import { RouteComponentProps } from '@reach/router';
 import Deploys from "./widgets/Deploys.js";
+import ResearchActivity from "./widgets/ResearchActivity.js";
 import { Socket } from "phoenix";
 import { Grid } from "styled-css-grid";
 import Empty from "./widgets/Empty";
@@ -35,7 +36,7 @@ class Vac extends React.Component<VacPageProps> {
         >
           <Deploys socket={this.socket} area="a" t={t} />
           <Empty area="b" t={t} />
-          <Empty area="c" t={t} />
+          <ResearchActivity socket={this.socket} area="c" t={t} />
           <Empty area="d" t={t} />
           <Empty area="e" t={t} />
           <Empty area="f" t={t} />

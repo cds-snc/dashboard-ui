@@ -66,5 +66,9 @@
   "deploys_aria_label": {
     "en": "{{n}} deploys in {{month}}",
     "fr": "(fra) {{n}} deploys in {{month}}"
+  },
+  "research_activity_title": {
+    "en": "Research activity",
+    "fr": "(fra) Research activity"
   }
 }

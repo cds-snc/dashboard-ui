@@ -5,7 +5,29 @@ import { WidgetTitle, Panel, StyledCell } from "../styles";
 import { Loader } from "../Loader";
 import * as d3 from "d3";
 
-export default class Deploys extends React.Component {
+const chartStyle = css`
+  font-size: 12px;
+`;
+const xAxisStyle = css`
+  color: white;
+`;
+const yAxisStyle = css`
+  color: white;
+  line {
+    color: #4F4F4F;
+  }
+`;
+const barStyle = css`
+  fill: #89A84F;
+  .text {
+    color: white;
+    fill: white;
+    text-anchor: middle;
+  }
+`;
+const chartId = "research-activity";
+
+export default class ResearchActivity extends React.Component {
 
   constructor(props) {
     super(props);
@@ -21,29 +43,29 @@ export default class Deploys extends React.Component {
   }
 
   getData = () => {
+    var parseTime = d3.timeParse("%Y-%m");
+
     if (!this.state || !this.state.payload) {
       return [];
     }
     let { data } = this.state.payload;
-    data = data
-      .filter(x => x.mergedAt)
+    data = data.records
+      .map(x => x.fields)
+      .filter(x => x.Product != undefined ? x.Product.indexOf("recP9Ce8HQD7r3tMU") > -1 : false) // "VAC"
       .map(x => {
-        x.mergedAtDate = new Date(x.mergedAt);
-        x.startDate = d3.timeMonth(x.mergedAtDate);
+        var parsedTime = parseTime(x.When);
+        x.startDate = new Date(parsedTime.getFullYear(), parsedTime.getMonth(), 1);
+        x.endDate = new Date(parsedTime.getFullYear(), parsedTime.getMonth() + 1, 0);
+        x.participants = x["Total parts."];
         return x;
-      });
-    let dataMonthly = d3.nest()
-      .key(d => d.startDate.toString())
-      .rollup(d => d.length)
-      .entries(data);
+      })
+    return data;
+    console.log(data)
+    // let dataMonthly = d3.nest()
+    //   .key(d => d.startDate.toString())
+    //   .rollup(d => d.length)
+    //   .entries(data);
 
-    dataMonthly.forEach(x => {
-      x.startDate = new Date(x.key);
-      x.endDate = new Date(x.startDate.getFullYear(), x.startDate.getMonth()+1, 0);
-      x.deploys =  x.value !== undefined ? x.value : 0;
-    });
-    dataMonthly.sort(function(a, b){return a.startDate - b.startDate});
-    return dataMonthly;
   };
 
   d3Stuff = (width, height) => {
@@ -55,10 +77,10 @@ export default class Deploys extends React.Component {
       left: 40
     }
     let x = d3.scaleTime()
-      .domain([d3.min(data, d => d.startDate), d3.max(data, d => d.endDate)])
+      .domain([new Date(2018, 2, 1), new Date(2019, 4, 1)])
       .range([margin.left, width - margin.right])
     let y = d3.scaleLinear()
-      .domain([0, d3.max(data, d => d.deploys)]).nice()
+      .domain([0, d3.max(data, d => d.participants)]).nice()
       .range([height - margin.bottom, margin.top]);
 
     let xAxis = (g) => g
@@ -76,64 +98,64 @@ export default class Deploys extends React.Component {
           .attr("font-weight", "bold")
           .text(data.y));
 
-    d3.select("#x-axis").call(xAxis);
+    d3.select("#" + chartId + " .x-axis").call(xAxis);
 
-    d3.select("#y-axis")
+    d3.select("#" + chartId + " .y-axis")
       .call(yAxis)
       .selectAll("line")
       .attr("x1", width - margin.right - margin.left);
 
-  d3.select("#x-axis").attr("font-size", 12);
-  d3.select("#y-axis").attr("font-size", 12);
+  d3.select("#" + chartId + " .x-axis").attr("font-size", 12);
+  d3.select("#" + chartId + " .y-axis").attr("font-size", 12);
 
-  var bar = d3.select("#bars")
+  var bar = d3.select("#" + chartId +  " .bars")
     .selectAll("g")
       .data(data)
     .join("g")
       .attr("transform", function(d, i) { return "translate(" + x(d.startDate) + ", 0)"; })
-      .attr("aria-label", d => d.deploys.toString() + " deploys in " + d.startDate.toLocaleString('en-us', { month: 'long' }) + " " + d.startDate.getFullYear().toString())
+      .attr("aria-label", d => d.participants.toString() + " deploys in " + d.startDate.toLocaleString('en-us', { month: 'long' }) + " " + d.startDate.getFullYear().toString())
 
   bar.append("rect")
-        .attr("y", d => y(d.deploys))
-        .attr("height", d => Math.abs(y(0) - y(d.deploys)))
+        .attr("y", d => y(d.participants))
+        .attr("height", d => Math.abs(y(0) - y(d.participants)))
         .attr("width", d => Math.abs(x(d.endDate) - x(d.startDate)));
 
   bar.append("text")
       .attr("class", "text")
       .attr("x", d => 0.5*Math.abs(x(d.endDate) - x(d.startDate)))
-      .attr("y", d => y(d.deploys) - 5)
-      .text(d => d.deploys)
+      .attr("y", d => y(d.participants) - 5)
+      .text(d => d.participants)
       .attr("aria-hidden", "true");
 
   }
   componentDidUpdate(prevProps) {
 
-    const width = document.getElementById('deploy-chart').clientWidth;
-    const height = document.getElementById('deploy-chart').clientHeight;
+    const width = document.getElementById(chartId).clientWidth;
+    const height = document.getElementById(chartId).clientHeight;
     this.d3Stuff(width, height);
   }
 
   render() {
-    const { area } = this.props;
+    const { area, t } = this.props;
     if (!this.state || !this.state.payload) {
       return (
-        <Loader />
+        <Loader t={t}/>
       );
     }
-
+    this.getData();
     return (
-      <Panel data-testid="deploys-widget">
-        <WidgetTitle>Deploys per month</WidgetTitle>
+      <Panel data-testid={chartId+"-widget"}>
+        <WidgetTitle>{t("research_activity_title")}</WidgetTitle>
         <StyledCell area={area} center>
           <svg
             css={chartStyle}
-            id="deploy-chart"
+            id={chartId}
             width="100%"
             height="100%"
             >
-            <g css={xAxisStyle} id="x-axis" aria-hidden="true"></g>
-            <g css={yAxisStyle} id="y-axis" aria-hidden="true"></g>
-            <g css={barStyle} id="bars" fill="steelblue"></g>
+            <g css={xAxisStyle} className="x-axis" aria-hidden="true"></g>
+            <g css={yAxisStyle} className="y-axis" aria-hidden="true"></g>
+            <g css={barStyle} className="bars"></g>
           </svg>
         </StyledCell>
       </Panel>

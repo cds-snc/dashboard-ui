@@ -18,7 +18,7 @@ const yAxisStyle = css`
   }
 `;
 const barStyle = css`
-  fill: steelblue;
+  fill: #89A84F;
   .text {
     color: white;
     fill: white;
