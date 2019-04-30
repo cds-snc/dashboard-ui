@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import { Link } from "@reach/router";
-import CdsLogo from "../CdsLogo";
+import CdsLogoEn from "../CdsLogoEn";
+import CdsLogoFr from "../CdsLogoFr";
 import PhaseBadge from "./PhaseBadge";
 import { mqW } from "../styles";
 import { Location } from '@reach/router';
@@ -94,7 +95,10 @@ const PageHeader = (props: Props) => {
           <div css={languageSwitcher}>
             <Link to={location.pathname + "?" + t("other-language-code")}>{t("other-language")}</Link>
           </div>
-          <CdsLogo />
+          {t("current-language-code") === "en" ?
+            <CdsLogoEn />
+            : <CdsLogoFr />
+          }
         </div>
       </div>
       }
