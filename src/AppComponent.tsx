@@ -10,15 +10,18 @@ interface Props {
   t: Function;
 }
 
-const App = (props: Props) => (
-  <div>
-    <PageHeader t={props.t}/>
-    <Router>
-      <Cost path="/" />
-      <Cost path="cost/" />
-      <Vac path="vac/" />
-    </Router>
-  </div>
-);
+const App = (props: Props) => {
+  document.title = props.t("cds_dashboard");
+  return (
+    <div>
+      <PageHeader t={props.t}/>
+      <Router>
+        <Cost path="/" />
+        <Cost path="cost/" />
+        <Vac path="vac/" />
+      </Router>
+    </div>
+  );
+}
 
 export default withI18N(App);
