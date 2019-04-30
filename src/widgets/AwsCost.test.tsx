@@ -10,7 +10,7 @@ const socket = new Socket("");
 afterEach(cleanup);
 
 test("Renders AwsCost Loader", async () => {
-  const { getByTestId } = render(<AwsCost socket={socket} area="a" />);
+  const { getByTestId } = render(<AwsCost socket={socket} area="a" t={(x: String) => x} />);
   expect(getByTestId("loading-widget")).toHaveTextContent("loading");
 });
 
@@ -20,10 +20,11 @@ test("Renders AwsCost Widget", async () => {
       socket={socket}
       area="a"
       payload={{ data: data, timestamp: new Date() }}
+      t={(x: String) => x}
     />
   );
 
-  expect(getByTestId("aws-widget")).toHaveTextContent("AWS cost per month");
+  expect(getByTestId("aws-widget")).toHaveTextContent("aws_cost_title");
 });
 
 test("Handles bad payload data", async () => {
@@ -32,6 +33,7 @@ test("Handles bad payload data", async () => {
       socket={socket}
       area="b"
       payload={{ data: {}, timestamp: new Date() }}
+      t={(x: String) => x}
     />
   );
 

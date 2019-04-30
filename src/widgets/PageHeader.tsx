@@ -1,14 +1,14 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
-import React from "react";
 import { Link } from "@reach/router";
-import CdsLogo from "../CdsLogo";
+import CdsLogoEn from "../CdsLogoEn";
+import CdsLogoFr from "../CdsLogoFr";
 import PhaseBadge from "./PhaseBadge";
 import { mqW } from "../styles";
+import { Location } from '@reach/router';
 
 const navStyle = css`
   color: white;
-
   a {
     color: white;
   }
@@ -54,26 +54,55 @@ const titleContainer = css`
   align-items: center;
 `;
 
-const PageHeader = () => {
+const alignRight = css`
+  text-align: right;
+  margin-left: 10px;
+`;
+
+const languageSwitcher = css`
+  text-align: right;
+  margin-bottom: 10px;
+  a {
+
+    color: white;
+  }
+`;
+
+interface Props {
+  t: Function;
+}
+
+const PageHeader = (props: Props) => {
+  const { t } = props;
   return (
-    <div css={header}>
-      <div>
-        <div css={titleContainer}>
-          <h1>CDS Dashboard</h1>
-          <PhaseBadge />
+    <Location>
+      {({ location })=>
+      <div css={header}>
+        <div>
+          <div css={titleContainer}>
+            <h1>{t("cds_dashboard")}</h1>
+            <PhaseBadge />
+          </div>
+          <nav css={navStyle}>
+            <Link to={"/?" + t("current-language-code")}>{t("home")}</Link>
+            &nbsp; | &nbsp;
+            <Link to={"/cost?" + t("current-language-code")}>{t("cost_dashboard")}</Link>
+            &nbsp; | &nbsp;
+            <Link to={"/vac?" + t("current-language-code")}>{t("vac_dashboard")}</Link>
+          </nav>
         </div>
-        <nav css={navStyle}>
-          <Link to="/">Home</Link>
-          &nbsp; | &nbsp;
-          <Link to="/cost">Cost Dashboard</Link>
-          &nbsp; | &nbsp;
-          <Link to="/vac">VAC Dashboard</Link>
-        </nav>
+        <div css={alignRight}>
+          <div css={languageSwitcher}>
+            <Link to={location.pathname + "?" + t("other-language-code")}>{t("other-language")}</Link>
+          </div>
+          {t("current-language-code") === "en" ?
+            <CdsLogoEn />
+            : <CdsLogoFr />
+          }
+        </div>
       </div>
-      <div>
-        <CdsLogo />
-      </div>
-    </div>
+      }
+    </Location>
   );
 };
 

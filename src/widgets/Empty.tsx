@@ -10,15 +10,16 @@ import {
 
 interface Props {
   area: Area;
+  t: Function;
 }
 
 export default class Empty extends React.Component<Props> {
   render() {
-    const { area } = this.props;
+    const { area, t } = this.props;
     const styles = getStyles();
     return (
       <Panel>
-        <WidgetTitle>Placeholder widget</WidgetTitle>
+        <WidgetTitle>{t("placeholder_title")}</WidgetTitle>
         <StyledCell area={area} center>
           <VictoryChart
             domainPadding={50}
