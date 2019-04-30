@@ -1,7 +1,6 @@
 import React from "react";
 import { Socket } from "phoenix";
 import { Grid } from "styled-css-grid";
-import ServerMemory from "./widgets/ServerMemory";
 import AwsCost from "./widgets/AwsCost";
 import AzureCost from "./widgets/AzureCost";
 import HerokuCost from "./widgets/HerokuCost";
@@ -68,15 +67,15 @@ class Cost extends React.Component<CostPageProps, State> {
           height="100vh"
           areas={
             this.state.width > 1075
-              ? ["a b c", "d e f"]
+              ? ["a b", "c d"]
               : this.state.width < 450
-              ? ["a", "b", "c", "d", "e", "f"]
-              : ["a b", "c d", "e f"]
+              ? ["a", "b", "c", "d"]
+              : ["a b", "c d"]
           }
           columns="3"
           gap="0px"
         >
-          <HerokuCost
+          <AzureCost
             area="a"
             socket={this.socket}
             t={t}
@@ -91,18 +90,9 @@ class Cost extends React.Component<CostPageProps, State> {
             socket={this.socket}
             t={t}
           />
-          <AzureCost
+          <HerokuCost
             area="d"
             socket={this.socket}
-            t={t}
-          />
-          <ServerMemory
-            area="e"
-            socket={this.socket}
-            t={t}
-          />
-          <Empty
-            area="f"
             t={t}
           />
         </Grid>
