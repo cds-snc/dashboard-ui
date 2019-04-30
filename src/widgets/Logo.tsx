@@ -1,6 +1,6 @@
 import React from "react";
 import { Cell } from "styled-css-grid";
-import CdsLogo from '../CdsLogo'
+import CdsLogoEn from '../CdsLogoEn';
 import styled from "styled-components";
 import { getStyles, Panel, WidgetTitle } from "../styles";
 
@@ -35,7 +35,7 @@ export default class Logo extends React.Component<Props> {
       <Cell data-testid="widget" area={area} center style={{ backgroundColor: "#292A29" }}>
         <WidgetContainer>
           <WidgetTitle>CDS Dashboard</WidgetTitle>
-          <CdsLogo />
+          <CdsLogoEn />
           <p>alpha banner</p>
         </WidgetContainer>
       </Cell>
