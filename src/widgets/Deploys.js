@@ -135,16 +135,16 @@ export default class Deploys extends React.Component {
   }
 
   render() {
-    const { area } = this.props;
+    const { area, t } = this.props;
     if (!this.state || !this.state.payload) {
       return (
-        <Loader />
+        <Loader t={t} />
       );
     }
 
     return (
       <Panel data-testid="deploys-widget">
-        <WidgetTitle>Deploys per month</WidgetTitle>
+        <WidgetTitle>{t("deploys_title")}</WidgetTitle>
         <StyledCell area={area} center>
           <svg
             css={chartStyle}

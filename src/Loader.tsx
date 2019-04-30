@@ -12,11 +12,15 @@ const Main = styled.div`
   height: 100%;
 `;
 
-export const Loader = ({}) => {
+interface Props {
+  t: Function;
+}
+
+export const Loader = (props: Props) => {
   return (
     <Main>
       <Spinner />
-      <div data-testid="loading-widget">loading</div>
+      <div data-testid="loading-widget">{props.t("loading")}</div>
     </Main>
   );
 };

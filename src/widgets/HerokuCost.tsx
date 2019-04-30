@@ -44,8 +44,7 @@ interface Props {
   socket: Socket;
   area: Area;
   payload?: Payload;
-  screenWidth: number;
-  screenHeight: number;
+  t: Function;
 }
 
 export default class HerokuCost extends React.Component<Props, State> {
@@ -85,20 +84,20 @@ export default class HerokuCost extends React.Component<Props, State> {
   };
 
   render() {
-    const { area, screenHeight, screenWidth } = this.props;
+    const { area, t } = this.props;
     const styles = getStyles();
 
     if (!this.state || !this.state.payload) {
       return (
         <StyledCell center area={area} style={{ backgroundColor: "#292A29" }}>
-          <Loader />
+          <Loader t={t} />
         </StyledCell>
       );
     }
 
     return (
       <Panel data-testid="heroku-cost-widget">
-        <WidgetTitle>Heroku cost per month</WidgetTitle>
+        <WidgetTitle>{t("heroku_cost_title")}</WidgetTitle>
         <StyledCell center area={area}>
           <div css={chartContainer}>
             <VictoryChart
