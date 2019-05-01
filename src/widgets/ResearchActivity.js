@@ -66,7 +66,7 @@ export default class ResearchActivity extends React.Component {
     let { data } = this.state.payload;
     data = data.records
       .map(x => x.fields)
-      .filter(x => x.Product != undefined ? x.Product.indexOf("VAC") > -1 : false)
+      .filter(x => x.Product !== undefined ? x.Product.indexOf("VAC") > -1 : false)
       .map(x => {
         var parsedTime = parseTime(x.When);
         x.startDate = new Date(parsedTime.getFullYear(), parsedTime.getMonth(), 1);
