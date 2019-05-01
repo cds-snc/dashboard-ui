@@ -27,6 +27,10 @@
     "en": "VAC Dashboard",
     "fr": "(fra) Tableau de bord ACC"
   },
+  "system_dashboard": {
+    "en": "System Dashboard",
+    "fr": "(fra) Tableau de bord du système"
+  },
   "home": {
     "en": "Home",
     "fr": "(fra) Home"
@@ -66,5 +70,9 @@
   "deploys_aria_label": {
     "en": "{{n}} deploys in {{month}}",
     "fr": "(fra) {{n}} deploys in {{month}}"
+  },
+  "connected_title": {
+    "en": "Currently connected clients",
+    "fr": "Clients actuellement connectés"
   }
 }

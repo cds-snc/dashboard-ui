@@ -4,6 +4,12 @@ import { Cell } from "styled-css-grid";
 import styled from "styled-components";
 import { Area } from "../types";
 
+import {
+  Panel,
+  WidgetTitle,
+  StyledCell
+} from "../styles";
+
 interface Connection {
   [key: string]: string;
 }
@@ -18,13 +24,8 @@ interface State {
 interface Props {
   socket: Socket;
   area: Area;
+  t: Function;
 }
-
-const Panel = styled.div`
-  color: white;
-  padding: 1rem;
-  font-size: 2rem;
-`;
 
 export default class Connected extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -51,13 +52,13 @@ export default class Connected extends React.Component<Props, State> {
     const list = Object.keys(connections).map(key => {
       return (
         <React.Fragment>
-          <li key="{key}">{key}: {connections[key]}</li>
+          <li key="{key}" style={{ fontSize: "24px", lineHeight: "1.5em" }}>{key}: {connections[key]}</li>
         </React.Fragment>
       )
     })
     return (
       <React.Fragment>
-        <ul style={{ width: "700px" }}>{list}</ul>
+        <ul style={{ width: "100%", "list-style-type": "none" }}>{list}</ul>
       </React.Fragment>
     );
   };
@@ -68,14 +69,14 @@ export default class Connected extends React.Component<Props, State> {
     }
 
     const data: Payload = this.state.payload;
-    const { area } = this.props;
+    const { area, t } = this.props;
     return (
-      <Cell area={area} style={{ backgroundColor: "#34a852" }} center>
-        <Panel>
-          <h2>Connected:</h2>
+      <Panel data-testid="connected-widget">
+        <WidgetTitle>{t("connected_title")}</WidgetTitle>
+        <StyledCell center area={area}>
           {this.listItems()}
-        </Panel>
-      </Cell>
+        </StyledCell>
+      </Panel>
     );
   }
 }
