@@ -36,7 +36,7 @@ class Vac extends React.Component<VacPageProps> {
         >
           <Deploys socket={this.socket} area="a" t={t} />
           <Empty area="b" t={t} />
-          <ResearchActivity socket={this.socket} area="c" t={t} />
+          <ResearchActivity id="area-c" socket={this.socket} area="c" t={t} />
           <Empty area="d" t={t} />
           <Empty area="e" t={t} />
           <Empty area="f" t={t} />
