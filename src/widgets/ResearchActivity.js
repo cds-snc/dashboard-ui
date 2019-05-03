@@ -92,7 +92,7 @@ export default class ResearchActivity extends React.Component {
 
     let data = this.getData();
     let x = d3.scaleTime()
-      .domain([new Date(2018, 2, 1), new Date(2019, 4, 1)])
+      .domain([new Date(2018, 2, 1), new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1)])
       .range([margin.left, width - margin.right])
     let y = d3.scaleLinear()
       .domain([0, d3.max(data, d => d.p1)]).nice()

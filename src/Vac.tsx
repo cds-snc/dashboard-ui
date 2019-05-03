@@ -7,6 +7,7 @@ import { Grid } from "styled-css-grid";
 import Empty from "./widgets/Empty";
 import withI18N from "./lib/i18n";
 import Uptime from "./widgets/Uptime";
+import Forks from "./widgets/Forks";
 
 const DATA_URL = "wss://loon-server.herokuapp.com/socket";
 
@@ -38,7 +39,7 @@ class Vac extends React.Component<VacPageProps> {
           <Deploys socket={this.socket} area="a" t={t} />
           <Uptime socket={this.socket} area="b" t={t} />
           <ResearchActivity id="area-c" socket={this.socket} area="c" t={t} />
-          <Empty area="d" t={t} />
+          <Forks area="d" t={t} />
           <Empty area="e" t={t} />
           <Empty area="f" t={t} />
         </Grid>
