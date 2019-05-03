@@ -106,8 +106,8 @@ export default class ResearchActivity extends React.Component {
       .call(d3.axisLeft(y).ticks(5))
       .call(g => g.select(".domain").remove())
       .selectAll("line")
-      .attr("x1", width - margin.right - margin.left)
-      .attr("font-size", 12);
+      .attr("x1", width - margin.right - margin.left);
+    d3.select("#" + chartId + " .y-axis").attr("font-size", 12);
 
     return (
       <div data-testid={chartId+"-widget"}>
