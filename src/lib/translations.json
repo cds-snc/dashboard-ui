@@ -13,7 +13,7 @@
   },
   "cds_dashboard": {
     "en": "CDS Dashboard",
-    "fr": "(fra) Tableau de bord SNC"
+    "fr": "Tableau de bord du SNC"
   },
   "alpha": {
     "en": "alpha",
@@ -21,11 +21,11 @@
   },
   "cost_dashboard": {
     "en": "Cost Dashboard",
-    "fr": "(fra) Tableau de bord Cost"
+    "fr": "Tableau de bord des coûts"
   },
   "vac_dashboard": {
     "en": "VAC Dashboard",
-    "fr": "(fra) Tableau de bord ACC"
+    "fr": "Tableau de bord d’ACC"
   },
   "system_dashboard": {
     "en": "System Dashboard",
@@ -33,43 +33,55 @@
   },
   "home": {
     "en": "Home",
-    "fr": "(fra) Home"
+    "fr": "Accueil"
   },
   "loading": {
     "en": "loading",
-    "fr": "chargement"
+    "fr": "chargement en cours"
   },
   "heroku_cost_title": {
     "en": "Heroku cost per month",
-    "fr": "(fra) Coût Heroku par mois"
+    "fr": "Coût mensuel de Heroku"
   },
   "aws_cost_title": {
     "en": "AWS cost per month",
-    "fr": "(fra) Coût AWS par mois"
+    "fr": "Coût mensuel d’AWS"
   },
   "google_cost_title": {
     "en": "GCP cost per month",
-    "fr": "(fra) Coût GCP par mois"
+    "fr": "Coût mensuel de GCP"
   },
   "azure_cost_title": {
     "en": "Azure cost per month (in $)",
-    "fr": "(fra) Coût azur par mois (en $)"
+    "fr": "Coût mensuel d’Azure (en $)"
   },
   "memory_usage_title": {
     "en": "Total memory usage (in MB)",
-    "fr": "(fra) Utilisation totale de la mémoire (en Mo)"
+    "fr": "Utilisation totale de la mémoire (en Mo)"
   },
   "placeholder_title": {
     "en": "Placeholder widget",
-    "fr": "(fra) widget placeholder"
+    "fr": "Widget de réservation"
   },
   "deploys_title": {
     "en": "Deploys per month",
-    "fr": "(fra) Déploiements par mois"
+    "fr": "Déploiements par mois"
   },
   "deploys_aria_label": {
     "en": "{{n}} deploys in {{month}}",
     "fr": "(fra) {{n}} deploys in {{month}}"
+  },
+  "research_activity_title": {
+    "en": "Research participants per month",
+    "fr": "(fra) Research participants per month"
+  },
+  "method": {
+    "en": "Method",
+    "fr": "(fra) Method"
+  },
+  "research_questions": {
+    "en": "Research questions",
+    "fr": "(fra) Research questions"
   },
   "connected_title": {
     "en": "Currently connected clients",

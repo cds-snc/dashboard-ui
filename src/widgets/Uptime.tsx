@@ -78,7 +78,6 @@ export default class Uptime extends React.Component<Props, State> {
 
     const data: Payload = this.state.payload;
     const vacData = data.data.monitors.filter(x => x.friendly_name === "VAC Live");
-    console.log(vacData)
     return (
       <Panel css={panelStyle}>
         <StyledCell area={area}>
