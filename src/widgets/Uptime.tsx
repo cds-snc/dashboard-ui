@@ -1,8 +1,10 @@
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core";
 import React from "react";
 import { Socket } from "phoenix";
-import { Cell } from "styled-css-grid";
-import styled from "styled-components";
 import { Area } from "../types";
+import { Loader } from "../Loader";
+import { Panel, StyledCell } from "../styles";
 interface Log {
   duration: number;
   type: number;
@@ -13,6 +15,7 @@ interface Monitor {
   interval: number;
   logs: Log[];
   status: number;
+  url: string;
 }
 interface apiResponse {
   monitors: Monitor[];
@@ -28,9 +31,10 @@ interface State {
 interface Props {
   socket: Socket;
   area: Area;
+  t: Function;
 }
 
-const Panel = styled.div`
+const panelStyle = css`
   padding: 1rem;
   font-size: 2rem;
   color: #fff;
@@ -62,27 +66,33 @@ export default class Uptime extends React.Component<Props, State> {
   }
 
   render() {
+    const { area, t } = this.props;
+
     if (!this.state || !this.state.payload || !this.state.payload.data) {
-      return null;
+      return (
+        <StyledCell center area={area} style={{ backgroundColor: "#292A29" }}>
+          <Loader t={t} />
+        </StyledCell>
+      );
     }
 
     const data: Payload = this.state.payload;
-    const { area } = this.props;
+    const vacData = data.data.monitors.filter(x => x.friendly_name === "VAC Live");
     return (
-      <Cell area={area} style={{ backgroundColor: "#4a412a" }}>
-        <Panel>
+      <Panel css={panelStyle}>
+        <StyledCell area={area}>
           <h2>Domain Status:</h2>
-          {data.data.monitors.map(el => {
+          {vacData.map(el => {
             const icon = el.status == 2 ? "✅" : "🚫";
             return (
               <div style={{ marginBottom: "30px" }} key={el.id}>
                 {" "}
-                {icon} <a href={el.friendly_name}>{el.friendly_name}</a> for {this.calculateDuration(el.logs[0].duration)}
+                {icon} <a href={el.url}>{el.friendly_name}</a> for {this.calculateDuration(el.logs[0].duration)}
               </div>
             );
           })}
+          </StyledCell>
         </Panel>
-      </Cell>
     );
   }
 }

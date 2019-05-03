@@ -6,6 +6,7 @@ import { Socket } from "phoenix";
 import { Grid } from "styled-css-grid";
 import Empty from "./widgets/Empty";
 import withI18N from "./lib/i18n";
+import Uptime from "./widgets/Uptime";
 
 const DATA_URL = "wss://loon-server.herokuapp.com/socket";
 
@@ -35,7 +36,7 @@ class Vac extends React.Component<VacPageProps> {
           gap="0px"
         >
           <Deploys socket={this.socket} area="a" t={t} />
-          <Empty area="b" t={t} />
+          <Uptime socket={this.socket} area="b" t={t} />
           <ResearchActivity id="area-c" socket={this.socket} area="c" t={t} />
           <Empty area="d" t={t} />
           <Empty area="e" t={t} />
