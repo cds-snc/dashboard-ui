@@ -1,9 +1,10 @@
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core";
 import React from "react";
 import { RouteComponentProps } from '@reach/router';
 import Deploys from "./widgets/Deploys.js";
 import ResearchActivity from "./widgets/ResearchActivity.js";
 import { Socket } from "phoenix";
-import { Grid } from "styled-css-grid";
 import Empty from "./widgets/Empty";
 import withI18N from "./lib/i18n";
 import Uptime from "./widgets/Uptime";
@@ -13,7 +14,15 @@ const DATA_URL = "wss://loon-server.herokuapp.com/socket";
 interface VacPageProps extends RouteComponentProps {
   t: Function;
 }
+const container1 = css`
+  // background-color: black;
+  text-align: center;
+`;
+const container2 = css`
+  max-width: 800px;
+  margin: auto;
 
+`;
 class Vac extends React.Component<VacPageProps> {
   socket: Socket; // eslint-disable-line  @typescript-eslint/explicit-member-accessibility
   constructor(props: VacPageProps) {
@@ -28,20 +37,12 @@ class Vac extends React.Component<VacPageProps> {
     document.title = t("vac_dashboard");
 
     return (
-      <div className="Cost">
-        <Grid
-          height="100vh"
-          areas={["a b", "c d", "e f"]}
-          columns="2"
-          gap="0px"
-        >
-          <Deploys socket={this.socket} area="a" t={t} />
+      <div css={container1} className="Cost">
+        <div css={container2}>
           <Uptime socket={this.socket} area="b" t={t} />
+          <Deploys socket={this.socket} area="a" t={t} />
           <ResearchActivity id="area-c" socket={this.socket} area="c" t={t} />
-          <Empty area="d" t={t} />
-          <Empty area="e" t={t} />
-          <Empty area="f" t={t} />
-        </Grid>
+        </div>
       </div>
     );
     }
