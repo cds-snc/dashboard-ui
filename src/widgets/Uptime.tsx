@@ -4,7 +4,7 @@ import React from "react";
 import { Socket } from "phoenix";
 import { Area } from "../types";
 import { Loader } from "../Loader";
-import { Panel, StyledCell } from "../styles";
+import { StyledCell } from "../styles";
 interface Log {
   duration: number;
   type: number;
@@ -56,7 +56,6 @@ export default class Uptime extends React.Component<Props, State> {
       console.log("Unable to join: ", resp);
     });
     channel.on("data", (payload: Payload) => {
-      console.log(payload)
       this.setState({ payload: payload });
     });
   }
@@ -79,7 +78,7 @@ export default class Uptime extends React.Component<Props, State> {
     const data: Payload = this.state.payload;
     const vacData = data.data.monitors.filter(x => x.friendly_name === "VAC Live");
     return (
-      <Panel css={panelStyle}>
+      <div css={panelStyle}>
         <StyledCell area={area}>
           <h2>Domain Status:</h2>
           {vacData.map(el => {
@@ -92,7 +91,7 @@ export default class Uptime extends React.Component<Props, State> {
             );
           })}
           </StyledCell>
-        </Panel>
+        </div>
     );
   }
 }

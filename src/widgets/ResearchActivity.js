@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import React from "react";
-import { WidgetTitle, Panel, StyledCell } from "../styles";
+import { WidgetTitle, StyledCell } from "../styles";
 import { Loader } from "../Loader";
 import * as d3 from "d3";
 import BarChart from "./BarChart";
@@ -110,14 +110,14 @@ export default class ResearchActivity extends React.Component {
       .attr("font-size", 12);
 
     return (
-      <Panel data-testid={chartId+"-widget"}>
+      <div data-testid={chartId+"-widget"}>
         <WidgetTitle>{t("research_activity_title")}</WidgetTitle>
         <StyledCell area={area} center>
         <svg
           css={chartStyle}
           id={chartId}
           width="100%"
-          height="100%"
+          height="300"
           >
           <BarChart
             data={data}
@@ -128,7 +128,7 @@ export default class ResearchActivity extends React.Component {
           />
         </svg>
         </StyledCell>
-      </Panel>
+      </div>
     );
   }
 }

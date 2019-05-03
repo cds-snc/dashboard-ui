@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import React from "react";
-import { WidgetTitle, Panel, StyledCell } from "../styles";
+import { WidgetTitle, StyledCell } from "../styles";
 import { Loader } from "../Loader";
 import * as d3 from "d3";
 
@@ -143,21 +143,21 @@ export default class Deploys extends React.Component {
     }
 
     return (
-      <Panel data-testid="deploys-widget">
+      <div data-testid="deploys-widget">
         <WidgetTitle>{t("deploys_title")}</WidgetTitle>
         <StyledCell area={area} center>
           <svg
             css={chartStyle}
             id="deploy-chart"
             width="100%"
-            height="100%"
+            height="300"
             >
             <g css={xAxisStyle} id="x-axis" aria-hidden="true"></g>
             <g css={yAxisStyle} id="y-axis" aria-hidden="true"></g>
             <g css={barStyle} id="bars" fill="steelblue"></g>
           </svg>
         </StyledCell>
-      </Panel>
+      </div>
     );
   }
 }
