@@ -4,10 +4,10 @@ import React from "react";
 import { WidgetTitle, Panel, StyledCell } from "../styles";
 import { Loader } from "../Loader";
 import * as d3 from "d3";
-import TimeChart from "./TimeChart";
+import BarChart from "./BarChart";
 
-let width = 400;
-let height = 200;
+let width = 0;
+let height = 0;
 let margin = {
   top: 20,
   right: 30,
@@ -48,20 +48,22 @@ export default class Forks extends React.Component {
     data = data
       .map(x => {
         x.createdAtDate = new Date(x.createdAt);
+        x.startDate = d3.timeMonth(x.createdAtDate);
         return x;
       })
-    // const allWhens = Array.from(new Set(data.map(x => x.When)));
-    // allWhens.forEach(x => {
-    //   var total = 0;
-    //   data.filter(d => d.When === x)
-    //     .map(d => {
-    //       d.p0 = total;
-    //       total += d.participants;
-    //       d.p1 = total;
-    //       return d;
-    //     });
-    // })
-    return data;
+      let dataMonthly = d3.nest()
+        .key(d => d.startDate.toString())
+        .rollup(d => d.length)
+        .entries(data);
+
+      dataMonthly.forEach(x => {
+        x.startDate = new Date(x.key);
+        x.endDate = new Date(x.startDate.getFullYear(), x.startDate.getMonth()+1, 0);
+        x.value =  x.value !== undefined ? x.value : 0;
+        x.v1 =  x.value;
+      });
+      dataMonthly.sort(function(a, b){return a.startDate - b.startDate});
+      return dataMonthly;
   };
 
   componentDidUpdate() {
@@ -90,11 +92,19 @@ export default class Forks extends React.Component {
     let x = d3.scaleTime()
       .domain([new Date(2018, 2, 1), new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1)])
       .range([margin.left, width - margin.right])
+      let y = d3.scaleLinear()
+        .domain([0, d3.max(data, d => d.value)]).nice()
+        .range([height - margin.bottom, margin.top]);
 
     d3.select("#" + chartId + " .x-axis")
       .call(d3.axisBottom(x).ticks(5).tickSizeOuter(0))
       .attr("font-size", 12);
-
+    d3.select("#" + chartId + " .y-axis")
+      .call(d3.axisLeft(y).ticks(5))
+      .call(g => g.select(".domain").remove())
+      .selectAll("line")
+      .attr("x1", width - margin.right - margin.left);
+    d3.select("#" + chartId + " .y-axis").attr("font-size", 12);
     return (
       <div data-testid={chartId+"-widget"}>
         <WidgetTitle>{t("total_forks") + ": " + data.length}</WidgetTitle>
@@ -103,9 +113,9 @@ export default class Forks extends React.Component {
           css={chartStyle}
           id={chartId}
           width="100%"
-          height="100%"
+          height="300"
           >
-          <TimeChart data={data} x={x} height={height} margin={margin} />
+          <BarChart data={data} x={x} y={y} height={height} margin={margin} />
         </svg>
         </StyledCell>
       </div>

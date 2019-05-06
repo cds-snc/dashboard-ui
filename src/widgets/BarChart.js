@@ -42,11 +42,11 @@ const BarChart = (props) => {
         <g
         key={i}
         transform={"translate(" + x(d.startDate) + ", 0)"}
-        aria-label={d => d.participants.toString() + " deploys in " + d.startDate.toLocaleString('en-us', { month: 'long' }) + " " + d.startDate.getFullYear().toString()}
+        aria-label={d => d.value.toString() + " deploys in " + d.startDate.toLocaleString('en-us', { month: 'long' }) + " " + d.startDate.getFullYear().toString()}
         >
           <rect
-            y={y(d.p1)}
-            height={Math.abs(y(0) - y(d.participants))}
+            y={y(d.v1)}
+            height={Math.abs(y(0) - y(d.value))}
             width={Math.abs(x(d.endDate) - x(d.startDate))}
 
           >
