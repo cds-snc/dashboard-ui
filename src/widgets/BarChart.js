@@ -20,7 +20,7 @@ fill: steelblue;
   }
 `;
 const BarChart = (props) => {
-  const { data, x, y, height, margin } = props;
+  const { data, x, y, height, margin, yName } = props;
   return (
     <React.Fragment>
       <g
@@ -42,11 +42,11 @@ const BarChart = (props) => {
         <g
         key={i}
         transform={"translate(" + x(d.startDate) + ", 0)"}
-        aria-label={d.startDate.toLocaleString('en-us', { month: 'long' }) + " " + d.startDate.getFullYear().toString() + ": " + d.participants.toString() + " participants"}
+        aria-label={d.startDate.toLocaleString('en-us', { month: 'long' }) + " " + d.startDate.getFullYear().toString() + ": " + d.value.toString() + " " + yName}
         >
           <rect
-            y={y(d.p1)}
-            height={Math.abs(y(0) - y(d.participants))}
+            y={y(d.v1)}
+            height={Math.abs(y(0) - y(d.value))}
             width={Math.abs(x(d.endDate) - x(d.startDate))}
 
           >
@@ -54,10 +54,10 @@ const BarChart = (props) => {
           <text
             className="text"
             x={0.5*Math.abs(x(d.endDate) - x(d.startDate))}
-            y={y(d.p1) - 5}
+            y={y(d.v1) - 5}
             aria-hidden="true"
           >
-            {d.p1}
+            {d.v1}
           </text>
         </g>
       ))

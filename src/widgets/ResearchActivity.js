@@ -51,7 +51,7 @@ export default class ResearchActivity extends React.Component {
         var parsedTime = parseTime(x.When);
         x.startDate = new Date(parsedTime.getFullYear(), parsedTime.getMonth(), 1);
         x.endDate = new Date(parsedTime.getFullYear(), parsedTime.getMonth() + 1, 0);
-        x.participants = +x["Total parts."];
+        x.value = +x["Total parts."];
         return x;
       })
 
@@ -60,9 +60,9 @@ export default class ResearchActivity extends React.Component {
       var total = 0;
       data.filter(d => d.When === x)
         .map(d => {
-          d.p0 = total;
-          total += d.participants;
-          d.p1 = total;
+          d.v0 = total;
+          total += d.value;
+          d.v1 = total;
           return d;
         });
     })
@@ -93,10 +93,10 @@ export default class ResearchActivity extends React.Component {
 
     let data = this.getData();
     let x = d3.scaleTime()
-      .domain([new Date(2018, 2, 1), new Date(2019, 4, 1)])
+      .domain([new Date(2018, 2, 1), new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1)])
       .range([margin.left, width - margin.right])
     let y = d3.scaleLinear()
-      .domain([0, d3.max(data, d => d.p1)]).nice()
+      .domain([0, d3.max(data, d => d.v1)]).nice()
       .range([height - margin.bottom, margin.top]);
 
     d3.select("#" + chartId + " .x-axis")
@@ -126,6 +126,7 @@ export default class ResearchActivity extends React.Component {
             y={y}
             height={height}
             margin={margin}
+            yName="participants"
           />
         </svg>
         </StyledCell>

@@ -71,7 +71,11 @@ export default class Uptime extends React.Component<Props, State> {
   render() {
     const { area, t } = this.props;
 
-    if (!this.state || !this.state.payload || !this.state.payload.data) {
+    if (!this.state
+      || !this.state.payload
+      || !this.state.payload.data
+      || !this.state.payload.data.monitors
+    ) {
       return (
         <StyledCell center area={area} style={{ backgroundColor: "#292A29" }}>
           <Loader t={t} />

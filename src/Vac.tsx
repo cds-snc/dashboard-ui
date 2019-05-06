@@ -7,6 +7,7 @@ import ResearchActivity from "./widgets/ResearchActivity.js";
 import { Socket } from "phoenix";
 import withI18N from "./lib/i18n";
 import Uptime from "./widgets/Uptime";
+import Forks from "./widgets/Forks";
 
 const DATA_URL = "wss://loon-server.herokuapp.com/socket";
 
@@ -41,6 +42,7 @@ class Vac extends React.Component<VacPageProps> {
           <Uptime socket={this.socket} area="b" t={t} />
           <Deploys socket={this.socket} area="a" t={t} />
           <ResearchActivity id="area-c" socket={this.socket} area="c" t={t} />
+          <Forks socket={this.socket} area="d" t={t} />
         </div>
       </div>
     );
