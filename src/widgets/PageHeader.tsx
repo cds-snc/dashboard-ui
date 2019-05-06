@@ -77,7 +77,7 @@ const PageHeader = (props: Props) => {
   return (
     <Location>
       {({ location })=>
-      <div css={header}>
+      <header css={header}>
         <div>
           <div css={titleContainer}>
             <h1>{t("cds_dashboard")}</h1>
@@ -102,7 +102,7 @@ const PageHeader = (props: Props) => {
             : <CdsLogoFr />
           }
         </div>
-      </div>
+      </header>
       }
     </Location>
   );

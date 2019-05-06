@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import React from "react";
 import { jsx } from "@emotion/core";
 import withI18N from "./lib/i18n";
 import PageHeader from './widgets/PageHeader';
@@ -13,15 +14,15 @@ interface Props {
 
 const App = (props: Props) => {
   return (
-    <div>
+    <React.Fragment>
       <PageHeader t={props.t}/>
-      <Router>
+      <Router aria-label="main">
         <Cost path="/" />
         <Cost path="cost/" />
         <Vac path="vac/" />
         <System path="system/" />
       </Router>
-    </div>
+    </React.Fragment>
   );
 }
 
