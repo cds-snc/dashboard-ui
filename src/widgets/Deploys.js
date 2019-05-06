@@ -112,7 +112,7 @@ export default class Deploys extends React.Component {
       .data(data)
     .join("g")
       .attr("transform", function(d, i) { return "translate(" + x(d.startDate) + ", 0)"; })
-      .attr("aria-label", d => d.deploys.toString() + " deploys in " + d.startDate.toLocaleString('en-us', { month: 'long' }) + " " + d.startDate.getFullYear().toString())
+      .attr("aria-label", d => d.startDate.toLocaleString('en-us', { month: 'long' }) + " " + d.startDate.getFullYear().toString() + ": " + d.deploys.toString() + " deploys")
 
   bar.append("rect")
         .attr("y", d => y(d.deploys))

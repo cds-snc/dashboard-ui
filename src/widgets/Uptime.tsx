@@ -4,7 +4,7 @@ import React from "react";
 import { Socket } from "phoenix";
 import { Area } from "../types";
 import { Loader } from "../Loader";
-import { StyledCell } from "../styles";
+import { StyledCell, WidgetTitle } from "../styles";
 interface Log {
   duration: number;
   type: number;
@@ -36,7 +36,6 @@ interface Props {
 
 const panelStyle = css`
   padding: 1rem;
-  font-size: 2rem;
   color: #fff;
 
   a {
@@ -44,10 +43,15 @@ const panelStyle = css`
     display: inline-block;
     padding: 5px;
     line-height: 1.2rem;
-    font-size: 3rem;
+    font-size: 2rem;
     padding-bottom: 10px;
   }
 `;
+const divStyle = css`
+  margin-top: 20px;
+  margin-bottom: 20px;
+`;
+
 export default class Uptime extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -80,11 +84,11 @@ export default class Uptime extends React.Component<Props, State> {
     return (
       <div css={panelStyle}>
         <StyledCell area={area}>
-          <h2>Domain Status:</h2>
+          <WidgetTitle>Domain Status</WidgetTitle>
           {vacData.map(el => {
             const icon = el.status == 2 ? "✅" : "🚫";
             return (
-              <div style={{ marginBottom: "30px" }} key={el.id}>
+              <div css={divStyle} key={el.id}>
                 {" "}
                 {icon} <a href={el.url}>{el.friendly_name}</a> for {this.calculateDuration(el.logs[0].duration)}
               </div>

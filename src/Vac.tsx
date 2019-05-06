@@ -5,7 +5,6 @@ import { RouteComponentProps } from '@reach/router';
 import Deploys from "./widgets/Deploys.js";
 import ResearchActivity from "./widgets/ResearchActivity.js";
 import { Socket } from "phoenix";
-import Empty from "./widgets/Empty";
 import withI18N from "./lib/i18n";
 import Uptime from "./widgets/Uptime";
 import Forks from "./widgets/Forks";

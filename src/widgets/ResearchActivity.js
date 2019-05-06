@@ -66,6 +66,7 @@ export default class ResearchActivity extends React.Component {
           return d;
         });
     })
+    data.sort(function(a, b){return a.startDate - b.startDate});
     return data;
   };
 
