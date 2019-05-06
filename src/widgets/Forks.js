@@ -115,7 +115,7 @@ export default class Forks extends React.Component {
           width="100%"
           height="300"
           >
-          <BarChart data={data} x={x} y={y} height={height} margin={margin} />
+          <BarChart data={data} x={x} y={y} height={height} margin={margin} yName="forks" />
         </svg>
         </StyledCell>
       </div>

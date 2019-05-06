@@ -126,6 +126,7 @@ export default class ResearchActivity extends React.Component {
             y={y}
             height={height}
             margin={margin}
+            yName="participants"
           />
         </svg>
         </StyledCell>
