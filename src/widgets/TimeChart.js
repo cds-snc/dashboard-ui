@@ -15,7 +15,7 @@ fill: steelblue;
 `;
 const TimeChart = (props) => {
   const { data, x, height, margin } = props;
-  
+
   return (
     <React.Fragment>
       <g
@@ -26,11 +26,13 @@ const TimeChart = (props) => {
         >
       </g>
       <g css={barStyle}>
-      {data.map(d => (
+      {data.map((d, i) => (
         <rect
-          y={0}
+          key={i}
+          y={margin.top}
           height={100}
-          width={x(d.createdAtDate)}
+          x={x(d.createdAtDate)}
+          width={3}
         >
         </rect>
       ))}

@@ -86,5 +86,9 @@
   "connected_title": {
     "en": "Currently connected clients",
     "fr": "Clients actuellement connectés"
+  },
+  "total_forks": {
+    "en": "Total forks",
+    "fr": "(fra) Total forks"
   }
 }
