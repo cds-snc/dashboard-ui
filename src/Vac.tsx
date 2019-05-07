@@ -3,6 +3,7 @@ import { jsx, css } from "@emotion/core";
 import React from "react";
 import { RouteComponentProps } from '@reach/router';
 import Deploys from "./widgets/Deploys.js";
+import DeploysVac from "./widgets/DeploysVac.js";
 import ResearchActivity from "./widgets/ResearchActivity.js";
 import { Socket } from "phoenix";
 import withI18N from "./lib/i18n";
@@ -40,7 +41,7 @@ class Vac extends React.Component<VacPageProps> {
       <div css={container1} className="Cost">
         <div css={container2}>
           <Uptime socket={this.socket} area="b" t={t} />
-          <Deploys socket={this.socket} area="a" t={t} />
+          <Deploys socket={this.socket} area="a" t={t} deployOrg="cds-snc"/>
           <ResearchActivity id="area-c" socket={this.socket} area="c" t={t} />
           <Forks socket={this.socket} area="d" t={t} />
         </div>

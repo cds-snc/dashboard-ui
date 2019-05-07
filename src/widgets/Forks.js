@@ -115,7 +115,16 @@ export default class Forks extends React.Component {
           width="100%"
           height="300"
           >
-          <BarChart data={data} x={x} y={y} height={height} margin={margin} yName="forks" />
+          <BarChart
+            data={data}
+            x={x}
+            y={y}
+            height={height}
+            margin={margin}
+            ariaLabel={
+              d => d.startDate.toLocaleString('en-us', { month: 'long' }) + " " + d.startDate.getFullYear().toString() + ": " + d.value.toString() + " forks"
+            }
+          />
         </svg>
         </StyledCell>
       </div>

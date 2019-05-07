@@ -126,7 +126,9 @@ export default class ResearchActivity extends React.Component {
             y={y}
             height={height}
             margin={margin}
-            yName="participants"
+            ariaLabel={
+              d => d.startDate.toLocaleString('en-us', { month: 'long' }) + " " + d.startDate.getFullYear().toString() + ": " + d.value.toString() + " participants"
+            }
           />
         </svg>
         </StyledCell>
