@@ -20,7 +20,12 @@ const container1 = css`
 const container2 = css`
   max-width: 800px;
   margin: auto;
-
+`;
+const pageTitle = css`
+  color: white;
+  margin-top: 0;
+  padding-top: 20px;
+  /* background-color: #292A29; */
 `;
 class Vac extends React.Component<VacPageProps> {
   socket: Socket; // eslint-disable-line  @typescript-eslint/explicit-member-accessibility
@@ -38,6 +43,7 @@ class Vac extends React.Component<VacPageProps> {
     return (
       <div css={container1} className="Cost">
         <div css={container2}>
+          <h2 css={pageTitle}>{t("vac_dashboard")}</h2>
           <Uptime socket={this.socket} area="b" t={t} />
           <Deploys socket={this.socket} area="a" t={t} deployOrg="cds-snc"/>
           <ResearchActivity id="area-c" socket={this.socket} area="c" t={t} />

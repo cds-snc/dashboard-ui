@@ -35,16 +35,10 @@ interface Props {
 }
 
 const panelStyle = css`
-  padding: 1.5rem;
   color: #fff;
 
   a {
     color: #fff;
-    /* display: inline-block; */
-    /* padding: 5px; */
-    /* line-height: 1.2rem; */
-    /* font-size: 2rem; */
-    /* padding-bottom: 10px; */
   }
 `;
 const divStyle = css`
