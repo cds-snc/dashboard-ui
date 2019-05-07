@@ -15,7 +15,6 @@ interface VacPageProps extends RouteComponentProps {
   t: Function;
 }
 const container1 = css`
-  // background-color: black;
   text-align: center;
 `;
 const container2 = css`
@@ -40,7 +39,7 @@ class Vac extends React.Component<VacPageProps> {
       <div css={container1} className="Cost">
         <div css={container2}>
           <Uptime socket={this.socket} area="b" t={t} />
-          <Deploys socket={this.socket} area="a" t={t} />
+          <Deploys socket={this.socket} area="a" t={t} deployOrg="cds-snc"/>
           <ResearchActivity id="area-c" socket={this.socket} area="c" t={t} />
           <Forks socket={this.socket} area="d" t={t} />
         </div>

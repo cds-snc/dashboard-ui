@@ -107,15 +107,24 @@ export default class Forks extends React.Component {
     d3.select("#" + chartId + " .y-axis").attr("font-size", 12);
     return (
       <div data-testid={chartId+"-widget"}>
-        <WidgetTitle>{t("total_forks") + ": " + data.length}</WidgetTitle>
+        <WidgetTitle>{t("forks_title")}</WidgetTitle>
         <StyledCell area={area} center>
         <svg
           css={chartStyle}
           id={chartId}
           width="100%"
-          height="300"
+          height="200"
           >
-          <BarChart data={data} x={x} y={y} height={height} margin={margin} yName="forks" />
+          <BarChart
+            data={data}
+            x={x}
+            y={y}
+            height={height}
+            margin={margin}
+            ariaLabel={
+              d => d.startDate.toLocaleString('en-us', { month: 'long' }) + " " + d.startDate.getFullYear().toString() + ": " + d.value.toString() + " forks"
+            }
+          />
         </svg>
         </StyledCell>
       </div>

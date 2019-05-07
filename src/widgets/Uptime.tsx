@@ -35,16 +35,16 @@ interface Props {
 }
 
 const panelStyle = css`
-  padding: 1rem;
+  padding: 1.5rem;
   color: #fff;
 
   a {
     color: #fff;
-    display: inline-block;
-    padding: 5px;
-    line-height: 1.2rem;
-    font-size: 2rem;
-    padding-bottom: 10px;
+    /* display: inline-block; */
+    /* padding: 5px; */
+    /* line-height: 1.2rem; */
+    /* font-size: 2rem; */
+    /* padding-bottom: 10px; */
   }
 `;
 const divStyle = css`
@@ -88,13 +88,13 @@ export default class Uptime extends React.Component<Props, State> {
     return (
       <div css={panelStyle}>
         <StyledCell area={area}>
-          <WidgetTitle>Domain Status</WidgetTitle>
+          <WidgetTitle>{t("uptime_title")}</WidgetTitle>
           {vacData.map(el => {
-            const icon = el.status == 2 ? "✅" : "🚫";
+            const icon = el.status === 2 ? "✅" : "🚫";
             return (
               <div css={divStyle} key={el.id}>
                 {" "}
-                {icon} <a href={el.url}>{el.friendly_name}</a> for {this.calculateDuration(el.logs[0].duration)}
+                {icon} <a href={el.url}>{el.url}</a> has been {el.status === 2 ? "online" : "down"} for {this.calculateDuration(el.logs[0].duration)}
               </div>
             );
           })}

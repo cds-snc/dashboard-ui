@@ -67,10 +67,6 @@
     "en": "Deploys per month",
     "fr": "Déploiements par mois"
   },
-  "deploys_aria_label": {
-    "en": "{{n}} deploys in {{month}}",
-    "fr": "(fra) {{n}} deploys in {{month}}"
-  },
   "research_activity_title": {
     "en": "Research participants per month",
     "fr": "(fra) Research participants per month"
@@ -87,8 +83,12 @@
     "en": "Currently connected clients",
     "fr": "Clients actuellement connectés"
   },
-  "total_forks": {
-    "en": "Total forks",
-    "fr": "(fra) Total forks"
+  "forks_title": {
+    "en": "Forks per month",
+    "fr": "(fra) Forks per month"
+  },
+  "uptime_title": {
+    "en": "Domain status",
+    "fr": "(fra) Domain status"
   }
 }

@@ -19,7 +19,12 @@ const chartStyle = css`
   font-size: 12px;
   text-align: left;
 `;
-
+const topMatter = css`
+  color: white;
+  min-height: 30px;
+  margin-top: 10px;
+  margin-left: ${margin.left}px;
+`;
 const chartId = "research-activity";
 
 export default class ResearchActivity extends React.Component {
@@ -52,9 +57,10 @@ export default class ResearchActivity extends React.Component {
         x.startDate = new Date(parsedTime.getFullYear(), parsedTime.getMonth(), 1);
         x.endDate = new Date(parsedTime.getFullYear(), parsedTime.getMonth() + 1, 0);
         x.value = +x["Total parts."];
+        x.method = x["Method"];
+        x.questions = x["Research questions"];
         return x;
       })
-
     const allWhens = Array.from(new Set(data.map(x => x.When)));
     allWhens.forEach(x => {
       var total = 0;
@@ -113,22 +119,33 @@ export default class ResearchActivity extends React.Component {
     return (
       <div data-testid={chartId+"-widget"}>
         <WidgetTitle>{t("research_activity_title")}</WidgetTitle>
-        <StyledCell area={area} center>
-        <svg
-          css={chartStyle}
-          id={chartId}
-          width="100%"
-          height="300"
-          >
-          <BarChart
-            data={data}
-            x={x}
-            y={y}
-            height={height}
-            margin={margin}
-            yName="participants"
-          />
-        </svg>
+        <StyledCell area={area} center css={chartStyle}>
+          <div aria-hidden="true" css={topMatter}>
+            <div id="method"></div>
+            <div id="questions"></div>
+          </div>
+          <svg
+            id={chartId}
+            width="100%"
+            height="200"
+            >
+            <BarChart
+              data={data}
+              x={x}
+              y={y}
+              height={height}
+              margin={margin}
+              ariaLabel={
+                d => d.startDate.toLocaleString('en-us', { month: 'long' }) + " " + d.startDate.getFullYear().toString() + ": " + d.value.toString() + " research participants, research method: " + d.method + ", research questions: " + d.questions
+              }
+              mouseover={d => {
+                return () => {
+                  d3.select("#method").html("Research method: " + d.method)
+                  d3.select("#questions").html("Research questions: " + d.questions)
+                }
+              }}
+            />
+          </svg>
         </StyledCell>
       </div>
     );
