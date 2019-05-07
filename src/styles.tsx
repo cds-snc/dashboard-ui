@@ -154,6 +154,34 @@ export const WidgetTitle = styled.h3`
   }
 `; //These last two queries I had to make custom due to weird issues happening at these specific dimensions
 
+export const PageTitle = styled.h2`
+  padding-top: ${theme.spacing.lg};
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: ${theme.font.xxl};
+  background: #292a29;
+  color: #ffffff;
+
+  ${mqW[2]} {
+    font-size: ${theme.font.xl};
+  }
+
+  ${mqW[0]} {
+    font-size: ${theme.font.lg};
+    padding-top: 0.4rem;
+  }
+
+  @media (max-height: 575px) and (max-width: 1200px) {
+    padding-top: ${theme.spacing.md};
+    font-size: ${theme.font.xl};
+  }
+
+  @media (max-height: 575px) and (max-width: 700px) {
+    padding-top: 0.4rem;
+    font-size: ${theme.font.lg};
+  }
+`;
+
 export const Panel = styled.div`
   text-align: center;
   border: 2px solid #171717;
