@@ -19,12 +19,12 @@ let margin = {
 const chartStyle = css`
   font-size: 12px;
   .vac {
-    fill: #1f78b4;
-    background-color: #1f78b4;
-  }
-  .cds {
     fill: #33a02c;
     background-color: #33a02c;
+  }
+  .cds {
+    fill: #1f78b4;
+    background-color: #1f78b4;
   }
 `;
 const legend = css`
@@ -34,7 +34,7 @@ const legend = css`
 `;
 const legendEntry = css`
   display: flex;
-  margin-right: 20px;
+  margin-right: ${margin.right}px;
 `;
 const swatch = css`
   height: 16px;
@@ -61,7 +61,7 @@ export default class Deploys extends React.Component {
   }
 
   getData = () => {
-    if (!this.state || !this.state.payload) {
+    if (!this.state || !this.state.payload || !this.state.payload.data) {
       return [];
     }
     let { data } = this.state.payload;
@@ -100,11 +100,6 @@ export default class Deploys extends React.Component {
       });
     });
     newData.sort(function(a, b){return a.startDate - b.startDate});
-    newData.map(x => {
-      x.textPosition = d3.max(newData.filter(y => y.startDate.toDateString() === x.startDate.toDateString()), d => d.v1);
-      return x;
-    })
-    console.log(newData)
     return newData;
   };
 

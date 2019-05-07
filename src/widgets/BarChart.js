@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import React from "react";
+import * as d3 from "d3";
 
 const xAxisStyle = css`
   color: white;
@@ -43,7 +44,11 @@ const barStyle = css`
 `;
 
 const BarChart = (props) => {
-  const { data, x, y, height, margin, ariaLabel } = props;
+  const { x, y, height, margin, ariaLabel } = props;
+  var data = props.data.map(x => {
+    x.textPosition = d3.max(props.data.filter(y => y.startDate.toDateString() === x.startDate.toDateString()), d => d.v1);
+    return x;
+  });
   return (
     <React.Fragment>
       <g
@@ -73,6 +78,7 @@ const BarChart = (props) => {
             height={Math.abs(y(0) - y(d.value))}
             width={Math.abs(x(d.endDate) - x(d.startDate))}
             className={d.className ? d.className : null}
+            onMouseOver={props.mouseover ? props.mouseover(d) : null}
           >
           </rect>
           <text

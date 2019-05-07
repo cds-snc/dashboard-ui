@@ -3,7 +3,6 @@ import { jsx, css } from "@emotion/core";
 import React from "react";
 import { RouteComponentProps } from '@reach/router';
 import Deploys from "./widgets/Deploys.js";
-import DeploysVac from "./widgets/DeploysVac.js";
 import ResearchActivity from "./widgets/ResearchActivity.js";
 import { Socket } from "phoenix";
 import withI18N from "./lib/i18n";
@@ -16,7 +15,6 @@ interface VacPageProps extends RouteComponentProps {
   t: Function;
 }
 const container1 = css`
-  // background-color: black;
   text-align: center;
 `;
 const container2 = css`
