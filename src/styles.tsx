@@ -157,7 +157,7 @@ export const WidgetTitle = styled.h3`
 export const PageTitle = styled.h2`
   padding-top: ${theme.spacing.lg};
   margin-top: 0;
-  margin-bottom: 0;
+  margin-bottom: ${theme.spacing.lg};
   font-size: ${theme.font.xxl};
   background: #292a29;
   color: #ffffff;

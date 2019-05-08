@@ -7,7 +7,8 @@ import ResearchActivity from "./widgets/ResearchActivity.js";
 import { Socket } from "phoenix";
 import withI18N from "./lib/i18n";
 import Uptime from "./widgets/Uptime";
-import Forks from "./widgets/Forks";
+import VacForks from "./widgets/VacForks";
+import VacWhitelabelForks from "./widgets/VacWhitelabelForks";
 import { PageTitle } from "./styles";
 
 const DATA_URL = "wss://loon-server.herokuapp.com/socket";
@@ -21,6 +22,13 @@ const container1 = css`
 const container2 = css`
   max-width: 800px;
   margin: auto;
+`;
+const flex = css`
+  display: flex;
+  justify-content: center;
+  div {
+    margin: 10px;
+  }
 `;
 
 class Vac extends React.Component<VacPageProps> {
@@ -40,8 +48,11 @@ class Vac extends React.Component<VacPageProps> {
       <div css={container1} className="Cost">
         <div css={container2}>
           <PageTitle>{t("vac_dashboard")}</PageTitle>
-          <Forks socket={this.socket} area="d" t={t} />
-          <Uptime socket={this.socket} area="b" t={t} />
+          <div css={flex}>
+            <VacForks socket={this.socket} t={t} />
+            <VacWhitelabelForks socket={this.socket} t={t} />
+            <Uptime socket={this.socket} t={t} />
+          </div>
           <Deploys socket={this.socket} area="a" t={t} deployOrg="cds-snc"/>
           <ResearchActivity id="area-c" socket={this.socket} area="c" t={t} />
         </div>
