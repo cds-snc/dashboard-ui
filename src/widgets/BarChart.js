@@ -13,7 +13,7 @@ const yAxisStyle = css`
   }
 `;
 const barStyle = css`
-  fill: steelblue;
+  fill: #1f78b4;
   .text {
     color: white;
     fill: white;
@@ -87,7 +87,7 @@ const BarChart = (props) => {
             y={d.textPosition ? y(d.textPosition) - 5 : y(d.v1) - 5}
             aria-hidden="true"
           >
-            {d.value}
+            {d.textPosition}
           </text>
           <rect
             className="text-background"

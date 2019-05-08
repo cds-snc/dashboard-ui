@@ -2,9 +2,7 @@
 import { jsx, css } from "@emotion/core";
 import React from "react";
 import { Socket } from "phoenix";
-import { Area } from "../types";
 import { Loader } from "../Loader";
-import { StyledCell, WidgetTitle } from "../styles";
 interface Log {
   duration: number;
   type: number;
@@ -30,28 +28,18 @@ interface State {
 }
 interface Props {
   socket: Socket;
-  area: Area;
   t: Function;
 }
 
-const panelStyle = css`
-  padding: 1.5rem;
-  color: #fff;
-
+const style = css`
+  color: white;
   a {
-    color: #fff;
-    /* display: inline-block; */
-    /* padding: 5px; */
-    /* line-height: 1.2rem; */
-    /* font-size: 2rem; */
-    /* padding-bottom: 10px; */
+    color: white;
   }
 `;
-const divStyle = css`
-  margin-top: 20px;
-  margin-bottom: 20px;
+const bigNumber = css`
+  font-size: 3em;
 `;
-
 export default class Uptime extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -65,11 +53,11 @@ export default class Uptime extends React.Component<Props, State> {
   }
 
   calculateDuration = (seconds:number) => {
-    return `${(seconds / 60 / 60).toFixed(2)} hours`
+    return `${(seconds / 60 / 60).toFixed(1)} hours`
   }
 
   render() {
-    const { area, t } = this.props;
+    const { t } = this.props;
 
     if (!this.state
       || !this.state.payload
@@ -77,29 +65,22 @@ export default class Uptime extends React.Component<Props, State> {
       || !this.state.payload.data.monitors
     ) {
       return (
-        <StyledCell center area={area} style={{ backgroundColor: "#292A29" }}>
-          <Loader t={t} />
-        </StyledCell>
+        <Loader t={t} />
       );
     }
 
     const data: Payload = this.state.payload;
-    const vacData = data.data.monitors.filter(x => x.friendly_name === "VAC Live");
+    const vacData = data.data.monitors.filter(x => x.friendly_name === "VAC Live")[0];
+
     return (
-      <div css={panelStyle}>
-        <StyledCell area={area}>
-          <WidgetTitle>{t("uptime_title")}</WidgetTitle>
-          {vacData.map(el => {
-            const icon = el.status === 2 ? "✅" : "🚫";
-            return (
-              <div css={divStyle} key={el.id}>
-                {" "}
-                {icon} <a href={el.url}>{el.url}</a> has been {el.status === 2 ? "online" : "down"} for {this.calculateDuration(el.logs[0].duration)}
-              </div>
-            );
-          })}
-          </StyledCell>
+      <div css={style}>
+        <div css={bigNumber}>
+          {this.calculateDuration(vacData.logs[0].duration)}
         </div>
+        <div>
+          of {vacData.status === 2 ? "uptime" : "downtime"} for <a href={vacData.url}>benefits-avantages.veterans.gc.ca</a>
+        </div>
+      </div>
     );
   }
 }
