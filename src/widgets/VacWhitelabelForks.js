@@ -1,8 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import React from "react";
-import GitHubButton from 'react-github-btn';
-import { WidgetTitle, StyledCell } from "../styles";
 import { Loader } from "../Loader";
 
 const style = css`

@@ -24,7 +24,6 @@
     "phoenix": "^1.4.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-github-btn": "^1.0.5",
     "react-scripts": "2.1.8",
     "styled-components": "^4.2.0",
     "styled-css-grid": "^1.2.1",

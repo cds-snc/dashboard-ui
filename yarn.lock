@@ -4619,10 +4619,6 @@ gh-pages@^2.0.1:
     graceful-fs "^4.1.11"
     rimraf "^2.6.2"
 
-github-buttons@^2.2.9:
-  version "2.2.9"
-  resolved "https://registry.yarnpkg.com/github-buttons/-/github-buttons-2.2.9.tgz#fb426fa469a2050a1c5d69b6413da0d1537f235b"
-
 glob-base@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/glob-base/-/glob-base-0.3.0.tgz#dbb164f6221b1c0b1ccf82aea328b497df0ea3c4"
@@ -8269,12 +8265,6 @@ react-error-overlay@^5.1.4:
 react-fast-compare@^2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
-
-react-github-btn@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/react-github-btn/-/react-github-btn-1.0.5.tgz#03ee7c6cd51f04ef940543b5ec247fbe4fe09a05"
-  dependencies:
-    github-buttons "^2.2.9"
 
 react-is@^16.6.0, react-is@^16.8.1, react-is@^16.8.4:
   version "16.8.6"
