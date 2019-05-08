@@ -128,6 +128,7 @@ export default class ResearchActivity extends React.Component {
             id={chartId}
             width="100%"
             height="200"
+            aria-label="Bar chart showing number of research participants each month"
             >
             <BarChart
               data={data}

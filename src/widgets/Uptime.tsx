@@ -78,7 +78,7 @@ export default class Uptime extends React.Component<Props, State> {
           {this.calculateDuration(vacData.logs[0].duration)}
         </div>
         <div>
-          of {vacData.status === 2 ? "uptime" : "downtime"} for <a href={vacData.url}>benefits-avantages.veterans.gc.ca</a>
+          of {vacData.status === 2 ? "uptime" : "downtime"} for <a href={vacData.url}>Find benefits and services</a>
         </div>
       </div>
     );

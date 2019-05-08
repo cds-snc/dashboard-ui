@@ -145,6 +145,7 @@ export default class Deploys extends React.Component {
     return (
       <div data-testid="deploys-widget">
         <WidgetTitle>{t("deploys_title")}</WidgetTitle>
+
         <StyledCell area={area} center
           css={chartStyle}
           >
@@ -162,6 +163,7 @@ export default class Deploys extends React.Component {
             id={this.chartId}
             width="100%"
             height="300"
+            aria-label="Bar chart showing monthly deploys"
             >
             <BarChart
               data={data}
