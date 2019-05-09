@@ -67,7 +67,6 @@ const languageSwitcher = css`
     color: white;
   }
 `;
-
 interface Props {
   t: Function;
 }
