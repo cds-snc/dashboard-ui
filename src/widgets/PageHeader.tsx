@@ -67,7 +67,23 @@ const languageSwitcher = css`
     color: white;
   }
 `;
-
+const skipLink = css`
+  width: 100%;
+  text-align: center;
+  a {
+    color: white;
+    position: absolute;
+    margin-left: -3000px;
+    width: 1;
+    height: 1;
+    overflow: hidden;
+  }
+  a:focus, a:active {
+    margin-left: 30%  ;
+    width: auto;
+    height: auto;
+  }
+`;
 interface Props {
   t: Function;
 }
@@ -79,6 +95,9 @@ const PageHeader = (props: Props) => {
       {({ location })=>
       <header css={header}>
         <div>
+        <div css={skipLink}>
+        <a href="#main">Skip to main content</a>
+        </div>
           <div css={titleContainer}>
             <h1>{t("cds_dashboard")}</h1>
             <PhaseBadge />
