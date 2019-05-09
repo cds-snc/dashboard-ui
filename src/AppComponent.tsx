@@ -16,7 +16,7 @@ const App = (props: Props) => {
   return (
     <React.Fragment>
       <PageHeader t={props.t}/>
-      <Router aria-label="main" id="main">
+      <Router aria-label="main">
         <Cost path="/" />
         <Cost path="cost/" />
         <Vac path="vac/" />
