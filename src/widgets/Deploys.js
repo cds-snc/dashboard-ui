@@ -123,8 +123,6 @@ export default class Deploys extends React.Component {
     if (svg){
       width = svg.clientWidth || svg.parentNode.clientWidth;
     }
-    console.log("width: " + width)
-    console.log("height: " + height)
 
     let data = this.getData();
     let x = d3.scaleTime()

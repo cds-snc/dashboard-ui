@@ -18,32 +18,33 @@ const barStyle = css`
     color: white;
     fill: white;
     text-anchor: middle;
+    opacity: 0;
   }
   .text-background {
     fill: #292A29;
     opacity: 0;
   }
   rect {
+    opacity: 1;
     :hover {
       opacity: 0.8;
     }
   }
-  .bar-group {
-    :hover {
-      .text {
-        opacity: 1;
-      }
-      .text-background {
-        opacity: 1;
-      }
+`;
+
+const barGroup = css`
+  :hover {
+    .text {
+      opacity: 1;
     }
-  }
-  .text {
-    opacity: 0;
+    .text-background {
+      opacity: 1;
+    }
   }
 `;
 
 const BarChart = (props) => {
+  const isFirefox = typeof InstallTrigger !== 'undefined';
   const { x, y, height, margin, ariaLabel } = props;
   var data = props.data.map(x => {
     x.textPosition = d3.max(props.data.filter(y => y.startDate.toDateString() === x.startDate.toDateString()), d => d.v1);
@@ -69,7 +70,7 @@ const BarChart = (props) => {
       {data.map((d, i) => (
         <g
         key={i}
-        className="bar-group"
+        css={isFirefox ? null : barGroup}
         transform={"translate(" + x(d.startDate) + ", 0)"}
         aria-label={ariaLabel(d)}
         >
