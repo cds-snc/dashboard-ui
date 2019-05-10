@@ -7,7 +7,7 @@ import * as d3 from "d3";
 import BarChart from "./BarChart";
 
 let width = 0;
-let height = 0;
+let height = 200;
 let margin = {
   top: 20,
   right: 30,
@@ -77,9 +77,9 @@ export default class ResearchActivity extends React.Component {
   };
 
   componentDidUpdate() {
-    const newWidth = document.getElementById(chartId).clientWidth;
-    const newHeight = document.getElementById(chartId).clientHeight;
-      if(Math.abs(newWidth - width) > 5 || Math.abs(newHeight - height) > 5) {
+    let svg = document.getElementById(chartId);
+    const newWidth = svg.clientWidth || svg.parentNode.clientWidth;
+      if(Math.abs(newWidth - width) > 5) {
         this.setState({counter: this.state.counter + 1});
       }
   }
@@ -91,10 +91,9 @@ export default class ResearchActivity extends React.Component {
         <Loader t={t}/>
       );
     }
-
-    if (document.getElementById(chartId)){
-      width = document.getElementById(chartId).clientWidth;
-      height = document.getElementById(chartId).clientHeight;
+    let svg = document.getElementById(chartId);
+    if (svg){
+      width = svg.clientWidth || svg.parentNode.clientWidth;
     }
 
     let data = this.getData();
@@ -127,7 +126,7 @@ export default class ResearchActivity extends React.Component {
           <svg
             id={chartId}
             width="100%"
-            height="200"
+            height={height}
             aria-label="Bar chart showing number of research participants each month"
             >
             <BarChart
