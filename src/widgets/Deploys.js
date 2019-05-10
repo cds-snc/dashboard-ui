@@ -7,7 +7,7 @@ import * as d3 from "d3";
 import BarChart from "./BarChart";
 
 let width = 0;
-let height = 0;
+let height = 300;
 
 let margin = {
   top: 20,
@@ -104,9 +104,9 @@ export default class Deploys extends React.Component {
   };
 
   componentDidUpdate(prevProps) {
-    const newWidth = document.getElementById(this.chartId).clientWidth;
-    const newHeight = document.getElementById(this.chartId).clientHeight;
-      if(Math.abs(newWidth - width) > 5 || Math.abs(newHeight - height) > 5) {
+    var svg = document.getElementById(this.chartId);
+    const newWidth = svg.clientWidth || svg.parentNode.clientWidth;
+      if(Math.abs(newWidth - width) > 5) {
         this.setState({counter: this.state.counter + 1});
       }
   }
@@ -119,9 +119,9 @@ export default class Deploys extends React.Component {
       );
     }
 
-    if (document.getElementById(this.chartId)){
-      width = document.getElementById(this.chartId).clientWidth;
-      height = document.getElementById(this.chartId).clientHeight;
+    var svg = document.getElementById(this.chartId);
+    if (svg){
+      width = svg.clientWidth || svg.parentNode.clientWidth;
     }
 
     let data = this.getData();
@@ -162,7 +162,7 @@ export default class Deploys extends React.Component {
           <svg
             id={this.chartId}
             width="100%"
-            height="300"
+            height={height}
             aria-label="Bar chart showing monthly deploys"
             >
             <BarChart
