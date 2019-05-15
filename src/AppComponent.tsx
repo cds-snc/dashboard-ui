@@ -7,6 +7,7 @@ import Cost from "./Cost";
 import Vac from "./Vac";
 import System from "./System";
 import { Router } from "@reach/router";
+import SecurityPerformance from "./SecurityPerformance";
 
 interface Props {
   t: Function;
@@ -19,8 +20,9 @@ const App = (props: Props) => {
       <Router aria-label="main">
         <Cost path="/" />
         <Cost path="cost/" />
-        <Vac path="vac/" />
+        <SecurityPerformance path="security-performance/" />
         <System path="system/" />
+        <Vac path="vac/" />
       </Router>
     </React.Fragment>
   );

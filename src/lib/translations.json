@@ -90,5 +90,13 @@
   "uptime_title": {
     "en": "Domain status",
     "fr": "(fra) Domain status"
+  },
+  "security-performance": {
+    "en": "Security performance",
+    "fr": "Performance de sécurité"
+  },
+  "cra_alpha_performance_index": {
+    "en": "CRA Alpha performance index",
+    "fr": "Indice de rendement Alpha de l'ARC"
   }
 }

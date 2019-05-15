@@ -89,6 +89,8 @@ const PageHeader = (props: Props) => {
             &nbsp; | &nbsp;
             <Link to={"/vac?" + t("current-language-code")}>{t("vac_dashboard")}</Link>
             &nbsp; | &nbsp;
+            <Link to={"/security-performance?" + t("current-language-code")}>{t("security-performance")}</Link>
+            &nbsp; | &nbsp;
             <Link to={"/system?" + t("current-language-code")}>{t("system_dashboard")}</Link>
           </nav>
         </div>
