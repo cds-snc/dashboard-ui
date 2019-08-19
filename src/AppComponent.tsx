@@ -8,6 +8,7 @@ import Vac from "./Vac";
 import System from "./System";
 import { Router } from "@reach/router";
 import SecurityPerformance from "./SecurityPerformance";
+import Notification from "./Notification";
 
 interface Props {
   t: Function;
@@ -20,6 +21,7 @@ const App = (props: Props) => {
       <Router aria-label="main">
         <Cost path="/" />
         <Cost path="cost/" />
+        <Notification path="notification/" />
         <SecurityPerformance path="security-performance/" />
         <System path="system/" />
         <Vac path="vac/" />

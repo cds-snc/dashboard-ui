@@ -66,13 +66,14 @@ export default class Deploys extends React.Component {
     }
     let { data } = this.state.payload;
 
+    console.log(data)
 
     data = data
       .filter(x => x.mergedAt)
       .map(x => {
         x.mergedAtDate = new Date(x.mergedAt);
         x.startDate = d3.timeMonth(x.mergedAtDate);
-        x.authorOrgs = x.author.organizations.nodes.map(d => d.login);
+        x.authorOrgs = (x.author.organizations? x.author.organizations.nodes.map(d => d.login) : "");
         x.cdsAuthor = x.authorOrgs.indexOf("cds-snc") > -1;
         return x;
       });

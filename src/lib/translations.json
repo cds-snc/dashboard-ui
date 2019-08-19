@@ -98,5 +98,21 @@
   "cra_alpha_performance_index": {
     "en": "CRA Alpha performance index",
     "fr": "Indice de rendement Alpha de l'ARC"
+  },
+  "notification": {
+    "en": "Notification",
+    "fr": "Notification"
+  },
+  "notification_title": {
+    "en": "Services and organisations",
+    "fr": "Services et organisations"
+  },
+  "services": {
+    "en": "Services",
+    "fr": "Services"
+  },
+  "organisations": {
+    "en": "Organisations",
+    "fr": "Organisations"
   }
 }

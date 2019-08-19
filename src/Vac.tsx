@@ -54,7 +54,7 @@ class Vac extends React.Component<VacPageProps> {
             <Uptime socket={this.socket} t={t} />
           </div>
           <Deploys socket={this.socket} area="a" t={t} deployOrg="cds-snc"/>
-          <ResearchActivity id="area-c" socket={this.socket} area="c" t={t} />
+          {/*<ResearchActivity id="area-c" socket={this.socket} area="c" t={t} />*/}
         </div>
       </div>
     );
